@@ -12,7 +12,7 @@
 
 # theme                  : "minimal-mistakes-jekyll"
 remote_theme             : "mmistakes/minimal-mistakes@4.15.1"
-minimal_mistakes_skin    : "haxor" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "haxor" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise", "haxor"
 
 # Site Settings
 locale                   : "en-US"
@@ -103,7 +103,7 @@ analytics:
 author:
   name             : "grafis"
   avatar           : "/assets/images/avatar.png"
-  bio              : "Estudiante de Ingeniería Civil en Informática y Telecomunicaciones"
+  bio              : "Estudiante de Ingeniería Civil en Informática y Telecomunicaciones / Apasionado por la ciberseguridad"
   uri              :
   home             : # null (default), "absolute or relative url to link to author home"
   bitbucket        :
